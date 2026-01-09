@@ -1,9 +1,6 @@
-# ITO_App
-ITO_App
 
-/* =========================
    0) BASIC LOOKUP / ENUM (dùng CHECK đơn giản)
-   ========================= */
+
 
 -- USERS
 CREATE TABLE dbo.Users (
