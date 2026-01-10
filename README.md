@@ -1,5 +1,4 @@
-
-   0) BASIC LOOKUP / ENUM (dùng CHECK đơn giản)
+BASIC LOOKUP / ENUM (dùng CHECK đơn giản)
 
 
 -- USERS
