@@ -33,6 +33,43 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "ItoApp.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "ItoApp.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ItoApp.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ItoApp.Application.dll": {}
+        }
+      },
+      "ItoApp.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/ItoApp.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ItoApp.Domain.dll": {}
+        }
+      },
+      "ItoApp.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "ItoApp.Application": "1.0.0",
+          "ItoApp.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ItoApp.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ItoApp.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -67,31 +104,48 @@
         "microsoft.openapi.1.6.17.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
+    },
+    "ItoApp.Application/1.0.0": {
+      "type": "project",
+      "path": "../ItoApp.Application/ItoApp.Application.csproj",
+      "msbuildProject": "../ItoApp.Application/ItoApp.Application.csproj"
+    },
+    "ItoApp.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ItoApp.Domain/ItoApp.Domain.csproj",
+      "msbuildProject": "../ItoApp.Domain/ItoApp.Domain.csproj"
+    },
+    "ItoApp.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../ItoApp.Infrastructure/ItoApp.Infrastructure.csproj",
+      "msbuildProject": "../ItoApp.Infrastructure/ItoApp.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "ItoApp.Application >= 1.0.0",
+      "ItoApp.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.8"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\duchm\\.nuget\\packages\\": {},
+    "C:\\Users\\HP\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
+      "projectUniqueName": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
       "projectName": "ItoApp.Api",
-      "projectPath": "E:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
-      "packagesPath": "C:\\Users\\duchm\\.nuget\\packages\\",
-      "outputPath": "E:\\ITO_App_API\\src\\ItoApp.Api\\obj\\",
+      "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "D:\\ITO_App_API\\src\\ItoApp.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\duchm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -100,12 +154,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
+              "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj"
+            },
+            "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj": {
+              "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
