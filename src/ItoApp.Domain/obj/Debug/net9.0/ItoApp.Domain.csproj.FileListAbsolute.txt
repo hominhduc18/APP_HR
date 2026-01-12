@@ -1,0 +1,12 @@
+D:\ITO_App_API\src\ItoApp.Domain\bin\Debug\net9.0\ItoApp.Domain.deps.json
+D:\ITO_App_API\src\ItoApp.Domain\bin\Debug\net9.0\ItoApp.Domain.dll
+D:\ITO_App_API\src\ItoApp.Domain\bin\Debug\net9.0\ItoApp.Domain.pdb
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.AssemblyInfoInputs.cache
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.AssemblyInfo.cs
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.csproj.CoreCompileInputs.cache
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.sourcelink.json
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.dll
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\refint\ItoApp.Domain.dll
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ItoApp.Domain.pdb
+D:\ITO_App_API\src\ItoApp.Domain\obj\Debug\net9.0\ref\ItoApp.Domain.dll

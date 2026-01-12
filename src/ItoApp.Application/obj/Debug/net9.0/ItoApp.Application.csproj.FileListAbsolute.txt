@@ -1,0 +1,16 @@
+D:\ITO_App_API\src\ItoApp.Application\bin\Debug\net9.0\ItoApp.Application.deps.json
+D:\ITO_App_API\src\ItoApp.Application\bin\Debug\net9.0\ItoApp.Application.dll
+D:\ITO_App_API\src\ItoApp.Application\bin\Debug\net9.0\ItoApp.Application.pdb
+D:\ITO_App_API\src\ItoApp.Application\bin\Debug\net9.0\ItoApp.Domain.dll
+D:\ITO_App_API\src\ItoApp.Application\bin\Debug\net9.0\ItoApp.Domain.pdb
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.csproj.AssemblyReference.cache
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.AssemblyInfoInputs.cache
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.AssemblyInfo.cs
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.csproj.CoreCompileInputs.cache
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.sourcelink.json
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.A.4B640DBA.Up2Date
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.dll
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\refint\ItoApp.Application.dll
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ItoApp.Application.pdb
+D:\ITO_App_API\src\ItoApp.Application\obj\Debug\net9.0\ref\ItoApp.Application.dll
