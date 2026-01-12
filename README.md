@@ -1,1 +1,8 @@
-Create susscess Sql , branch master  and sql sever name: master 
+API (Controller)
+   ↓
+Application (Service / UseCase)
+   ↓
+Domain (Entity / Business Rule)
+   ↓
+Infrastructure (Database / External)
+
