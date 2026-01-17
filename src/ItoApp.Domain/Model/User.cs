@@ -6,6 +6,10 @@ public class User
     public string Phone { get; private set; }
     public string FullName { get; private set; }
     public string PasswordHash { get; private set; }
-    public string Status { get; private set; } 
+
     public string Role { get; private set; }   
+    public string Email { get; private set; }
+    
+    public UserStatus Status { get; private set; } = UserStatus.Pending;
+    public DateTime CreatedAtUtc { get; init; } = DateTime.UtcNow;
 }
