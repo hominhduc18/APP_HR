@@ -8,7 +8,6 @@ D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\ItoApp.Api.dll
 D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\ItoApp.Api.pdb
 D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Azure.Core.dll
 D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Azure.Identity.dll
-D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Microsoft.Bcl.Cryptography.dll
 D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
@@ -84,3 +83,6 @@ D:\ITO_App_API\src\ItoApp.Api\obj\Debug\net9.0\refint\ItoApp.Api.dll
 D:\ITO_App_API\src\ItoApp.Api\obj\Debug\net9.0\ItoApp.Api.pdb
 D:\ITO_App_API\src\ItoApp.Api\obj\Debug\net9.0\ItoApp.Api.genruntimeconfig.cache
 D:\ITO_App_API\src\ItoApp.Api\obj\Debug\net9.0\ref\ItoApp.Api.dll
+D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\ITO_App_API\src\ItoApp.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "D0fpKatSrr0=",
+  "dgSpecHash": "8gGzLZEhV/o=",
   "success": true,
   "projectFilePath": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.49.0\\azure.core.1.49.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.16.0\\azure.identity.1.16.0.nupkg.sha512",
-    "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.9\\microsoft.bcl.cryptography.9.0.9.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.data.sqlclient\\7.0.0-preview3.25342.7\\microsoft.data.sqlclient.7.0.0-preview3.25342.7.nupkg.sha512",
