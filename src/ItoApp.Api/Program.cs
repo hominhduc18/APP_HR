@@ -1,41 +1,39 @@
+using ItoApp.Application.Abstractions;
+using ItoApp.Application.Auth.Register;
+using ItoApp.Infrastructure.Auth;
+using ItoApp.Infrastructure.Repositories;
+using ItoApp.Infrastructure.Sms;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+
+// ✅ Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<RegisterService>();
+
+// DEV repos (user/patient)
+builder.Services.AddScoped<IUserRepository, DevUserRepository>();
+builder.Services.AddScoped<IPatientRepository, DevPatientRepository>();
+
+// OTP repo dùng SQL thật
+var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddScoped<IOtpRepository>(_ => new SqlOtpRepository(cs!));
+
+// external services
+builder.Services.AddScoped<ISmsSender, DevSmsSender>();
+builder.Services.AddScoped<ITokenService, DevTokenService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ✅ Swagger middleware
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
+app.MapControllers();
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
