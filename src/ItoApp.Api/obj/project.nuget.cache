@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8gGzLZEhV/o=",
+  "dgSpecHash": "drGdNkNcdYA=",
   "success": true,
   "projectFilePath": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\ardalis.guardclauses\\5.0.0\\ardalis.guardclauses.5.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.49.0\\azure.core.1.49.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.16.0\\azure.identity.1.16.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
