@@ -16,4 +16,9 @@
     <ProjectReference Include="..\ItoApp.Infrastructure\ItoApp.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\Extensions\" />
+    <Folder Include="Middleware\" />
+  </ItemGroup>
+
 </Project>
