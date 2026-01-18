@@ -4,6 +4,10 @@
     <ProjectReference Include="..\ItoApp.Domain\ItoApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
