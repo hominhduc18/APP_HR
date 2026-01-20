@@ -1,11 +1,8 @@
-using ITOApp.Application.Common;
-using ItoApp.Domain;
+using ItoApp.Application.Common;
+using ItoApp.Domain.Enums;
 
 namespace ItoApp.Application.Interfaces
 {
-
-
-
     public interface IOtpService
     {
         Task<BaseResponse<bool>> SendOtpAsync(string identifier, OtpType type);

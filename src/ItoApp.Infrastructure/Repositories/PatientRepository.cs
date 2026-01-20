@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ItoApp.Infrastructure.Repositories
 {
-
-
-
     public class PatientRepository : IPatientRepository
     {
         private readonly ApplicationDbContext _context;
@@ -17,18 +14,14 @@ namespace ItoApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Patient?> GetByUserIdAsync(Guid userId)
-        {
-            return await _context.Patients
-                .Include(p => p.User)
-                .FirstOrDefaultAsync(p => p.UserId == userId);
-        }
-
         public async Task<Patient?> GetByIdAsync(Guid id)
         {
-            return await _context.Patients
-                .Include(p => p.User)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Patients.FindAsync(id);
+        }
+
+        public async Task<Patient?> GetByUserIdAsync(Guid userId)
+        {
+            return await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
         public async Task AddAsync(Patient patient)

@@ -1207,7 +1207,8 @@
       },
       "ItoApp.Application/1.0.0": {
         "dependencies": {
-          "ItoApp.Domain": "1.0.0"
+          "ItoApp.Domain": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2"
         },
         "runtime": {
           "ItoApp.Application.dll": {

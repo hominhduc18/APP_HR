@@ -1,4 +1,5 @@
 using ItoApp.Domain.Common;
+using ItoApp.Domain.Enums;
 using ItoApp.Domain.ValueObjects;
 
 namespace ItoApp.Domain.Entities

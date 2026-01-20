@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ItoApp.Application.Auth.Dto
 {
-
      // Request để gửi OTP đăng ký
     public class SendRegisterOtpRequest
     {
@@ -88,5 +87,36 @@ namespace ItoApp.Application.Auth.Dto
         public bool HasProfile { get; set; }
     }
 
-    
+    public class LoginRequest
+    {
+        [Required]
+        public string Phone { get; set; } = string.Empty;
+    }
+
+    public class VerifyLoginRequest
+    {
+        [Required]
+        public string Phone { get; set; } = string.Empty;
+        [Required]
+        public string Otp { get; set; } = string.Empty;
+    }
+
+    public class RefreshRequest
+    {
+        [Required]
+        public string RefreshToken { get; set; } = string.Empty;
+    }
+
+    public class CreatePatientDto
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        public DateTime? BirthDate { get; set; }
+    }
+
+    public class UpdatePatientDto
+    {
+        public string? Name { get; set; }
+        public DateTime? BirthDate { get; set; }
+    }
 }

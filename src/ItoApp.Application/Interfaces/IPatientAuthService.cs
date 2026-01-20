@@ -1,11 +1,8 @@
 using ItoApp.Application.Auth.Dto;
-using ITOApp.Application.Common;
+using ItoApp.Application.Common;
 
 namespace ItoApp.Application.Interfaces
 {
-
-
-
     public interface IPatientAuthService
     {
         // Đăng ký
