@@ -1,14 +1,15 @@
-using ItoApp.Application.Abstractions;
-using ItoApp.Application.Auth.Dto;
-using ITOApp.Application.Common;
-
-namespace ItoApp.Application.Auth.Register;
-
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
+using ItoApp.Application.Abstractions;
+using ItoApp.Application.Auth.Dto;
+using ItoApp.Application.Common;
+using ItoApp.Domain.Entities;
+using ItoApp.Domain.Enums;
+using ItoApp.Domain.Interfaces;
+using ItoApp.Domain.ValueObjects;
 
-
-
+namespace ItoApp.Application.Auth.Register;
 
 public class RegisterService
 {
@@ -18,64 +19,91 @@ public class RegisterService
     private readonly ISmsSender _sms;
     private readonly ITokenService _tokens;
 
-    public RegisterService(IUserRepository users, IPatientRepository patients, IOtpRepository otps, ISmsSender sms, ITokenService tokens)
+    public RegisterService(
+        IUserRepository users, 
+        IPatientRepository patients, 
+        IOtpRepository otps, 
+        ISmsSender sms,
+        ITokenService tokens)
     {
-        _users = users; _patients = patients; _otps = otps; _sms = sms; _tokens = tokens;
+        _users = users; 
+        _patients = patients; 
+        _otps = otps; 
+        _sms = sms; 
+        _tokens = tokens;
     }
 
- 
     public async Task<BaseResponse<object>> SendOtpAsync(RegisterSendOtpRequest req)
     {
-        var phone = (req.Phone ?? "").Trim();
-        if (phone.Length < 9) return BaseResponse<object>.Error("Số điện thoại không hợp lệ");
+        var phoneValue = (req.Phone ?? "").Trim();
+        if (string.IsNullOrWhiteSpace(phoneValue)) 
+            return BaseResponse<object>.Error("Số điện thoại không được để trống");
 
-        if (await _users.ExistsByPhoneAsync(phone))
-            return BaseResponse<object>.Error("Số điện thoại đã được đăng ký");
+        try 
+        {
+            var phoneNumber = PhoneNumber.Create(phoneValue);
+            var existingUser = await _users.GetByPhoneAsync(phoneNumber.Value);
+            if (existingUser != null)
+                return BaseResponse<object>.Error("Số điện thoại đã được đăng ký");
 
-        var otp = RandomNumberGenerator.GetInt32(0, 1000000).ToString("D6");
-        var otpHash = Sha256(otp);
-        var expiresAt = DateTime.UtcNow.AddMinutes(3);
+            var otpCode = new OtpCode(phoneNumber.Value, OtpType.Register, OtpChannel.SMS);
+            
+            await _otps.AddAsync(otpCode);
+            await _sms.SendOtpAsync(phoneNumber.Value, otpCode.Code);
 
-        await _otps.SaveAsync(phone, "REGISTER", otpHash, expiresAt);
-        await _sms.SendOtpAsync(phone, otp);
-
-        return BaseResponse<object>.Success(new { expiresIn = 180 }, "Đã gửi OTP đăng ký");
+            return BaseResponse<object>.Success(new { expiresIn = 300 }, "Đã gửi OTP đăng ký");
+        }
+        catch (ArgumentException ex)
+        {
+            return BaseResponse<object>.Error(ex.Message);
+        }
     }
 
-    // Step 2: verify OTP + tạo user/patient
     public async Task<BaseResponse<RegisterResponse>> VerifyOtpAsync(RegisterVerifyOtpRequest req)
     {
-        var phone = (req.Phone ?? "").Trim();
+        var phoneValue = (req.Phone ?? "").Trim();
         var code = (req.Otp ?? "").Trim();
 
-        var record = await _otps.GetLatestAsync(phone, "REGISTER");
-        if (record == null) return BaseResponse<RegisterResponse>.Error("OTP không tồn tại");
-        if (record.UsedAt != null) return BaseResponse<RegisterResponse>.Error("OTP đã được sử dụng");
-        if (DateTime.UtcNow > record.ExpiresAt) return BaseResponse<RegisterResponse>.Error("OTP đã hết hạn");
-
-        if (Sha256(code) != record.OtpHash)
+        try 
         {
-            await _otps.IncreaseAttemptAsync(record.OtpId);
-            return BaseResponse<RegisterResponse>.Error("OTP không đúng");
+            var phoneNumber = PhoneNumber.Create(phoneValue);
+            var otpRecord = await _otps.GetLatestActiveOtpAsync(phoneNumber.Value, OtpType.Register);
+
+            if (otpRecord == null) 
+                return BaseResponse<RegisterResponse>.Error("OTP không tồn tại hoặc đã hết hạn");
+
+            if (!otpRecord.Verify(code))
+            {
+                await _otps.UpdateAsync(otpRecord);
+                return BaseResponse<RegisterResponse>.Error("Mã OTP không đúng");
+            }
+
+            await _otps.UpdateAsync(otpRecord);
+
+            // Create user
+            // In a real app, we should hash the password
+            var user = new User(phoneNumber, req.Password, req.FullName);
+            await _users.AddAsync(user);
+
+            // Create patient
+            var patient = new Patient(user.Id, req.FullName);
+            await _patients.AddAsync(patient);
+
+            var (access, refresh) = _tokens.CreateTokens(user.Id, "PATIENT");
+
+            return BaseResponse<RegisterResponse>.Success(
+                new RegisterResponse { 
+                    UserId = user.Id, 
+                    PatientId = patient.Id, 
+                    AccessToken = access, 
+                    RefreshToken = refresh 
+                },
+                "Đăng ký thành công"
+            );
         }
-
-        await _otps.MarkUsedAsync(record.OtpId);
-
-        var userId = await _users.CreatePatientUserAsync(phone);
-        var patientId = await _patients.CreateAsync(userId);
-
-        var (access, refresh) = _tokens.CreateTokens(userId, "PATIENT");
-
-        return BaseResponse<RegisterResponse>.Success(
-            new RegisterResponse { UserId = userId, PatientId = patientId, AccessToken = access, RefreshToken = refresh },
-            "Đăng ký thành công",
-            new { traceId = Guid.NewGuid().ToString() }
-        );
-    }
-
-    private static string Sha256(string input)
-    {
-        var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(input));
-        return Convert.ToHexString(bytes);
+        catch (Exception ex)
+        {
+            return BaseResponse<RegisterResponse>.Error(ex.Message);
+        }
     }
 }

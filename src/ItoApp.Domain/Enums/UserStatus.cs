@@ -1,4 +1,4 @@
-namespace ItoApp.Domain;
+namespace ItoApp.Domain.Enums;
 
 public enum UserStatus
 {

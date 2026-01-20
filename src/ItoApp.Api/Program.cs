@@ -1,39 +1,28 @@
-using ItoApp.Application.Abstractions;
-using ItoApp.Application.Auth.Register;
-using ItoApp.Infrastructure.Auth;
-using ItoApp.Infrastructure.Repositories;
-using ItoApp.Infrastructure.Sms;
+using ItoApp.Application;
+using ItoApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddControllers();
-
-// ✅ Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<RegisterService>();
-
-// DEV repos (user/patient)
-builder.Services.AddScoped<IUserRepository, DevUserRepository>();
-builder.Services.AddScoped<IPatientRepository, DevPatientRepository>();
-
-// OTP repo dùng SQL thật
-var cs = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddScoped<IOtpRepository>(_ => new SqlOtpRepository(cs!));
-
-// external services
-builder.Services.AddScoped<ISmsSender, DevSmsSender>();
-builder.Services.AddScoped<ITokenService, DevTokenService>();
+// Clean Architecture Layers
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-// ✅ Swagger middleware
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+app.UseAuthorization();
 app.MapControllers();
+
 app.Run();
