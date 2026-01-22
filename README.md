@@ -27,4 +27,4 @@ CleanAuthSolution/
 │   ├── Middleware/
 │   ├── Filters/
 │   └── Extensions/
-└── CleanAuth.Tests/          # Test projects
+└── CleanAuth.Tests/        
