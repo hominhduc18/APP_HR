@@ -4,9 +4,11 @@ namespace ItoApp.Domain.Entities
 {
     public class ChiNhanh : BaseEntity
     {
+        public string MaChiNhanh { get; set; } = string.Empty;
         public string TenChiNhanh { get; set; } = string.Empty;
         public string DiaChi { get; set; } = string.Empty;
         public string SoDienThoai { get; set; } = string.Empty;
+        public string? MaSoThue { get; set; }
         public string? MoTa { get; set; }
 
         // Navigation
