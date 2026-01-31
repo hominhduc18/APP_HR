@@ -70,33 +70,47 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
-            // 5. Seed NhanVien
+            // 5. Seed NhanVien (Nhiều dữ liệu hơn để test)
             if (!await context.NhanViens.AnyAsync())
             {
                 var chiNhanhTb = await context.ChiNhanhs.FirstAsync(c => c.MaChiNhanh == "TB");
+                var chiNhanhPn = await context.ChiNhanhs.FirstAsync(c => c.MaChiNhanh == "PN");
+                
                 var khoaNoi = await context.KhoaPhongs.FirstAsync(k => k.TenKhoaPhong == "Khoa Nội");
+                var khoaNgoai = await context.KhoaPhongs.FirstAsync(k => k.TenKhoaPhong == "Khoa Ngoại");
+                var khoaCapCuu = await context.KhoaPhongs.FirstAsync(k => k.TenKhoaPhong == "Khoa Cấp cứu");
+                
                 var nhomBs = await context.NhomNgheNghieps.FirstAsync(n => n.MaNhom == "BS");
+                var nhomDd = await context.NhomNgheNghieps.FirstAsync(n => n.MaNhom == "DD");
+                var nhomHc = await context.NhomNgheNghieps.FirstAsync(n => n.MaNhom == "HC");
+                
                 var chucVuTruongKhoa = await context.ChucVus.FirstAsync(c => c.TenChucVu == "Trưởng khoa");
+                var chucVuBacSi = await context.ChucVus.FirstAsync(c => c.TenChucVu == "Bác sĩ chính");
+                var chucVuDdTruong = await context.ChucVus.FirstAsync(c => c.TenChucVu == "ĐD Trưởng");
+                var chucVuNhanVien = await context.ChucVus.FirstAsync(c => c.TenChucVu == "Nhân viên");
 
-                var nhanVien = new NhanVien
+                var listNhanVien = new List<NhanVien>
                 {
-                    MaNhanVien = "NV001",
-                    HoTen = "Nguyễn Văn A",
-                    NgaySinh = new DateTime(1985, 5, 20),
-                    GioiTinh = "Nam",
-                    SoDienThoai = "0901234567",
-                    Email = "vana@ito.vn",
-                    DiaChi = "123 Quận 1, TP.HCM",
-                    NgayVaoLam = new DateTime(2015, 1, 1),
-                    TrangThai = "Active",
-                    ChiNhanhId = chiNhanhTb.Id,
-                    KhoaPhongId = khoaNoi.Id,
-                    NhomNgheNghiepId = nhomBs.Id,
-                    ChucVuId = chucVuTruongKhoa.Id
+                    new NhanVien { MaNhanVien = "NV001", HoTen = "Nguyễn Văn A", NgaySinh = new DateTime(1980, 1, 1), GioiTinh = "Nam", SoDienThoai = "0901234567", NgayVaoLam = new DateTime(2010, 1, 1), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNoi.Id, NhomNgheNghiepId = nhomBs.Id, ChucVuId = chucVuTruongKhoa.Id },
+                    new NhanVien { MaNhanVien = "NV002", HoTen = "Trần Thị B", NgaySinh = new DateTime(1985, 2, 2), GioiTinh = "Nữ", SoDienThoai = "0902345678", NgayVaoLam = new DateTime(2012, 5, 10), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNoi.Id, NhomNgheNghiepId = nhomDd.Id, ChucVuId = chucVuDdTruong.Id },
+                    new NhanVien { MaNhanVien = "NV003", HoTen = "Lê Văn C", NgaySinh = new DateTime(1990, 3, 3), GioiTinh = "Nam", SoDienThoai = "0903456789", NgayVaoLam = new DateTime(2015, 8, 15), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNgoai.Id, NhomNgheNghiepId = nhomBs.Id, ChucVuId = chucVuBacSi.Id },
+                    new NhanVien { MaNhanVien = "NV004", HoTen = "Phạm Hoàng D", NgaySinh = new DateTime(1982, 4, 4), GioiTinh = "Nam", SoDienThoai = "0904567890", NgayVaoLam = new DateTime(2011, 3, 20), TrangThai = "Active", ChiNhanhId = chiNhanhPn.Id, KhoaPhongId = khoaCapCuu.Id, NhomNgheNghiepId = nhomBs.Id, ChucVuId = chucVuTruongKhoa.Id },
+                    new NhanVien { MaNhanVien = "NV005", HoTen = "Võ Minh E", NgaySinh = new DateTime(1995, 5, 5), GioiTinh = "Nam", SoDienThoai = "0905678901", NgayVaoLam = new DateTime(2020, 1, 1), TrangThai = "Active", ChiNhanhId = chiNhanhPn.Id, KhoaPhongId = khoaCapCuu.Id, NhomNgheNghiepId = nhomDd.Id, ChucVuId = chucVuNhanVien.Id },
+                    new NhanVien { MaNhanVien = "NV006", HoTen = "Đỗ Thùy F", NgaySinh = new DateTime(1988, 6, 6), GioiTinh = "Nữ", SoDienThoai = "0906789012", NgayVaoLam = new DateTime(2014, 11, 1), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNgoai.Id, NhomNgheNghiepId = nhomHc.Id, ChucVuId = chucVuNhanVien.Id },
+                    new NhanVien { MaNhanVien = "NV007", HoTen = "Hoàng Kim G", NgaySinh = new DateTime(1992, 7, 7), GioiTinh = "Nữ", SoDienThoai = "0907890123", NgayVaoLam = new DateTime(2016, 2, 14), TrangThai = "Active", ChiNhanhId = chiNhanhPn.Id, KhoaPhongId = khoaCapCuu.Id, NhomNgheNghiepId = nhomDd.Id, ChucVuId = chucVuNhanVien.Id },
+                    new NhanVien { MaNhanVien = "NV008", HoTen = "Ngô Bảo H", NgaySinh = new DateTime(1975, 8, 8), GioiTinh = "Nam", SoDienThoai = "0908901234", NgayVaoLam = new DateTime(2005, 12, 25), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNoi.Id, NhomNgheNghiepId = nhomBs.Id, ChucVuId = chucVuBacSi.Id },
+                    new NhanVien { MaNhanVien = "NV009", HoTen = "Đặng Quang I", NgaySinh = new DateTime(1998, 9, 9), GioiTinh = "Nam", SoDienThoai = "0909012345", NgayVaoLam = new DateTime(2022, 6, 1), TrangThai = "Active", ChiNhanhId = chiNhanhPn.Id, KhoaPhongId = khoaCapCuu.Id, NhomNgheNghiepId = nhomHc.Id, ChucVuId = chucVuNhanVien.Id },
+                    new NhanVien { MaNhanVien = "NV011", HoTen = "Lý Minh L", NgaySinh = new DateTime(1987, 11, 11), GioiTinh = "Nam", SoDienThoai = "0912123456", NgayVaoLam = new DateTime(2013, 8, 1), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNgoai.Id, NhomNgheNghiepId = nhomBs.Id, ChucVuId = chucVuBacSi.Id },
+                    new NhanVien { MaNhanVien = "NV012", HoTen = "Phan Thu M", NgaySinh = new DateTime(1991, 12, 12), GioiTinh = "Nữ", SoDienThoai = "0913234567", NgayVaoLam = new DateTime(2018, 1, 15), TrangThai = "Active", ChiNhanhId = chiNhanhPn.Id, KhoaPhongId = khoaCapCuu.Id, NhomNgheNghiepId = nhomDd.Id, ChucVuId = chucVuNhanVien.Id },
+                    new NhanVien { MaNhanVien = "NV013", HoTen = "Vũ Văn N", NgaySinh = new DateTime(1984, 1, 13), GioiTinh = "Nam", SoDienThoai = "0914345678", NgayVaoLam = new DateTime(2010, 9, 20), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNoi.Id, NhomNgheNghiepId = nhomBs.Id, ChucVuId = chucVuBacSi.Id },
+                    new NhanVien { MaNhanVien = "NV014", HoTen = "Trịnh Kim O", NgaySinh = new DateTime(1996, 2, 14), GioiTinh = "Nữ", SoDienThoai = "0915456789", NgayVaoLam = new DateTime(2021, 3, 1), TrangThai = "Active", ChiNhanhId = chiNhanhPn.Id, KhoaPhongId = khoaCapCuu.Id, NhomNgheNghiepId = nhomDd.Id, ChucVuId = chucVuNhanVien.Id },
+                    new NhanVien { MaNhanVien = "NV015", HoTen = "Nguyễn Thành P", NgaySinh = new DateTime(1989, 3, 15), GioiTinh = "Nam", SoDienThoai = "0916567890", NgayVaoLam = new DateTime(2014, 7, 10), TrangThai = "Active", ChiNhanhId = chiNhanhTb.Id, KhoaPhongId = khoaNgoai.Id, NhomNgheNghiepId = nhomHc.Id, ChucVuId = chucVuNhanVien.Id }
                 };
-                await context.NhanViens.AddAsync(nhanVien);
+                
+                await context.NhanViens.AddRangeAsync(listNhanVien);
                 await context.SaveChangesAsync();
             }
+
         }
     }
 }
