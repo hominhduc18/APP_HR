@@ -169,9 +169,11 @@ namespace ItoApp.Infrastructure.Data
                 entity.ToTable("ChiNhanh");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("Id_ChiNhanh");
+                entity.Property(e => e.MaChiNhanh).HasColumnName("MaChiNhanh").IsRequired().HasMaxLength(20);
                 entity.Property(e => e.TenChiNhanh).HasColumnName("TenChiNhanh").IsRequired().HasMaxLength(200);
                 entity.Property(e => e.DiaChi).HasColumnName("DiaChi").HasMaxLength(500);
                 entity.Property(e => e.SoDienThoai).HasColumnName("SoDienThoai").HasMaxLength(20);
+                entity.Property(e => e.MaSoThue).HasColumnName("MaSoThue").HasMaxLength(20);
                 entity.Property(e => e.CreatedAt).HasColumnName("NgayTao");
                 entity.Property(e => e.UpdatedAt).HasColumnName("NgayCapNhat");
             });

@@ -14,6 +14,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+// Seed Database
+await ItoApp.Infrastructure.Data.DbInitializer.SeedAsync(app.Services);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
