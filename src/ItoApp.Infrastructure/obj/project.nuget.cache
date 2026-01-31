@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i93KMVjAU9g=",
+  "dgSpecHash": "r/TLgRO8C64=",
   "success": true,
-  "projectFilePath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+  "projectFilePath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\ardalis.guardclauses\\5.0.0\\ardalis.guardclauses.5.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.49.0\\azure.core.1.49.0.nupkg.sha512",
@@ -163,9 +163,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "ItoApp.Infrastructure depends on Vonage (>= 6.0.0) but Vonage 6.0.0 was not found. Vonage 6.0.3 was resolved instead.",
-      "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+      "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+      "filePath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
       "libraryId": "Vonage",
       "targetGraphs": [
         "net8.0"

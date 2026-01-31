@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ITO_App_API\\src\\ItoApp.Test\\ItoApp.Test.csproj": {}
+    "D:\\API_APP_HR\\src\\ItoApp.Test\\ItoApp.Test.csproj": {}
   },
   "projects": {
-    "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj": {
+    "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
+        "projectUniqueName": "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj",
         "projectName": "ItoApp.Api",
-        "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj",
+        "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\ITO_App_API\\src\\ItoApp.Api\\obj\\",
+        "outputPath": "D:\\API_APP_HR\\src\\ItoApp.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj"
               },
-              "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj"
               }
             }
           }
@@ -58,6 +58,12 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Swashbuckle.AspNetCore.SwaggerGen": {
               "target": "Package",
               "version": "[10.1.0, )"
@@ -90,14 +96,14 @@
         }
       }
     },
-    "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
+    "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj",
+        "projectUniqueName": "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj",
         "projectName": "ItoApp.Application",
-        "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj",
+        "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\ITO_App_API\\src\\ItoApp.Application\\obj\\",
+        "outputPath": "D:\\API_APP_HR\\src\\ItoApp.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -119,8 +125,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj"
               }
             }
           }
@@ -140,6 +146,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -160,14 +172,14 @@
         }
       }
     },
-    "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
+    "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj",
+        "projectUniqueName": "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj",
         "projectName": "ItoApp.Domain",
-        "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj",
+        "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\ITO_App_API\\src\\ItoApp.Domain\\obj\\",
+        "outputPath": "D:\\API_APP_HR\\src\\ItoApp.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -232,14 +244,14 @@
         }
       }
     },
-    "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj": {
+    "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+        "projectUniqueName": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
         "projectName": "ItoApp.Infrastructure",
-        "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+        "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\ITO_App_API\\src\\ItoApp.Infrastructure\\obj\\",
+        "outputPath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -261,11 +273,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj"
               },
-              "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Domain\\ItoApp.Domain.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj"
               }
             }
           }
@@ -367,14 +379,14 @@
         }
       }
     },
-    "D:\\ITO_App_API\\src\\ItoApp.Test\\ItoApp.Test.csproj": {
+    "D:\\API_APP_HR\\src\\ItoApp.Test\\ItoApp.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ITO_App_API\\src\\ItoApp.Test\\ItoApp.Test.csproj",
+        "projectUniqueName": "D:\\API_APP_HR\\src\\ItoApp.Test\\ItoApp.Test.csproj",
         "projectName": "ItoApp.Test",
-        "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Test\\ItoApp.Test.csproj",
+        "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Test\\ItoApp.Test.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\ITO_App_API\\src\\ItoApp.Test\\obj\\",
+        "outputPath": "D:\\API_APP_HR\\src\\ItoApp.Test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -396,11 +408,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Api\\ItoApp.Api.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj"
               },
-              "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
-                "projectPath": "D:\\ITO_App_API\\src\\ItoApp.Application\\ItoApp.Application.csproj"
+              "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
+                "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj"
               }
             }
           }
