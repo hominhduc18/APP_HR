@@ -1,0 +1,16 @@
+using ItoApp.Domain.Common;
+
+namespace ItoApp.Domain.Entities
+{
+    public class ChungChiHanhNghe : BaseEntity
+    {
+        public string SoChungChi { get; set; } = string.Empty;
+        public string PhamViChuyenMon { get; set; } = string.Empty;
+        public string NoiCap { get; set; } = string.Empty;
+        public DateTime NgayCap { get; set; }
+        public DateTime? NgayGiaHan { get; set; }
+        
+        public Guid NhanVienId { get; set; }
+        public virtual NhanVien NhanVien { get; set; } = null!;
+    }
+}
