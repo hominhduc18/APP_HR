@@ -40,6 +40,8 @@ namespace ItoApp.Infrastructure.Data
         public DbSet<STT> STTs => Set<STT>();
         public DbSet<BenhNhan> BenhNhans => Set<BenhNhan>();
         public DbSet<Dm_PhongBan> Dm_PhongBans => Set<Dm_PhongBan>();
+        public DbSet<TaiKhoanBenhNhan> TaiKhoanBenhNhans => Set<TaiKhoanBenhNhan>();
+        public DbSet<Log_OTP> Log_OTPs => Set<Log_OTP>();
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
