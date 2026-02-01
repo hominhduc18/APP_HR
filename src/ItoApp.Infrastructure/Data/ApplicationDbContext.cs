@@ -34,6 +34,10 @@ namespace ItoApp.Infrastructure.Data
         public DbSet<KyThuatChuyenMon> KyThuatChuyenMons => Set<KyThuatChuyenMon>();
         public DbSet<KyLuat> KyLuats => Set<KyLuat>();
         public DbSet<LichSuChinhSua> LichSuChinhSuas => Set<LichSuChinhSua>();
+        public DbSet<Dm_LoaiDichVu> Dm_LoaiDichVus => Set<Dm_LoaiDichVu>();
+        public DbSet<Dm_NhomDichVu> Dm_NhomDichVus => Set<Dm_NhomDichVu>();
+        public DbSet<Dm_DichVu> Dm_DichVus => Set<Dm_DichVu>();
+        public DbSet<STT> STTs => Set<STT>();
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -281,6 +285,37 @@ namespace ItoApp.Infrastructure.Data
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("Id_LichSu");
                 entity.HasOne(e => e.NhanVien).WithMany(nv => nv.LichSuChinhSuas).HasForeignKey(e => e.NhanVienId).IsRequired(false);
+            });
+
+            modelBuilder.Entity<Dm_LoaiDichVu>(entity =>
+            {
+                entity.ToTable("Dm_LoaiDichVu");
+                entity.HasKey(e => e.LoaiDichVuId);
+                entity.Property(e => e.LoaiDichVuId).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<Dm_NhomDichVu>(entity =>
+            {
+                entity.ToTable("Dm_NhomDichVu");
+                entity.HasKey(e => e.NhomDichVuId);
+                entity.Property(e => e.NhomDichVuId).ValueGeneratedNever();
+                entity.HasOne(e => e.LoaiDichVu).WithMany().HasForeignKey(e => e.LoaiDichVuId);
+            });
+
+            modelBuilder.Entity<Dm_DichVu>(entity =>
+            {
+                entity.ToTable("Dm_DichVu");
+                entity.HasKey(e => e.DichVuId);
+                entity.Property(e => e.DichVuId).ValueGeneratedNever();
+                entity.HasOne(e => e.NhomDichVu).WithMany().HasForeignKey(e => e.NhomDichVuId);
+            });
+
+            modelBuilder.Entity<STT>(entity =>
+            {
+                entity.ToTable("STT");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).UseIdentityColumn(); // Auto-increment for STT
+                entity.Property(e => e.Ngay).HasColumnType("date");
             });
         }
 
