@@ -8,6 +8,7 @@ namespace ItoApp.Domain.Entities
         public string Title { get; private set; } // BSCKI, ThS, TS...
         public string? Biography { get; private set; }
         public string? AvatarUrl { get; private set; }
+        public string? PhoneNumber { get; private set; }
         public bool IsActive { get; private set; }
 
         public Guid SpecialtyId { get; private set; }

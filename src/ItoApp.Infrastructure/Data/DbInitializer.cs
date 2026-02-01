@@ -11,6 +11,33 @@ namespace ItoApp.Infrastructure.Data
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+            // Seed HospitalBranches
+            if (!await context.HospitalBranches.AnyAsync())
+            {
+                var branches = new List<HospitalBranch>
+                {
+                    new HospitalBranch("BỆNH VIỆN ITO Tân Bình", "305 Lê Văn Sỹ, P.1, Q.Tân Bình, TP.HCM", "028.3991.2222"),
+                    new HospitalBranch("BỆNH VIỆN ITO Phú Nhuận", "140C Nguyễn Trọng Tuyển, P.8, Q.Phú Nhuận, TP.HCM", "028.3844.1111"),
+                    new HospitalBranch("PHÒNG KHÁM ITO", "232 Lê Văn Sỹ, P.1, Q.Tân Bình, TP.HCM", "028.3991.2222")
+                };
+                await context.HospitalBranches.AddRangeAsync(branches);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed Specialties
+            if (!await context.Specialties.AnyAsync())
+            {
+                var specialties = new List<Specialty>
+                {
+                    new Specialty("Cột sống - Cơ xương khớp", "Chuyên khoa cột sống và cơ xương khớp"),
+                    new Specialty("Nội khoa", "Chuyên khoa nội tổng quát"),
+                    new Specialty("Ngoại khoa", "Chuyên khoa ngoại tổng quát"),
+                    new Specialty("Xét nghiệm", "Khoa xét nghiệm")
+                };
+                await context.Specialties.AddRangeAsync(specialties);
+                await context.SaveChangesAsync();
+            }
+
             // Seed Dm_LoaiDichVu
             if (!await context.Dm_LoaiDichVus.AnyAsync())
             {
@@ -67,7 +94,7 @@ namespace ItoApp.Infrastructure.Data
                          DonGia = 200000, DonGiaBHYT = 0, DonGiaNuocNgoai = 500000,
                          CongTy_Id = 1, SoLoaiGia = 1, CoGia = 1
                     },
-                     new Dm_DichVu { 
+                    new Dm_DichVu { 
                          DichVuId = 88, NhomDichVuId = 6, MaDichVu = "4129", 
                          TenDichVu = "Chụp CT Scanner Sọ não", TenKhongDau = "Chup CT Scanner So nao", 
                          Cap = 1, DonViTinh = "Lần", Idx = 1000, BHYT = 1, TamNgung = 0,
@@ -100,7 +127,7 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
-            // Seed BenhNhan (Patients from image)
+            // Seed BenhNhan (Patients)
             if (!await context.BenhNhans.AnyAsync())
             {
                 var patients = new List<BenhNhan>
@@ -131,37 +158,32 @@ namespace ItoApp.Infrastructure.Data
             {
                 var phongBans = new List<Dm_PhongBan>
                 {
-                    new Dm_PhongBan { 
-                        PhongBanId = 1, MaPhong = "CC", TenPhong = "Cấp cứu", TenKhongDau = "Cap cuu", 
-                        LoaiPhong = 3, Cap = 1, CapTren_Id = null, Idx = 1, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 1, 
-                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 52, STT = 0, STTNhom = 0, KhoaChuyenMon = "TRAUMA" 
-                    },
-                    new Dm_PhongBan { 
-                        PhongBanId = 2, MaPhong = "CDHA", TenPhong = "Chẩn đoán hình ảnh", TenKhongDau = "Chan doan hinh anh", 
-                        LoaiPhong = 3, Cap = 1, CapTren_Id = null, Idx = 268, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 1, 
-                        ChiNhanh_Id = 2, CongTy_Id = 1, Id_Old = 486, STT = 1, STTNhom = 0, KhoaChuyenMon = null 
-                    },
-                    new Dm_PhongBan { 
-                        PhongBanId = 5, MaPhong = "KKB", TenPhong = "Khoa Khám Bệnh", TenKhongDau = "Khoa Kham Benh", 
-                        LoaiPhong = 1, Cap = 1, CapTren_Id = null, Idx = 10, ThucHienCLS = 0, TamNgung = 0, QuyTrinh = 1, 
-                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 55, STT = 1, STTNhom = 0, KhoaChuyenMon = null 
-                    },
-                    new Dm_PhongBan { 
-                        PhongBanId = 41, MaPhong = "PK01", TenPhong = "PK01 - 232  Khám bệnh số 01", TenKhongDau = "PK01 - 232 Kham benh so 01", 
-                        LoaiPhong = -1, Cap = 2, CapTren_Id = 5, Idx = 100, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 0, 
-                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 446, STT = 1, STTNhom = 200, KhoaChuyenMon = null, PhanLoai = "PhongKham" 
-                    },
-                    new Dm_PhongBan { 
-                        PhongBanId = 50, MaPhong = "PK10", TenPhong = "PK10 - 232 Khám bệnh số 10", TenKhongDau = "PK10 - 232 Kham benh so 10", 
-                        LoaiPhong = -1, Cap = 2, CapTren_Id = 5, Idx = 1000, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 0, 
-                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 585, STT = 1, STTNhom = 1500, KhoaChuyenMon = null, PhanLoai = "PhongKham"
-                    }
+                    // Chi Nhánh 1 (Tân Bình)
+                    new Dm_PhongBan { PhongBanId = 1, MaPhong = "CC", TenPhong = "Cấp cứu", ChiNhanh_Id = 1, LoaiPhong = 3, Cap = 1, ThucHienCLS = 1 },
+                    new Dm_PhongBan { PhongBanId = 5, MaPhong = "KKB", TenPhong = "Khoa Khám Bệnh", ChiNhanh_Id = 1, LoaiPhong = 1, Cap = 1, ThucHienCLS = 0 },
+                    new Dm_PhongBan { PhongBanId = 41, MaPhong = "PK01", TenPhong = "PK01 - 232 Khám bệnh số 01", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 5, ThucHienCLS = 1, PhanLoai = "PhongKham", TenKhongDau = "PK01 - 232 Kham benh so 01" },
+                    new Dm_PhongBan { PhongBanId = 42, MaPhong = "PK02", TenPhong = "PK02 - 232 Khám bệnh số 02", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 5, ThucHienCLS = 1, PhanLoai = "PhongKham", TenKhongDau = "PK02 - 232 Kham benh so 02" },
+                    new Dm_PhongBan { PhongBanId = 43, MaPhong = "PK03", TenPhong = "PK03 - 232 Khám bệnh số 03", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 5, ThucHienCLS = 1, PhanLoai = "PhongKham", TenKhongDau = "PK03 - 232 Kham benh so 03" },
+                    new Dm_PhongBan { PhongBanId = 44, MaPhong = "PK04", TenPhong = "PK04 - 232 Khám bệnh số 04", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 5, ThucHienCLS = 1, PhanLoai = "PhongKham", TenKhongDau = "PK04 - 232 Kham benh so 04" },
+                    new Dm_PhongBan { PhongBanId = 45, MaPhong = "PK05", TenPhong = "PK05 - 232 Khám bệnh số 05", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 5, ThucHienCLS = 1, PhanLoai = "PhongKham", TenKhongDau = "PK05 - 232 Kham benh so 05" },
+                    new Dm_PhongBan { PhongBanId = 20, MaPhong = "P232", TenPhong = "Phòng 232", ChiNhanh_Id = 1, LoaiPhong = 3, Cap = 1, ThucHienCLS = 0 },
+                    
+                    // Chi Nhánh 2 (Phú Nhuận)
+                    new Dm_PhongBan { PhongBanId = 66, MaPhong = "OLSPN", TenPhong = "P.so 203 (xuong khop)", ChiNhanh_Id = 2, LoaiPhong = -1, Cap = 2, ThucHienCLS = 1, TenKhongDau = "P.so 203 (xuong khop)" },
+                    new Dm_PhongBan { PhongBanId = 67, MaPhong = "MRG15NTT", TenPhong = "P.so 232 (Khoi MTT)", ChiNhanh_Id = 2, LoaiPhong = -1, Cap = 2, ThucHienCLS = 1, TenKhongDau = "P.so 232 (Khoi MTT)" },
+                    new Dm_PhongBan { PhongBanId = 68, MaPhong = "PK208", TenPhong = "P.so 208 (Khoi noi)", ChiNhanh_Id = 2, LoaiPhong = -1, Cap = 2, ThucHienCLS = 1, TenKhongDau = "P.so 208 (Khoi noi)" },
+                    new Dm_PhongBan { PhongBanId = 69, MaPhong = "PK209", TenPhong = "P.so 209 (Khoi noi)", ChiNhanh_Id = 2, LoaiPhong = -1, Cap = 2, ThucHienCLS = 1, TenKhongDau = "P.so 209 (Khoi noi)" },
+                    
+                    // Các phòng chức năng khác
+                    new Dm_PhongBan { PhongBanId = 2, MaPhong = "CDHA", TenPhong = "Chẩn đoán hình ảnh", ChiNhanh_Id = 1, LoaiPhong = 3, Cap = 1 },
+                    new Dm_PhongBan { PhongBanId = 22, MaPhong = "232DNT", TenPhong = "Do Dien Co Phong so 1", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 2 },
+                    new Dm_PhongBan { PhongBanId = 21, MaPhong = "CTScan", TenPhong = "CT Scan (Xa Chup 128 Slice)", ChiNhanh_Id = 1, LoaiPhong = -1, Cap = 2, CapTren_Id = 2 }
                 };
                 await context.Dm_PhongBans.AddRangeAsync(phongBans);
                 await context.SaveChangesAsync();
             }
 
-            // 1. Seed ChiNhanh
+            // Seed ChiNhanh
             if (!await context.ChiNhanhs.AnyAsync())
             {
                 var chiNhanhs = new List<ChiNhanh>
@@ -174,7 +196,7 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
-            // 2. Seed NhomNgheNghiep
+            // Seed NhomNgheNghiep
             if (!await context.NhomNgheNghieps.AnyAsync())
             {
                 var nhoms = new List<NhomNgheNghiep>
@@ -188,7 +210,7 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
-            // 3. Seed ChucVu
+            // Seed ChucVu
             if (!await context.ChucVus.AnyAsync())
             {
                 var chucVus = new List<ChucVu>
@@ -203,7 +225,7 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
-            // 4. Seed KhoaPhong
+            // Seed KhoaPhong
             if (!await context.KhoaPhongs.AnyAsync())
             {
                 var chiNhanhTb = await context.ChiNhanhs.FirstAsync(c => c.MaChiNhanh == "TB");
@@ -220,7 +242,7 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
-            // 5. Seed NhanVien (Nhiều dữ liệu hơn để test)
+            // Seed NhanVien
             if (!await context.NhanViens.AnyAsync())
             {
                 var chiNhanhTb = await context.ChiNhanhs.FirstAsync(c => c.MaChiNhanh == "TB");
@@ -260,7 +282,7 @@ namespace ItoApp.Infrastructure.Data
                 await context.NhanViens.AddRangeAsync(listNhanVien);
                 await context.SaveChangesAsync();
 
-                // 6. Seed ChungChiHanhNghe (Để test Dashboard)
+                // Seed ChungChiHanhNghe
                 var nv1 = listNhanVien.First(n => n.MaNhanVien == "NV001");
                 var nv3 = listNhanVien.First(n => n.MaNhanVien == "NV003");
                 var nv4 = listNhanVien.First(n => n.MaNhanVien == "NV004");
@@ -275,6 +297,86 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
+            // Sync Doctors from NhanVien
+            if (await context.NhanViens.AnyAsync() && await context.Specialties.AnyAsync())
+            {
+                var bacSis = await context.NhanViens
+                    .Include(n => n.NhomNgheNghiep)
+                    .Where(n => n.NhomNgheNghiep.MaNhom == "BS")
+                    .ToListAsync();
+
+                var defaultSpecialty = await context.Specialties.FirstAsync();
+
+                foreach (var bs in bacSis)
+                {
+                    var existingDoc = await context.Doctors.FirstOrDefaultAsync(d => d.PhoneNumber == bs.SoDienThoai);
+                    if (existingDoc == null)
+                    {
+                        var newDoc = new Doctor(bs.HoTen, "Bác sĩ", defaultSpecialty.Id, bs.SoDienThoai ?? "N/A");
+                        context.Doctors.Add(newDoc);
+                    }
+                }
+                await context.SaveChangesAsync();
+            }
+
+            // Seed DoctorSchedules
+            if (!await context.DoctorSchedules.AnyAsync())
+            {
+                var today = DateTime.UtcNow.Date;
+                var branch1 = await context.HospitalBranches.FirstOrDefaultAsync(b => b.Name.Contains("Tân Bình"));
+                
+                var doctors = await context.Doctors.ToListAsync();
+                var nhomKhamBenh = await context.Dm_NhomDichVus.FirstOrDefaultAsync(n => n.MaNhomDichVu == "KBC");
+                var nhomSieuAm = await context.Dm_NhomDichVus.FirstOrDefaultAsync(n => n.MaNhomDichVu == "SA");
+                
+                var roomPK01 = await context.Dm_PhongBans.FirstOrDefaultAsync(p => p.MaPhong == "PK01");
+                var roomPK02 = await context.Dm_PhongBans.FirstOrDefaultAsync(p => p.MaPhong == "PK02");
+                var roomSieuAm = await context.Dm_PhongBans.FirstOrDefaultAsync(p => p.MaPhong == "CDHA");
+
+                if (branch1 != null && doctors.Count > 0 && nhomKhamBenh != null && roomPK01 != null)
+                {
+                    var schedules = new List<DoctorSchedule>();
+
+                    // 1. Bác sĩ 1 - Khám Bệnh - Phòng PK01
+                    var doc1 = doctors[0];
+                    var sched1 = new DoctorSchedule(doc1.Id, branch1.Id, today, new TimeSpan(7, 0, 0), new TimeSpan(11, 30, 0), 20);
+                    SetPrivateProp(sched1, "PhongBanId", roomPK01.PhongBanId);
+                    SetPrivateProp(sched1, "NhomDichVuId", nhomKhamBenh.NhomDichVuId);
+                    schedules.Add(sched1);
+
+                    // 2. Bác sĩ 2 - Khám Bệnh - Phòng PK02
+                    if (doctors.Count > 1 && roomPK02 != null)
+                    {
+                        var doc2 = doctors[1];
+                        var sched2 = new DoctorSchedule(doc2.Id, branch1.Id, today, new TimeSpan(7, 0, 0), new TimeSpan(11, 30, 0), 20);
+                        SetPrivateProp(sched2, "PhongBanId", roomPK02.PhongBanId);
+                        SetPrivateProp(sched2, "NhomDichVuId", nhomKhamBenh.NhomDichVuId);
+                        schedules.Add(sched2);
+                    }
+                    
+                    // 3. Bác sĩ 3 - Siêu Âm - Phòng CĐHA
+                    if (doctors.Count > 2 && roomSieuAm != null && nhomSieuAm != null)
+                    {
+                        var doc3 = doctors[2];
+                        var sched3 = new DoctorSchedule(doc3.Id, branch1.Id, today, new TimeSpan(13, 0, 0), new TimeSpan(17, 0, 0), 30);
+                        SetPrivateProp(sched3, "PhongBanId", roomSieuAm.PhongBanId);
+                        SetPrivateProp(sched3, "NhomDichVuId", nhomSieuAm.NhomDichVuId);
+                        schedules.Add(sched3);
+                    }
+
+                    await context.DoctorSchedules.AddRangeAsync(schedules);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+
+        private static void SetPrivateProp(object obj, string propName, object value)
+        {
+            var prop = obj.GetType().GetProperty(propName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (prop != null)
+            {
+                prop.SetValue(obj, value);
+            }
         }
     }
 }
