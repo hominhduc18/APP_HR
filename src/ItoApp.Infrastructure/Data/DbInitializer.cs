@@ -109,6 +109,20 @@ namespace ItoApp.Infrastructure.Data
                 
                 await context.NhanViens.AddRangeAsync(listNhanVien);
                 await context.SaveChangesAsync();
+
+                // 6. Seed ChungChiHanhNghe (Để test Dashboard)
+                var nv1 = listNhanVien.First(n => n.MaNhanVien == "NV001");
+                var nv3 = listNhanVien.First(n => n.MaNhanVien == "NV003");
+                var nv4 = listNhanVien.First(n => n.MaNhanVien == "NV004");
+
+                var licenses = new List<ChungChiHanhNghe>
+                {
+                    new ChungChiHanhNghe { SoChungChi = "12345/HCM-CCHN", PhamViChuyenMon = "Nội khoa", NoiCap = "Sở Y Tế HCM", NgayCap = new DateTime(2020, 1, 1), NgayHetHan = DateTime.Now.AddMonths(1), NhanVienId = nv1.Id },
+                    new ChungChiHanhNghe { SoChungChi = "67890/HCM-CCHN", PhamViChuyenMon = "Ngoại khoa", NoiCap = "Sở Y Tế HCM", NgayCap = new DateTime(2021, 5, 15), NgayHetHan = DateTime.Now.AddMonths(2), NhanVienId = nv3.Id },
+                    new ChungChiHanhNghe { SoChungChi = "11223/HCM-CCHN", PhamViChuyenMon = "Hồi sức cấp cứu", NoiCap = "Sở Y Tế HCM", NgayCap = new DateTime(2019, 10, 10), NgayHetHan = DateTime.Now.AddDays(15), NhanVienId = nv4.Id }
+                };
+                await context.ChungChiHanhNghes.AddRangeAsync(licenses);
+                await context.SaveChangesAsync();
             }
 
         }
