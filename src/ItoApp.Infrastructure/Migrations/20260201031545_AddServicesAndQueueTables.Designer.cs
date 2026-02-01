@@ -4,6 +4,7 @@ using ItoApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ItoApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260201031545_AddServicesAndQueueTables")]
+    partial class AddServicesAndQueueTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,136 +74,6 @@ namespace ItoApp.Infrastructure.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("ItoApp.Domain.Entities.BenhNhan", b =>
-                {
-                    b.Property<long>("BenhNhan_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("BenhNhan_Id"));
-
-                    b.Property<int?>("BenhAn_Id_CLS")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CMND")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<int?>("ChiNhanh_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CongTy_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DanToc_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DiaChi")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("GioiTinh")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<int?>("Id_Old")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Image1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Login_Id_Tao")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MaYTe")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime?>("NgayCap")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("NgaySinh")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("NgheNghiep_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NguoiLienHe")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int?>("NguoiTao_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NhomMau")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("NoiLamViec")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int?>("QuanHuyen_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QuocTich_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SoDienThoai")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("SoDienThoaiNguoiLienHe")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("SoNha")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("TenBenhNhan")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("TenKhongDau")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int?>("TheoDoiTienSu")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TienSu")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int?>("TiepNhan_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TinhThanh_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("XaPhuong_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("YeuToRh_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("BenhNhan_Id");
-
-                    b.ToTable("BenhNhan", (string)null);
                 });
 
             modelBuilder.Entity("ItoApp.Domain.Entities.ChiNhanh", b =>
@@ -609,99 +482,6 @@ namespace ItoApp.Infrastructure.Migrations
                     b.HasIndex("LoaiDichVuId");
 
                     b.ToTable("Dm_NhomDichVu", (string)null);
-                });
-
-            modelBuilder.Entity("ItoApp.Domain.Entities.Dm_PhongBan", b =>
-                {
-                    b.Property<int>("PhongBanId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Cap")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CapTren_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChiNhanh_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CongTy_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("GroupCha")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Id_Old")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Idx")
-                        .HasColumnType("int");
-
-                    b.Property<string>("KhoaChuyenMon")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("LoaiPhong")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MaPhong")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("MoTa")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int?>("NhanVien")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhanLoai")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("PhoPhong")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PhoPhong2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuyTrinh")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("STT")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("STTNhom")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TamNgung")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenKhongDau")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("TenPhong")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("ThucHienCLS")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TruongPhong")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ViTri")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("PhongBanId");
-
-                    b.HasIndex("CapTren_Id");
-
-                    b.ToTable("Dm_PhongBan", (string)null);
                 });
 
             modelBuilder.Entity("ItoApp.Domain.Entities.Doctor", b =>
@@ -1531,15 +1311,6 @@ namespace ItoApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("LoaiDichVu");
-                });
-
-            modelBuilder.Entity("ItoApp.Domain.Entities.Dm_PhongBan", b =>
-                {
-                    b.HasOne("ItoApp.Domain.Entities.Dm_PhongBan", "Parent")
-                        .WithMany()
-                        .HasForeignKey("CapTren_Id");
-
-                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("ItoApp.Domain.Entities.Doctor", b =>

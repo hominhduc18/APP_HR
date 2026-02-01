@@ -11,6 +11,156 @@ namespace ItoApp.Infrastructure.Data
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+            // Seed Dm_LoaiDichVu
+            if (!await context.Dm_LoaiDichVus.AnyAsync())
+            {
+                var loaiDichVus = new List<Dm_LoaiDichVu>
+                {
+                    new Dm_LoaiDichVu { LoaiDichVuId = 1, MaLoaiDichVu = "KB", TenLoaiDichVu = "Khám bệnh", TenKhongDau = "Kham benh", Idx = 1000, TamNgung = 0, CongTy_Id = 1, Id_Old = 1 },
+                    new Dm_LoaiDichVu { LoaiDichVuId = 2, MaLoaiDichVu = "CLS", TenLoaiDichVu = "Cận lâm sàng", TenKhongDau = "Can lam sang", Idx = 2000, TamNgung = 0, CongTy_Id = 1, Id_Old = 2 },
+                    new Dm_LoaiDichVu { LoaiDichVuId = 10, MaLoaiDichVu = "DV", TenLoaiDichVu = "Dịch vụ", TenKhongDau = "Dich vu", Idx = 4000, TamNgung = 0, CongTy_Id = 1, Id_Old = 5 },
+                    new Dm_LoaiDichVu { LoaiDichVuId = 5, MaLoaiDichVu = "PT", TenLoaiDichVu = "Phẫu thuật", TenKhongDau = "Phau thuat", Idx = 6000, TamNgung = 0, CongTy_Id = 1, Id_Old = 3 },
+                    new Dm_LoaiDichVu { LoaiDichVuId = 6, MaLoaiDichVu = "TT", TenLoaiDichVu = "Thủ thuật", TenKhongDau = "Thu thuat", Idx = 5000, TamNgung = 0, CongTy_Id = 1, Id_Old = 8 },
+                    new Dm_LoaiDichVu { LoaiDichVuId = 11, MaLoaiDichVu = "TIEUPHAU", TenLoaiDichVu = "Tiểu phẫu", TenKhongDau = "Tieu phau", Idx = 4500, TamNgung = 0, CongTy_Id = 1, Id_Old = null },
+                    new Dm_LoaiDichVu { LoaiDichVuId = 9, MaLoaiDichVu = "XNM", TenLoaiDichVu = "Xét nghiệm", TenKhongDau = "Xet nghiem", Idx = 3000, TamNgung = 0, CongTy_Id = 1, Id_Old = null }
+                };
+                await context.Dm_LoaiDichVus.AddRangeAsync(loaiDichVus);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed Dm_NhomDichVu
+            if (!await context.Dm_NhomDichVus.AnyAsync())
+            {
+                var nhomDichVus = new List<Dm_NhomDichVu>
+                {
+                    new Dm_NhomDichVu { NhomDichVuId = 1, LoaiDichVuId = 1, MaNhomDichVu = "KBC", TenNhomDichVu = "Khám bệnh", TenKhongDau = "Kham Ben", Cap = 1, CapTren_Id = null, TraKetQua = 1, Idx = 1000, TamNgung = 0, CongTy_Id = 1, Id_Old = 6, SoLoaiGia = 1, TieuDeKetQua = null },
+                    new Dm_NhomDichVu { NhomDichVuId = 2, LoaiDichVuId = 9, MaNhomDichVu = "XNHH", TenNhomDichVu = "XN huyết học", TenKhongDau = "XN huyet hoa", Cap = 1, CapTren_Id = null, TraKetQua = 1, Idx = 300, TamNgung = 0, CongTy_Id = 1, Id_Old = 3, SoLoaiGia = 1, TieuDeKetQua = null },
+                    new Dm_NhomDichVu { NhomDichVuId = 3, LoaiDichVuId = 9, MaNhomDichVu = "XNSH", TenNhomDichVu = "XN Sinh Hóa", TenKhongDau = "XN Sinh Hoa", Cap = 1, CapTren_Id = null, TraKetQua = 0, Idx = 100, TamNgung = 0, CongTy_Id = 1, Id_Old = 11, SoLoaiGia = 1, TieuDeKetQua = null },
+                    new Dm_NhomDichVu { NhomDichVuId = 4, LoaiDichVuId = 9, MaNhomDichVu = "XNVS", TenNhomDichVu = "XN vi sinh", TenKhongDau = "XN vi sinh", Cap = 2, CapTren_Id = null, TraKetQua = 0, Idx = 400, TamNgung = 0, CongTy_Id = 1, Id_Old = 13, SoLoaiGia = 1, TieuDeKetQua = null },
+                    new Dm_NhomDichVu { NhomDichVuId = 6, LoaiDichVuId = 2, MaNhomDichVu = "CT", TenNhomDichVu = "CT Scanner", TenKhongDau = "CT Scanne", Cap = 2, CapTren_Id = null, TraKetQua = 1, Idx = 1000, TamNgung = 0, CongTy_Id = 1, Id_Old = 17, SoLoaiGia = 1, TieuDeKetQua = "KẾT QUẢ CT", MaSo_SYT = "MS: 09/BV" },
+                    new Dm_NhomDichVu { NhomDichVuId = 7, LoaiDichVuId = 2, MaNhomDichVu = "SA", TenNhomDichVu = "Siêu âm", TenKhongDau = "Sieu am", Cap = 2, CapTren_Id = null, TraKetQua = 1, Idx = 1000, TamNgung = 0, CongTy_Id = 1, Id_Old = 19, SoLoaiGia = 1, TieuDeKetQua = "KẾT QUẢ SA", MaSo_SYT = "MS: 11/BV" },
+                    new Dm_NhomDichVu { NhomDichVuId = 10, LoaiDichVuId = 2, MaNhomDichVu = "DC", TenNhomDichVu = "Điện cơ", TenKhongDau = "Dien co", Cap = 2, CapTren_Id = null, TraKetQua = 0, Idx = 1000, TamNgung = 0, CongTy_Id = 1, Id_Old = 24, SoLoaiGia = 1, TieuDeKetQua = "KẾT QUẢ DC" },
+                    new Dm_NhomDichVu { NhomDichVuId = 12, LoaiDichVuId = 2, MaNhomDichVu = "MRI", TenNhomDichVu = "MRI", TenKhongDau = "MRI", Cap = 2, CapTren_Id = null, TraKetQua = 1, Idx = 1000, TamNgung = 1, CongTy_Id = 1, Id_Old = 77, SoLoaiGia = 1, TieuDeKetQua = null, MaSo_SYT = "MS: 10/BV" },
+                    new Dm_NhomDichVu { NhomDichVuId = 39, LoaiDichVuId = 6, MaNhomDichVu = "TP", TenNhomDichVu = "Tiểu phẫu", TenKhongDau = "Tieu phau", Cap = 1, CapTren_Id = null, TraKetQua = 0, Idx = 1, TamNgung = 0, CongTy_Id = 1, Id_Old = 66, SoLoaiGia = 1, TieuDeKetQua = null },
+                    new Dm_NhomDichVu { NhomDichVuId = 51, LoaiDichVuId = 10, MaNhomDichVu = "DVKP", TenNhomDichVu = "DV Chung", TenKhongDau = "DV Chung", Cap = 1, CapTren_Id = null, TraKetQua = 0, Idx = 1000, TamNgung = 0, CongTy_Id = 1, Id_Old = null, SoLoaiGia = 1, TieuDeKetQua = null }
+                };
+                await context.Dm_NhomDichVus.AddRangeAsync(nhomDichVus);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed Dm_DichVu (A few sample rows)
+            if (!await context.Dm_DichVus.AnyAsync())
+            {
+                var dichVus = new List<Dm_DichVu>
+                {
+                    new Dm_DichVu { 
+                        DichVuId = 1, NhomDichVuId = 1, MaDichVu = "4110", 
+                        TenDichVu = "Khám bệnh", TenKhongDau = "Kham benh", 
+                        Cap = 1, DonViTinh = "Lần", Idx = 1000, BHYT = 1, TamNgung = 0,
+                        DonGia = 150000, DonGiaBHYT = 38700, DonGiaNuocNgoai = 400000,
+                        CongTy_Id = 1, SoLoaiGia = 1, CoGia = 1
+                    },
+                    new Dm_DichVu { 
+                         DichVuId = 2, NhomDichVuId = 1, MaDichVu = "4155", 
+                         TenDichVu = "Khám bệnh (Ngoài giờ)", TenKhongDau = "Kham benh ngoai gio", 
+                         Cap = 1, DonViTinh = "Lần", Idx = 2000, BHYT = 0, TamNgung = 0,
+                         DonGia = 200000, DonGiaBHYT = 0, DonGiaNuocNgoai = 500000,
+                         CongTy_Id = 1, SoLoaiGia = 1, CoGia = 1
+                    },
+                     new Dm_DichVu { 
+                         DichVuId = 88, NhomDichVuId = 6, MaDichVu = "4129", 
+                         TenDichVu = "Chụp CT Scanner Sọ não", TenKhongDau = "Chup CT Scanner So nao", 
+                         Cap = 1, DonViTinh = "Lần", Idx = 1000, BHYT = 1, TamNgung = 0,
+                         DonGia = 1300000, DonGiaBHYT = 1000000, DonGiaNuocNgoai = 2000000,
+                         CongTy_Id = 1, SoLoaiGia = 1, CoGia = 1, MapBHYT = 1
+                    },
+                    new Dm_DichVu { 
+                         DichVuId = 112, NhomDichVuId = 7, MaDichVu = "2182", 
+                         TenDichVu = "Siêu âm bụng tổng quát", TenKhongDau = "Sieu am bung tong quat", 
+                         Cap = 1, DonViTinh = "Lần", Idx = 1000, BHYT = 1, TamNgung = 0,
+                         DonGia = 220000, DonGiaBHYT = 150000, DonGiaNuocNgoai = 500000,
+                         CongTy_Id = 1, SoLoaiGia = 1, CoGia = 1, MapBHYT = 1
+                    }
+                };
+                await context.Dm_DichVus.AddRangeAsync(dichVus);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed STT (Queue)
+            if (!await context.STTs.AnyAsync())
+            {
+                var today = DateTime.Now.Date;
+                var stts = new List<STT>
+                {
+                    new STT { Ngay = today, SoThuTu = 1, HoTen = "Lê Văn Tám", NamSinh = 1990, GioiTinh = "Nam", DiaChi = "Q.3, TP.HCM", DienThoai = "090111222", DoiTuong = 0, TrangThai = 0, LyDoKham = "Đau bụng", NgayTao = DateTime.Now },
+                    new STT { Ngay = today, SoThuTu = 2, HoTen = "Trần Thị Lan", NamSinh = 1985, GioiTinh = "Nữ", DiaChi = "Tân Bình, TP.HCM", DienThoai = "090333444", DoiTuong = 1, SoTheBHYT = "DN4791234567890", TrangThai = 1, LyDoKham = "Tái khám tiểu đường", NgayTao = DateTime.Now.AddMinutes(5) },
+                    new STT { Ngay = today, SoThuTu = 3, HoTen = "Nguyễn Hùng", NamSinh = 2000, GioiTinh = "Nam", DiaChi = "Phú Nhuận, TP.HCM", DienThoai = "090555666", DoiTuong = 0, TrangThai = 0, LyDoKham = "Sốt cao", NgayTao = DateTime.Now.AddMinutes(10) }
+                };
+                await context.STTs.AddRangeAsync(stts);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed BenhNhan (Patients from image)
+            if (!await context.BenhNhans.AnyAsync())
+            {
+                var patients = new List<BenhNhan>
+                {
+                    new BenhNhan { 
+                        MaYTe = "11000936", TenBenhNhan = "Đào Huy Hoàng", TenKhongDau = "dao Huy Hoang", NgaySinh = new DateTime(1990, 1, 1), GioiTinh = "T", 
+                        SoDienThoai = "0", QuocTich_Id = 201, TinhThanh_Id = 145, SoNha = "Tp. Hồ Chí Minh", DiaChi = "Tp. Hồ Chí Minh", 
+                        CongTy_Id = 1, ChiNhanh_Id = 1, Id_Old = 312159, NgayTao = DateTime.Now 
+                    },
+                    new BenhNhan { 
+                        MaYTe = "11000937", TenBenhNhan = "Nguyễn Văn A", TenKhongDau = "Nguyen Van A", NgaySinh = new DateTime(1985, 5, 5), GioiTinh = "T", 
+                        SoDienThoai = "0", QuocTich_Id = 201, TinhThanh_Id = 145, QuanHuyen_Id = 661, XaPhuong_Id = 9435, SoNha = "Phường 1", DiaChi = "Phường 1, ...", 
+                        CongTy_Id = 1, ChiNhanh_Id = 1, Id_Old = 312160, NgayTao = DateTime.Now 
+                    },
+                    new BenhNhan { 
+                         MaYTe = "11000939", TenBenhNhan = "Nguyễn Thị C", TenKhongDau = "Nguyen Thi C", NgaySinh = new DateTime(1995, 2, 2), GioiTinh = "G", 
+                         SoDienThoai = "0", QuocTich_Id = 201, TinhThanh_Id = 174, QuanHuyen_Id = 695, SoNha = "Ấp Cầu Xây", DiaChi = "Ấp Cầu Xây...", 
+                         CongTy_Id = 1, ChiNhanh_Id = 1, Id_Old = 312162, NgayTao = DateTime.Now 
+                    }
+                };
+                
+                await context.BenhNhans.AddRangeAsync(patients);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed Dm_PhongBan (Departments/Rooms)
+            if (!await context.Dm_PhongBans.AnyAsync())
+            {
+                var phongBans = new List<Dm_PhongBan>
+                {
+                    new Dm_PhongBan { 
+                        PhongBanId = 1, MaPhong = "CC", TenPhong = "Cấp cứu", TenKhongDau = "Cap cuu", 
+                        LoaiPhong = 3, Cap = 1, CapTren_Id = null, Idx = 1, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 1, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 52, STT = 0, STTNhom = 0, KhoaChuyenMon = "TRAUMA" 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 2, MaPhong = "CDHA", TenPhong = "Chẩn đoán hình ảnh", TenKhongDau = "Chan doan hinh anh", 
+                        LoaiPhong = 3, Cap = 1, CapTren_Id = null, Idx = 268, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 1, 
+                        ChiNhanh_Id = 2, CongTy_Id = 1, Id_Old = 486, STT = 1, STTNhom = 0, KhoaChuyenMon = null 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 5, MaPhong = "KKB", TenPhong = "Khoa Khám Bệnh", TenKhongDau = "Khoa Kham Benh", 
+                        LoaiPhong = 1, Cap = 1, CapTren_Id = null, Idx = 10, ThucHienCLS = 0, TamNgung = 0, QuyTrinh = 1, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 55, STT = 1, STTNhom = 0, KhoaChuyenMon = null 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 41, MaPhong = "PK01", TenPhong = "PK01 - 232  Khám bệnh số 01", TenKhongDau = "PK01 - 232 Kham benh so 01", 
+                        LoaiPhong = -1, Cap = 2, CapTren_Id = 5, Idx = 100, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 0, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 446, STT = 1, STTNhom = 200, KhoaChuyenMon = null, PhanLoai = "PhongKham" 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 50, MaPhong = "PK10", TenPhong = "PK10 - 232 Khám bệnh số 10", TenKhongDau = "PK10 - 232 Kham benh so 10", 
+                        LoaiPhong = -1, Cap = 2, CapTren_Id = 5, Idx = 1000, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 0, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 585, STT = 1, STTNhom = 1500, KhoaChuyenMon = null, PhanLoai = "PhongKham"
+                    }
+                };
+                await context.Dm_PhongBans.AddRangeAsync(phongBans);
+                await context.SaveChangesAsync();
+            }
+
             // 1. Seed ChiNhanh
             if (!await context.ChiNhanhs.AnyAsync())
             {
