@@ -31,5 +31,8 @@ namespace ItoApp.Domain.Entities
         public virtual ICollection<HopDongLaoDong> HopDongLaoDongs { get; set; } = new List<HopDongLaoDong>();
         public virtual ICollection<ChungChiHanhNghe> ChungChiHanhNghes { get; set; } = new List<ChungChiHanhNghe>();
         public virtual ICollection<ChungChiDaoTao> ChungChiDaoTaos { get; set; } = new List<ChungChiDaoTao>();
+        public virtual ICollection<KyThuatChuyenMon> KyThuatChuyenMons { get; set; } = new List<KyThuatChuyenMon>();
+        public virtual ICollection<KyLuat> KyLuats { get; set; } = new List<KyLuat>();
+        public virtual ICollection<LichSuChinhSua> LichSuChinhSuas { get; set; } = new List<LichSuChinhSua>();
     }
 }
