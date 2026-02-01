@@ -11,25 +11,6 @@ The system handles:
 - **Hospital Operations**: Branch management, Specialties, Doctor schedules.
 - **Appointments**: Booking, viewing, and managing patient appointments.
 
-## 🛠️ Technology Stack
-
-- **.NET 8.0** (Web API)
-- **Entity Framework Core 8.0**
-- **SQL Server** (Data Persistence)
-- **xUnit & FluentAssertions** (Unit Testing)
-- **Swagger/OpenAPI** (API Documentation)
-
-## 📁 Project Structure
-
-```
-d:\API_APP_HR\src
-├── ItoApp.Api              # API Entry point (Controllers)
-├── ItoApp.Application      # Business Logic, DTOs, Interfaces
-├── ItoApp.Domain           # Entities, Value Objects
-├── ItoApp.Infrastructure   # Database Context, Repositories, External Services
-└── ItoApp.Test             # Unit Tests (xUnit)
-```
-
 ## ⚙️ Getting Started
 
 ### Prerequisites
@@ -37,49 +18,24 @@ d:\API_APP_HR\src
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - SQL Server (or LocalDB)
 
-### 1. Build the Solution
-
-Run the following command in the `src` directory to restore dependencies and build:
+### Build & Run
 
 ```bash
-cd src
+# Build
 dotnet build
-```
-
-### 2. Run Database Migrations (If applicable)
-
-Ensure your connection string in `appsettings.json` is correct, then run:
-
-```bash
-dotnet ef database update --project ItoApp.Infrastructure --startup-project ItoApp.Api
-```
-
-### 3. Run the API
-
-Start the API server:
-
-```bash
+# Run API
 dotnet run --project ItoApp.Api
-```
-
-The API will be available at `https://localhost:7198` (or similar, check console output).
-Interactive documentation is at `/swagger`.
-
-### 4. Run Unit Tests
-
-To run the automated test suite (Staff Controller, etc.):
-
-```bash
+# Run Tests
 dotnet test
 ```
 
-## 🔌 API Quick Reference (Sample Payloads)
+## 🔌 API Reference & Payloads
 
-Use these JSON bodies to test the endpoints in Swagger or Postman.
+Below is the detailed list of available API endpoints and their Request Body structures.
 
-### 🏥 HR - Staff Management
+### 1. 🏥 HR - Staff Management (`/api/nhan-vien`)
 
-**Create Staff** (`POST /api/nhan-vien`):
+**Create Staff** (`POST /api/nhan-vien`)
 
 ```json
 {
@@ -98,15 +54,101 @@ Use these JSON bodies to test the endpoints in Swagger or Postman.
 }
 ```
 
-### 🔐 Authentication (Patient)
+**Update Staff** (`PUT /api/nhan-vien/{id}`)
+_Same body as Create Staff_
 
-**Login (Send OTP)** (`POST /api/auth/login`):
+**Change Status** (`PATCH /api/nhan-vien/{id}/trang-thai`)
+
+```json
+{
+  "trangThai": "Inactive"
+}
+```
+
+**Transfer Dept** (`POST /api/nhan-vien/{id}/dieu-chuyen`)
+
+```json
+{
+  "newKhoaPhongId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "effectiveDate": "2024-02-01T00:00:00Z",
+  "reason": "Job rotation"
+}
+```
+
+---
+
+### 2. � Staff Profile (`/api/nhan-vien/{staffId}`)
+
+**Add Contract** (`POST .../hop-dong`)
+
+```json
+{
+  "soHopDong": "HD-2024-001",
+  "loaiHopDong": "Official",
+  "ngayKy": "2024-01-01T00:00:00Z",
+  "ngayHetHan": "2025-01-01T00:00:00Z",
+  "duongDanFileScan": "http://example.com/scan.pdf"
+}
+```
+
+**Add License (CCHN)** (`POST .../chung-chi-hanh-nghe`)
+
+```json
+{
+  "soChungChi": "CCHN-00123",
+  "phamViChuyenMon": "General Medicine",
+  "noiCap": "Department of Health",
+  "ngayCap": "2020-01-01T00:00:00Z",
+  "ngayGiaHan": "2025-01-01T00:00:00Z",
+  "ngayHetHan": "2025-12-31T00:00:00Z"
+}
+```
+
+**Add Training** (`POST .../dao-tao`)
+
+```json
+{
+  "tenChungChi": "CPR Certification",
+  "noiDaoTao": "Red Cross",
+  "ngayHoanThanh": "2023-06-15T00:00:00Z",
+  "ngayHetHan": "2025-06-15T00:00:00Z"
+}
+```
+
+**Add Professional Privilege** (`POST .../ky-thuat-chuyen-mon`)
+
+```json
+{
+  "tenKyThuat": "Appendectomy",
+  "soQuyetDinh": "QD-1234",
+  "ngayPheDuyet": "2023-01-01T00:00:00Z",
+  "moTa": "Level 1 Surgery"
+}
+```
+
+**Add Discipline** (`POST .../ky-luat`)
+
+```json
+{
+  "hinhThuc": "Warning",
+  "lyDo": "Late arrival",
+  "ngayViPham": "2024-01-10T00:00:00Z",
+  "soQuyetDinh": "QD-KL-001",
+  "ngayQuyetDinh": "2024-01-12T00:00:00Z"
+}
+```
+
+---
+
+### 3. �🔐 Authentication (Patient)
+
+**Login (Send OTP)** (`POST /api/auth/login`)
 
 ```json
 { "phone": "0909000111" }
 ```
 
-**Verify Login** (`POST /api/auth/verify`):
+**Verify Login** (`POST /api/auth/verify`)
 
 ```json
 {
@@ -115,13 +157,13 @@ Use these JSON bodies to test the endpoints in Swagger or Postman.
 }
 ```
 
-**Register (Send OTP)** (`POST /api/patient/register/otp/send`):
+**Register (Send OTP)** (`POST /api/patient/register/otp/send`)
 
 ```json
 { "phone": "0909000111" }
 ```
 
-**Register (Complete)** (`POST /api/patient/register/otp/verify`):
+**Register (Complete)** (`POST /api/patient/register/otp/verify`)
 
 ```json
 {
@@ -132,28 +174,51 @@ Use these JSON bodies to test the endpoints in Swagger or Postman.
 }
 ```
 
-### 📅 Hospital & Booking
-
-**Book Appointment** (`POST /api/Hospital/book`):
+**Refresh Token** (`POST /api/auth/refresh`)
 
 ```json
 {
-  "patientId": "<GUID>",
-  "doctorId": "<GUID>",
-  "branchId": "<GUID>",
-  "scheduleId": "<GUID>",
+  "refreshToken": "your_refresh_token_string"
+}
+```
+
+---
+
+### 4. 🏥 Hospital & Booking (`/api/Hospital`)
+
+**Book Appointment** (`POST /api/Hospital/book`)
+
+```json
+{
+  "patientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "doctorId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "branchId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "scheduleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "reason": "Headache checkup"
 }
 ```
 
-_Note: Replace `<GUID>` with actual IDs from GET endpoints._
+**Get Schedules** (`GET /api/Hospital/schedules`)
+Query Params: `doctorId`, `branchId`, `date` (YYYY-MM-DD)
 
-## 🧪 Testing
+---
 
-The project uses `xUnit` for unit testing.
+### 5. � Patient Profile (`/api/patient`)
 
-- **Tests coverage**: `StaffController` (CRUD, Status updates, etc.)
-- **Execute**: `dotnet test` from the `src` folder.
+**Update Profile** (`PUT /api/patient/{id}`)
+
+```json
+{
+  "name": "Tran Van B Updated",
+  "birthDate": "1995-05-20T00:00:00Z"
+}
+```
+
+## 📊 Analytics & Metadata
+
+- **Dashboard**: `GET /api/thong-ke/chi-so-kpi`, `/api/thong-ke/bieu-do/*`
+- **Metadata**: `GET /api/danh-muc/chi-nhanh`, `/api/danh-muc/khoa-phong`, etc.
+- **Reports**: `GET /api/bao-cao/ho-so-360/{id}`, `/api/bao-cao/danh-sach-ru-ro-chung-chi`, etc.
 
 ---
 
