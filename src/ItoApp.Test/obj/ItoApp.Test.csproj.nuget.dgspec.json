@@ -397,7 +397,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -405,8 +405,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
               "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj": {
                 "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Api\\ItoApp.Api.csproj"
@@ -430,20 +430,24 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "FluentAssertions": {
               "target": "Package",
-              "version": "[8.8.0, )"
+              "version": "[6.12.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[17.12.0, )"
+              "version": "[17.8.0, )"
             },
             "Moq": {
               "target": "Package",
-              "version": "[4.20.72, )"
+              "version": "[4.20.70, )"
             },
             "coverlet.collector": {
               "target": "Package",
@@ -451,11 +455,11 @@
             },
             "xunit": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.6.2, )"
             },
             "xunit.runner.visualstudio": {
               "target": "Package",
-              "version": "[2.8.2, )"
+              "version": "[2.5.4, )"
             }
           },
           "imports": [
