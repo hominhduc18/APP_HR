@@ -31,6 +31,9 @@ namespace ItoApp.Infrastructure.Data
         public DbSet<HopDongLaoDong> HopDongLaoDongs => Set<HopDongLaoDong>();
         public DbSet<ChungChiHanhNghe> ChungChiHanhNghes => Set<ChungChiHanhNghe>();
         public DbSet<ChungChiDaoTao> ChungChiDaoTaos => Set<ChungChiDaoTao>();
+        public DbSet<KyThuatChuyenMon> KyThuatChuyenMons => Set<KyThuatChuyenMon>();
+        public DbSet<KyLuat> KyLuats => Set<KyLuat>();
+        public DbSet<LichSuChinhSua> LichSuChinhSuas => Set<LichSuChinhSua>();
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -231,7 +234,7 @@ namespace ItoApp.Infrastructure.Data
             {
                 entity.ToTable("HopDongLaoDong");
                 entity.Property(e => e.Id).HasColumnName("Id_HopDong");
-                entity.Property(e => e.SouHopDong).HasColumnName("SoHopDong");
+                entity.Property(e => e.SoHopDong).HasColumnName("SoHopDong");
                 entity.Property(e => e.NgayKy).HasColumnName("NgayKy");
                 entity.Property(e => e.NgayHetHan).HasColumnName("NgayHetHan");
 
@@ -245,10 +248,40 @@ namespace ItoApp.Infrastructure.Data
                 entity.Property(e => e.SoChungChi).HasColumnName("SoChungChi");
                 entity.Property(e => e.NgayCap).HasColumnName("NgayCap");
                 entity.Property(e => e.NgayHetHan).HasColumnName("NgayHetHan");
-
                 entity.HasOne(e => e.NhanVien).WithMany(nv => nv.ChungChiHanhNghes).HasForeignKey(e => e.NhanVienId);
             });
 
+            modelBuilder.Entity<ChungChiDaoTao>(entity =>
+            {
+                entity.ToTable("ChungChiDaoTao");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("Id_ChungChiDaoTao");
+                entity.HasOne(e => e.NhanVien).WithMany(nv => nv.ChungChiDaoTaos).HasForeignKey(e => e.NhanVienId);
+            });
+
+            modelBuilder.Entity<KyThuatChuyenMon>(entity =>
+            {
+                entity.ToTable("KyThuatChuyenMon");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("Id_KyThuat");
+                entity.HasOne(e => e.NhanVien).WithMany(nv => nv.KyThuatChuyenMons).HasForeignKey(e => e.NhanVienId);
+            });
+
+            modelBuilder.Entity<KyLuat>(entity =>
+            {
+                entity.ToTable("KyLuat");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("Id_KyLuat");
+                entity.HasOne(e => e.NhanVien).WithMany(nv => nv.KyLuats).HasForeignKey(e => e.NhanVienId);
+            });
+
+            modelBuilder.Entity<LichSuChinhSua>(entity =>
+            {
+                entity.ToTable("LichSuChinhSua");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("Id_LichSu");
+                entity.HasOne(e => e.NhanVien).WithMany(nv => nv.LichSuChinhSuas).HasForeignKey(e => e.NhanVienId).IsRequired(false);
+            });
         }
 
         

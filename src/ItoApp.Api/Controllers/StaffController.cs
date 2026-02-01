@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ItoApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/staff")]
+    [Route("api/nhan-vien")]
     public class StaffController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -134,6 +134,14 @@ namespace ItoApp.Api.Controllers
             };
 
             _context.NhanViens.Add(nv);
+            
+            _context.LichSuChinhSuas.Add(new LichSuChinhSua {
+                NhanVienId = nv.Id,
+                ThaoTac = "Thêm mới",
+                NoiDung = $"Thêm mới nhân viên {nv.HoTen} ({nv.MaNhanVien})",
+                NguoiThucHien = "Admin" // Placeholder
+            });
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetStaffById), new { id = nv.Id }, nv.Id);
@@ -158,6 +166,13 @@ namespace ItoApp.Api.Controllers
             nv.NhomNgheNghiepId = req.NhomNgheNghiepId;
             nv.ChucVuId = req.ChucVuId;
 
+            _context.LichSuChinhSuas.Add(new LichSuChinhSua {
+                NhanVienId = nv.Id,
+                ThaoTac = "Cập nhật",
+                NoiDung = $"Cập nhật hồ sơ nhân viên {nv.HoTen}",
+                NguoiThucHien = "Admin"
+            });
+
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -168,30 +183,53 @@ namespace ItoApp.Api.Controllers
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();
 
+            _context.LichSuChinhSuas.Add(new LichSuChinhSua {
+                ThaoTac = "Xóa",
+                NoiDung = $"Xóa hồ sơ nhân viên {nv.HoTen} ({nv.MaNhanVien})",
+                NguoiThucHien = "Admin"
+            });
+
             _context.NhanViens.Remove(nv);
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        [HttpPatch("{id:guid}/status")]
+        [HttpPatch("{id:guid}/trang-thai")]
         public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateStaffStatusRequest req)
         {
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();
 
+            var oldStatus = nv.TrangThai;
             nv.TrangThai = req.TrangThai;
+
+            _context.LichSuChinhSuas.Add(new LichSuChinhSua {
+                NhanVienId = nv.Id,
+                ThaoTac = "Đổi trạng thái",
+                NoiDung = $"Đổi trạng thái từ {oldStatus} sang {req.TrangThai}",
+                NguoiThucHien = "Admin"
+            });
+
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        [HttpPost("{id:guid}/transfer")]
+        [HttpPost("{id:guid}/dieu-chuyen")]
         public async Task<IActionResult> Transfer(Guid id, [FromBody] TransferStaffRequest req)
         {
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();
 
+            var oldDeptId = nv.KhoaPhongId;
             nv.KhoaPhongId = req.NewKhoaPhongId;
-            // In a real app, we might log this in a transfer history table
+
+            _context.LichSuChinhSuas.Add(new LichSuChinhSua {
+                NhanVienId = nv.Id,
+                ThaoTac = "Điều chuyển",
+                NoiDung = $"Điều chuyển khoa phòng (Effective: {req.EffectiveDate:dd/MM/yyyy}). Lý do: {req.Reason}",
+                NguoiThucHien = "Admin"
+            });
+
             await _context.SaveChangesAsync();
             return NoContent();
         }

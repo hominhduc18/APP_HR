@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ItoApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/staff/{staffId:guid}")]
+    [Route("api/nhan-vien/{staffId:guid}")]
     public class ProfileController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -18,14 +18,14 @@ namespace ItoApp.Api.Controllers
         }
 
         // --- CONTRACTS ---
-        [HttpGet("contracts")]
+        [HttpGet("hop-dong")]
         public async Task<IActionResult> GetContracts(Guid staffId)
         {
             var data = await _context.HopDongLaoDongs
                 .Where(x => x.NhanVienId == staffId)
                 .Select(x => new ContractDto {
                     Id = x.Id,
-                    SoHopDong = x.SouHopDong,
+                    SoHopDong = x.SoHopDong,
                     LoaiHopDong = x.LoaiHopDong,
                     NgayKy = x.NgayKy,
                     NgayHetHan = x.NgayHetHan,
@@ -34,12 +34,12 @@ namespace ItoApp.Api.Controllers
             return Ok(data);
         }
 
-        [HttpPost("contracts")]
+        [HttpPost("hop-dong")]
         public async Task<IActionResult> CreateContract(Guid staffId, [FromBody] CreateContractRequest req)
         {
             var item = new HopDongLaoDong {
                 NhanVienId = staffId,
-                SouHopDong = req.SoHopDong,
+                SoHopDong = req.SoHopDong,
                 LoaiHopDong = req.LoaiHopDong,
                 NgayKy = req.NgayKy,
                 NgayHetHan = req.NgayHetHan,
@@ -51,7 +51,7 @@ namespace ItoApp.Api.Controllers
         }
 
         // --- LICENSES ---
-        [HttpGet("licenses")]
+        [HttpGet("chung-chi-hanh-nghe")]
         public async Task<IActionResult> GetLicenses(Guid staffId)
         {
             var data = await _context.ChungChiHanhNghes
@@ -68,7 +68,7 @@ namespace ItoApp.Api.Controllers
             return Ok(data);
         }
 
-        [HttpPost("licenses")]
+        [HttpPost("chung-chi-hanh-nghe")]
         public async Task<IActionResult> CreateLicense(Guid staffId, [FromBody] CreateLicenseRequest req)
         {
             var item = new ChungChiHanhNghe {
@@ -86,7 +86,7 @@ namespace ItoApp.Api.Controllers
         }
 
         // --- TRAINING ---
-        [HttpGet("training")]
+        [HttpGet("dao-tao")]
         public async Task<IActionResult> GetTraining(Guid staffId)
         {
             var data = await _context.ChungChiDaoTaos
@@ -101,7 +101,7 @@ namespace ItoApp.Api.Controllers
             return Ok(data);
         }
 
-        [HttpPost("training")]
+        [HttpPost("dao-tao")]
         public async Task<IActionResult> CreateTraining(Guid staffId, [FromBody] CreateTrainingRequest req)
         {
             var item = new ChungChiDaoTao {
@@ -114,6 +114,87 @@ namespace ItoApp.Api.Controllers
             _context.ChungChiDaoTaos.Add(item);
             await _context.SaveChangesAsync();
             return Ok(item.Id);
+        }
+
+        // --- PRIVILEGES ---
+        [HttpGet("ky-thuat-chuyen-mon")]
+        public async Task<IActionResult> GetPrivileges(Guid staffId)
+        {
+            var data = await _context.KyThuatChuyenMons
+                .Where(x => x.NhanVienId == staffId)
+                .Select(x => new PrivilegeDto {
+                    Id = x.Id,
+                    TenKyThuat = x.TenKyThuat,
+                    SoQuyetDinh = x.SoQuyetDinh,
+                    NgayPheDuyet = x.NgayPheDuyet,
+                    MoTa = x.MoTa
+                }).ToListAsync();
+            return Ok(data);
+        }
+
+        [HttpPost("ky-thuat-chuyen-mon")]
+        public async Task<IActionResult> CreatePrivilege(Guid staffId, [FromBody] CreatePrivilegeRequest req)
+        {
+            var item = new KyThuatChuyenMon {
+                NhanVienId = staffId,
+                TenKyThuat = req.TenKyThuat,
+                SoQuyetDinh = req.SoQuyetDinh,
+                NgayPheDuyet = req.NgayPheDuyet,
+                MoTa = req.MoTa
+            };
+            _context.KyThuatChuyenMons.Add(item);
+            await _context.SaveChangesAsync();
+            return Ok(item.Id);
+        }
+
+        // --- COMPLIANCE ---
+        [HttpGet("ky-luat")]
+        public async Task<IActionResult> GetCompliance(Guid staffId)
+        {
+            var data = await _context.KyLuats
+                .Where(x => x.NhanVienId == staffId)
+                .Select(x => new ComplianceDto {
+                    Id = x.Id,
+                    HinhThuc = x.HinhThuc,
+                    LyDo = x.LyDo,
+                    NgayViPham = x.NgayViPham,
+                    SoQuyetDinh = x.SoQuyetDinh,
+                    NgayQuyetDinh = x.NgayQuyetDinh
+                }).ToListAsync();
+            return Ok(data);
+        }
+
+        [HttpPost("ky-luat")]
+        public async Task<IActionResult> CreateCompliance(Guid staffId, [FromBody] CreateComplianceRequest req)
+        {
+            var item = new KyLuat {
+                NhanVienId = staffId,
+                HinhThuc = req.HinhThuc,
+                LyDo = req.LyDo,
+                NgayViPham = req.NgayViPham,
+                SoQuyetDinh = req.SoQuyetDinh,
+                NgayQuyetDinh = req.NgayQuyetDinh
+            };
+            _context.KyLuats.Add(item);
+            await _context.SaveChangesAsync();
+            return Ok(item.Id);
+        }
+
+        // --- AUDIT LOGS ---
+        [HttpGet("nhat-ky-chinh-sua")]
+        public async Task<IActionResult> GetAuditLogs(Guid staffId)
+        {
+            var data = await _context.LichSuChinhSuas
+                .Where(x => x.NhanVienId == staffId)
+                .OrderByDescending(x => x.CreatedAt)
+                .Select(x => new AuditLogDto {
+                    Id = x.Id,
+                    ThaoTac = x.ThaoTac,
+                    NoiDung = x.NoiDung,
+                    NguoiThucHien = x.NguoiThucHien,
+                    CreatedAt = x.CreatedAt
+                }).ToListAsync();
+            return Ok(data);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace ItoApp.Domain.Entities
 {
     public class HopDongLaoDong : BaseEntity
     {
-        public string SouHopDong { get; set; } = string.Empty;
+        public string SoHopDong { get; set; } = string.Empty;
         public string LoaiHopDong { get; set; } = string.Empty; // Có thời hạn, Vô thời hạn
         public DateTime NgayKy { get; set; }
         public DateTime? NgayHetHan { get; set; }

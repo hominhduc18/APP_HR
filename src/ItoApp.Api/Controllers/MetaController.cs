@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ItoApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/meta")]
+    [Route("api/danh-muc")]
     public class MetaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -15,7 +15,7 @@ namespace ItoApp.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("branches")]
+        [HttpGet("chi-nhanh")]
         public async Task<IActionResult> GetBranches()
         {
             var branches = await _context.ChiNhanhs
@@ -30,7 +30,7 @@ namespace ItoApp.Api.Controllers
             return Ok(branches);
         }
 
-        [HttpGet("departments")]
+        [HttpGet("khoa-phong")]
         public async Task<IActionResult> GetDepartments(Guid? branchId)
         {
             var query = _context.KhoaPhongs.AsQueryable();
@@ -48,7 +48,7 @@ namespace ItoApp.Api.Controllers
             return Ok(depts);
         }
 
-        [HttpGet("job-groups")]
+        [HttpGet("nhom-nghe-nghiep")]
         public async Task<IActionResult> GetJobGroups()
         {
             var groups = await _context.NhomNgheNghieps
@@ -60,7 +60,7 @@ namespace ItoApp.Api.Controllers
             return Ok(groups);
         }
 
-        [HttpGet("positions")]
+        [HttpGet("chuc-vu")]
         public async Task<IActionResult> GetPositions()
         {
             var positions = await _context.ChucVus

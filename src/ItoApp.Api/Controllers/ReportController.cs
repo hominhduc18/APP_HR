@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ItoApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/reports")]
+    [Route("api/bao-cao")]
     public class ReportController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -15,7 +15,7 @@ namespace ItoApp.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("staff-360/{id:guid}")]
+        [HttpGet("ho-so-360/{id:guid}")]
         public async Task<IActionResult> ExportStaff360(Guid id)
         {
             var staff = await _context.NhanViens
@@ -36,7 +36,7 @@ namespace ItoApp.Api.Controllers
             });
         }
 
-        [HttpGet("license-red-list")]
+        [HttpGet("danh-sach-ru-ro-chung-chi")]
         public async Task<IActionResult> ExportLicenseRedList()
         {
             var today = DateTime.Now;
@@ -61,7 +61,7 @@ namespace ItoApp.Api.Controllers
             });
         }
 
-        [HttpGet("training-gap")]
+        [HttpGet("bao-cao-dao-tao")]
         public async Task<IActionResult> ExportTrainingGap()
         {
             // Logic to find staff missing required training like CPR, ACLS
@@ -83,7 +83,7 @@ namespace ItoApp.Api.Controllers
             });
         }
 
-        [HttpGet("hr-master-list")]
+        [HttpGet("danh-sach-tong-hop")]
         public async Task<IActionResult> ExportMasterList()
         {
             var data = await _context.NhanViens
