@@ -244,6 +244,7 @@ namespace ItoApp.Infrastructure.Data
                 entity.Property(e => e.Id).HasColumnName("Id_ChungChi");
                 entity.Property(e => e.SoChungChi).HasColumnName("SoChungChi");
                 entity.Property(e => e.NgayCap).HasColumnName("NgayCap");
+                entity.Property(e => e.NgayHetHan).HasColumnName("NgayHetHan");
 
                 entity.HasOne(e => e.NhanVien).WithMany(nv => nv.ChungChiHanhNghes).HasForeignKey(e => e.NhanVienId);
             });

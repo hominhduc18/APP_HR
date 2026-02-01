@@ -9,6 +9,7 @@ namespace ItoApp.Domain.Entities
         public string NoiCap { get; set; } = string.Empty;
         public DateTime NgayCap { get; set; }
         public DateTime? NgayGiaHan { get; set; }
+        public DateTime? NgayHetHan { get; set; }
         
         public Guid NhanVienId { get; set; }
         public virtual NhanVien NhanVien { get; set; } = null!;
