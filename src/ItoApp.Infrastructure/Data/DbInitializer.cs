@@ -100,6 +100,67 @@ namespace ItoApp.Infrastructure.Data
                 await context.SaveChangesAsync();
             }
 
+            // Seed BenhNhan (Patients from image)
+            if (!await context.BenhNhans.AnyAsync())
+            {
+                var patients = new List<BenhNhan>
+                {
+                    new BenhNhan { 
+                        MaYTe = "11000936", TenBenhNhan = "Đào Huy Hoàng", TenKhongDau = "dao Huy Hoang", NgaySinh = new DateTime(1990, 1, 1), GioiTinh = "T", 
+                        SoDienThoai = "0", QuocTich_Id = 201, TinhThanh_Id = 145, SoNha = "Tp. Hồ Chí Minh", DiaChi = "Tp. Hồ Chí Minh", 
+                        CongTy_Id = 1, ChiNhanh_Id = 1, Id_Old = 312159, NgayTao = DateTime.Now 
+                    },
+                    new BenhNhan { 
+                        MaYTe = "11000937", TenBenhNhan = "Nguyễn Văn A", TenKhongDau = "Nguyen Van A", NgaySinh = new DateTime(1985, 5, 5), GioiTinh = "T", 
+                        SoDienThoai = "0", QuocTich_Id = 201, TinhThanh_Id = 145, QuanHuyen_Id = 661, XaPhuong_Id = 9435, SoNha = "Phường 1", DiaChi = "Phường 1, ...", 
+                        CongTy_Id = 1, ChiNhanh_Id = 1, Id_Old = 312160, NgayTao = DateTime.Now 
+                    },
+                    new BenhNhan { 
+                         MaYTe = "11000939", TenBenhNhan = "Nguyễn Thị C", TenKhongDau = "Nguyen Thi C", NgaySinh = new DateTime(1995, 2, 2), GioiTinh = "G", 
+                         SoDienThoai = "0", QuocTich_Id = 201, TinhThanh_Id = 174, QuanHuyen_Id = 695, SoNha = "Ấp Cầu Xây", DiaChi = "Ấp Cầu Xây...", 
+                         CongTy_Id = 1, ChiNhanh_Id = 1, Id_Old = 312162, NgayTao = DateTime.Now 
+                    }
+                };
+                
+                await context.BenhNhans.AddRangeAsync(patients);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed Dm_PhongBan (Departments/Rooms)
+            if (!await context.Dm_PhongBans.AnyAsync())
+            {
+                var phongBans = new List<Dm_PhongBan>
+                {
+                    new Dm_PhongBan { 
+                        PhongBanId = 1, MaPhong = "CC", TenPhong = "Cấp cứu", TenKhongDau = "Cap cuu", 
+                        LoaiPhong = 3, Cap = 1, CapTren_Id = null, Idx = 1, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 1, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 52, STT = 0, STTNhom = 0, KhoaChuyenMon = "TRAUMA" 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 2, MaPhong = "CDHA", TenPhong = "Chẩn đoán hình ảnh", TenKhongDau = "Chan doan hinh anh", 
+                        LoaiPhong = 3, Cap = 1, CapTren_Id = null, Idx = 268, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 1, 
+                        ChiNhanh_Id = 2, CongTy_Id = 1, Id_Old = 486, STT = 1, STTNhom = 0, KhoaChuyenMon = null 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 5, MaPhong = "KKB", TenPhong = "Khoa Khám Bệnh", TenKhongDau = "Khoa Kham Benh", 
+                        LoaiPhong = 1, Cap = 1, CapTren_Id = null, Idx = 10, ThucHienCLS = 0, TamNgung = 0, QuyTrinh = 1, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 55, STT = 1, STTNhom = 0, KhoaChuyenMon = null 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 41, MaPhong = "PK01", TenPhong = "PK01 - 232  Khám bệnh số 01", TenKhongDau = "PK01 - 232 Kham benh so 01", 
+                        LoaiPhong = -1, Cap = 2, CapTren_Id = 5, Idx = 100, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 0, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 446, STT = 1, STTNhom = 200, KhoaChuyenMon = null, PhanLoai = "PhongKham" 
+                    },
+                    new Dm_PhongBan { 
+                        PhongBanId = 50, MaPhong = "PK10", TenPhong = "PK10 - 232 Khám bệnh số 10", TenKhongDau = "PK10 - 232 Kham benh so 10", 
+                        LoaiPhong = -1, Cap = 2, CapTren_Id = 5, Idx = 1000, ThucHienCLS = 1, TamNgung = 0, QuyTrinh = 0, 
+                        ChiNhanh_Id = 1, CongTy_Id = 1, Id_Old = 585, STT = 1, STTNhom = 1500, KhoaChuyenMon = null, PhanLoai = "PhongKham"
+                    }
+                };
+                await context.Dm_PhongBans.AddRangeAsync(phongBans);
+                await context.SaveChangesAsync();
+            }
+
             // 1. Seed ChiNhanh
             if (!await context.ChiNhanhs.AnyAsync())
             {

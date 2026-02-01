@@ -38,6 +38,8 @@ namespace ItoApp.Infrastructure.Data
         public DbSet<Dm_NhomDichVu> Dm_NhomDichVus => Set<Dm_NhomDichVu>();
         public DbSet<Dm_DichVu> Dm_DichVus => Set<Dm_DichVu>();
         public DbSet<STT> STTs => Set<STT>();
+        public DbSet<BenhNhan> BenhNhans => Set<BenhNhan>();
+        public DbSet<Dm_PhongBan> Dm_PhongBans => Set<Dm_PhongBan>();
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -314,8 +316,23 @@ namespace ItoApp.Infrastructure.Data
             {
                 entity.ToTable("STT");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).UseIdentityColumn(); // Auto-increment for STT
+                entity.Property(e => e.Id).UseIdentityColumn(); 
                 entity.Property(e => e.Ngay).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<BenhNhan>(entity =>
+            {
+                entity.ToTable("BenhNhan");
+                entity.HasKey(e => e.BenhNhan_Id);
+                entity.Property(e => e.BenhNhan_Id).UseIdentityColumn();
+            });
+
+            modelBuilder.Entity<Dm_PhongBan>(entity =>
+            {
+                entity.ToTable("Dm_PhongBan");
+                entity.HasKey(e => e.PhongBanId);
+                entity.Property(e => e.PhongBanId).ValueGeneratedNever();
+                entity.HasOne(e => e.Parent).WithMany().HasForeignKey(e => e.CapTren_Id);
             });
         }
 
