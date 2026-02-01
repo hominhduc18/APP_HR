@@ -11,6 +11,13 @@ namespace ItoApp.Domain.Entities
         public virtual HospitalBranch Branch { get; private set; } = null!;
 
         public DateTime Date { get; private set; } // Ngày làm việc
+        
+        public int? PhongBanId { get; private set; }
+        public virtual Dm_PhongBan? PhongBan { get; private set; }
+
+        public int? NhomDichVuId { get; private set; }
+        public int? DichVuId { get; private set; }
+
         public TimeSpan StartTime { get; private set; }
         public TimeSpan EndTime { get; private set; }
         

@@ -4,6 +4,7 @@ using ItoApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ItoApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260201045810_AddPhongBanToDoctorSchedule")]
+    partial class AddPhongBanToDoctorSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -727,9 +730,6 @@ namespace ItoApp.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("SpecialtyId")
                         .HasColumnType("uniqueidentifier");
 
@@ -766,9 +766,6 @@ namespace ItoApp.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("date");
 
-                    b.Property<int?>("DichVuId")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -779,9 +776,6 @@ namespace ItoApp.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("MaxPatients")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NhomDichVuId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PhongBanId")
