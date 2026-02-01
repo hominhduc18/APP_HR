@@ -1,0 +1,15 @@
+using ItoApp.Domain.Common;
+
+namespace ItoApp.Domain.Entities
+{
+    public class KyThuatChuyenMon : BaseEntity
+    {
+        public string TenKyThuat { get; set; } = string.Empty;
+        public string SoQuyetDinh { get; set; } = string.Empty;
+        public DateTime NgayPheDuyet { get; set; }
+        public string? MoTa { get; set; }
+
+        public Guid NhanVienId { get; set; }
+        public virtual NhanVien NhanVien { get; set; } = null!;
+    }
+}

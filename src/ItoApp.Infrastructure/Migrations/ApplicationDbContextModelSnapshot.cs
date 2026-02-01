@@ -156,7 +156,8 @@ namespace ItoApp.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id_ChungChiDaoTao");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -185,7 +186,7 @@ namespace ItoApp.Infrastructure.Migrations
 
                     b.HasIndex("NhanVienId");
 
-                    b.ToTable("ChungChiDaoTaos");
+                    b.ToTable("ChungChiDaoTao", (string)null);
                 });
 
             modelBuilder.Entity("ItoApp.Domain.Entities.ChungChiHanhNghe", b =>
@@ -434,6 +435,127 @@ namespace ItoApp.Infrastructure.Migrations
                     b.HasIndex("ChiNhanhId");
 
                     b.ToTable("KhoaPhong", (string)null);
+                });
+
+            modelBuilder.Entity("ItoApp.Domain.Entities.KyLuat", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id_KyLuat");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("HinhThuc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LyDo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayQuyetDinh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayViPham")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("NhanVienId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nodung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NhanVienId");
+
+                    b.ToTable("KyLuat", (string)null);
+                });
+
+            modelBuilder.Entity("ItoApp.Domain.Entities.KyThuatChuyenMon", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id_KyThuat");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MoTa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayPheDuyet")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("NhanVienId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenKyThuat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NhanVienId");
+
+                    b.ToTable("KyThuatChuyenMon", (string)null);
+                });
+
+            modelBuilder.Entity("ItoApp.Domain.Entities.LichSuChinhSua", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id_LichSu");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DuLieuCu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DuLieuMoi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NguoiThucHien")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("NhanVienId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NoiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThaoTac")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NhanVienId");
+
+                    b.ToTable("LichSuChinhSua", (string)null);
                 });
 
             modelBuilder.Entity("ItoApp.Domain.Entities.NhanVien", b =>
@@ -884,6 +1006,37 @@ namespace ItoApp.Infrastructure.Migrations
                     b.Navigation("ChiNhanh");
                 });
 
+            modelBuilder.Entity("ItoApp.Domain.Entities.KyLuat", b =>
+                {
+                    b.HasOne("ItoApp.Domain.Entities.NhanVien", "NhanVien")
+                        .WithMany("KyLuats")
+                        .HasForeignKey("NhanVienId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NhanVien");
+                });
+
+            modelBuilder.Entity("ItoApp.Domain.Entities.KyThuatChuyenMon", b =>
+                {
+                    b.HasOne("ItoApp.Domain.Entities.NhanVien", "NhanVien")
+                        .WithMany("KyThuatChuyenMons")
+                        .HasForeignKey("NhanVienId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NhanVien");
+                });
+
+            modelBuilder.Entity("ItoApp.Domain.Entities.LichSuChinhSua", b =>
+                {
+                    b.HasOne("ItoApp.Domain.Entities.NhanVien", "NhanVien")
+                        .WithMany("LichSuChinhSuas")
+                        .HasForeignKey("NhanVienId");
+
+                    b.Navigation("NhanVien");
+                });
+
             modelBuilder.Entity("ItoApp.Domain.Entities.NhanVien", b =>
                 {
                     b.HasOne("ItoApp.Domain.Entities.ChiNhanh", "ChiNhanh")
@@ -979,6 +1132,12 @@ namespace ItoApp.Infrastructure.Migrations
                     b.Navigation("ChungChiHanhNghes");
 
                     b.Navigation("HopDongLaoDongs");
+
+                    b.Navigation("KyLuats");
+
+                    b.Navigation("KyThuatChuyenMons");
+
+                    b.Navigation("LichSuChinhSuas");
                 });
 
             modelBuilder.Entity("ItoApp.Domain.Entities.NhomNgheNghiep", b =>

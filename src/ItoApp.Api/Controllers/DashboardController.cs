@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ItoApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/dashboard")]
+    [Route("api/thong-ke")]
     public class DashboardController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -15,7 +15,7 @@ namespace ItoApp.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("kpi")]
+        [HttpGet("chi-so-kpi")]
         public async Task<IActionResult> GetKpis()
         {
             var totalStaff = await _context.NhanViens.CountAsync(n => n.TrangThai == "Active");
@@ -43,7 +43,7 @@ namespace ItoApp.Api.Controllers
             return Ok(kpis);
         }
 
-        [HttpGet("charts/structure")]
+        [HttpGet("bieu-do/co-cau")]
         public async Task<IActionResult> GetStructureChart()
         {
             var data = await _context.NhanViens
@@ -59,7 +59,7 @@ namespace ItoApp.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("charts/dept")]
+        [HttpGet("bieu-do/khoa-phong")]
         public async Task<IActionResult> GetDeptChart()
         {
             var data = await _context.NhanViens
@@ -76,7 +76,7 @@ namespace ItoApp.Api.Controllers
             return Ok(data);
         }
 
-        [HttpGet("charts/trend")]
+        [HttpGet("bieu-do/bien-dong")]
         public async Task<IActionResult> GetTrendChart()
         {
             // Calculate trend for last 6 months
@@ -96,7 +96,7 @@ namespace ItoApp.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("alerts/license")]
+        [HttpGet("canh-bao/chung-chi")]
         public async Task<IActionResult> GetLicenseAlerts()
         {
             var today = DateTime.Now;
