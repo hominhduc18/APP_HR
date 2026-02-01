@@ -140,45 +140,60 @@ _Same body as Create Staff_
 
 ---
 
-### 3. �🔐 Authentication (Patient)
+### 3. 🔐 Patient Authentication (New) (`/api/patient-auth`)
 
-**Login (Send OTP)** (`POST /api/auth/login`)
-
-```json
-{ "phone": "0909000111" }
-```
-
-**Verify Login** (`POST /api/auth/verify`)
+**1. Request OTP (Register/Forgot Password)**  
+`POST /api/patient-auth/request-otp`
 
 ```json
 {
-  "phone": "0909000111",
-  "otp": "123456"
+  "phoneNumber": "0909123456",
+  "type": "REGISTER"
 }
+// type: "REGISTER" or "FORGOT_PASS"
 ```
 
-**Register (Send OTP)** (`POST /api/patient/register/otp/send`)
-
-```json
-{ "phone": "0909000111" }
-```
-
-**Register (Complete)** (`POST /api/patient/register/otp/verify`)
+**2. Register (Complete)**  
+`POST /api/patient-auth/register`
 
 ```json
 {
-  "phone": "0909000111",
+  "phoneNumber": "0909123456",
   "otp": "123456",
-  "fullName": "Tran Van B",
-  "password": "Password123"
+  "password": "MySecretPassword",
+  "fullName": "Nguyen Van A"
 }
 ```
 
-**Refresh Token** (`POST /api/auth/refresh`)
+**3. Login**  
+`POST /api/patient-auth/login`
 
 ```json
 {
-  "refreshToken": "your_refresh_token_string"
+  "phoneNumber": "0909123456",
+  "password": "MySecretPassword"
+}
+```
+
+**4. Reset Password (Forgot Pass)**  
+`POST /api/patient-auth/reset-password`
+
+```json
+{
+  "phoneNumber": "0909123456",
+  "otp": "123456",
+  "newPassword": "NewPassword123"
+}
+```
+
+**5. Change Password (Logged In)**  
+`POST /api/patient-auth/change-password`
+
+```json
+{
+  "benhNhanId": 1,
+  "oldPassword": "OldPassword123",
+  "newPassword": "NewPassword123"
 }
 ```
 
