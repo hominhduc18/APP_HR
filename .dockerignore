@@ -1,0 +1,14 @@
+.dockerignore
+.git
+.vs
+.vscode
+.idea
+bin/
+obj/
+*.user
+*.lock.json
+app_log.txt
+build_errors.txt
+build_output.txt
+error.txt
+run_log.txt

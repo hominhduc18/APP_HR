@@ -1,240 +1,153 @@
-# ItoApp - HR & Hospital Appointment System
+# 🏥 ItoApp - Premium HR & Hospital Appointment System
 
-This is a comprehensive HR and Hospital management system built with **.NET 8** and **Clean Architecture**. It features Staff Management (HR), Patient Registration, Appointment Booking, and more.
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
+[![Framework](https://img.shields.io/badge/framework-.NET%208.0-blue.svg)](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+[![Architecture](https://img.shields.io/badge/architecture-Clean%20Architecture-orange.svg)]()
 
-## 🚀 Overview
+**ItoApp** is a high-performance, enterprise-grade HR and Hospital management solution. Built with a focus on scalability, modern design aesthetics, and robust domain logic, it provides a seamless experience for both hospital staff and patients.
 
-The system handles:
+---
 
-- **HR Management**: Manage staff, departments, positions (Staff, Doctors, etc.).
-- **Authentication**: Login/Register for Patients (with OTP support).
-- **Hospital Operations**: Branch management, Specialties, Doctor schedules.
-- **Appointments**: Booking, viewing, and managing patient appointments.
+## 🚀 System Architecture
 
-## ⚙️ Getting Started
+The project follows **Clean Architecture** principles to ensure maintainability and testability:
+
+- **Domain**: Contains entities, value objects, and core logic (The "Heart").
+- **Application**: Business rules, DTOs, and interface definitions.
+- **Infrastructure**: Persistence (EF Core), external services (SMS, Mail), and data initialization.
+- **API**: Modern REST endpoints with full Swagger documentation and Vietnamese localization.
+
+---
+
+## ✨ Core Modules
+
+### 👨‍💼 1. HR Management (Staff 360)
+
+A comprehensive system to manage hospital personnel, including:
+
+- **Personal Records**: Complete profile with avatars and metadata.
+- **Career Lifecycle**: Contracts, promotions, and department transfers.
+- **Compliance & Quality**: Professional certificates (CCHN), training history, and disciplinary actions.
+- **Dashboard**: Real-time KPI tracking for staff distribution and certificate risks.
+
+### 📅 2. Medical Appointment Booking
+
+A streamlined flow for patients to connect with doctors:
+
+- **Smart Scheduling**: Doctor availability based on branches, specialties, and rooms.
+- **Room Management**: Integration with `Dm_PhongBan` for precise physical location tracking.
+- **Easy Booking**: Quick registration and booking code generation.
+
+### 🔐 3. Patient Portal
+
+Secure access for medical service users:
+
+- **OTP-based Authentication**: Secure registration and password recovery via SMS simulation.
+- **Profile Management**: Update personal info and view booking history.
+- **Family Accounts**: (Roadmap) Primary account to manage family members.
+
+### 📊 4. Master Data & Metadata
+
+Standardized lookup tables following international/local medical codes:
+
+- `Dm_DichVu`, `Dm_LoaiDichVu`, `Dm_NhomDichVu`.
+- `HospitalBranch`, `Specialty`, `Dm_PhongBan`.
+
+---
+
+## ⚙️ Development Guide
 
 ### Prerequisites
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- SQL Server (or LocalDB)
+- .NET 8.0 SDK
+- SQL Server (Developer or LocalDB)
+- Optional: SSMS for database inspection
 
-### Build & Run
+### Quick Setup
 
-```bash
-# Build
-dotnet build
-# Run API
-dotnet run --project ItoApp.Api
-# Run Tests
-dotnet test
-```
+1. **Clone & Restore**
 
-## 🔌 API Reference & Payloads
+   ```bash
+   dotnet restore
+   ```
 
-Below is the detailed list of available API endpoints and their Request Body structures.
+2. **Database Migration**
 
-### 1. 🏥 HR - Staff Management (`/api/nhan-vien`)
+   ```bash
+   cd src
+   dotnet ef database update --project ItoApp.Infrastructure --startup-project ItoApp.Api
+   ```
 
-**Create Staff** (`POST /api/nhan-vien`)
-
-```json
-{
-  "maNhanVien": "NV001",
-  "hoTen": "Nguyen Van A",
-  "ngaySinh": "1990-01-01T00:00:00Z",
-  "gioiTinh": "Nam",
-  "soDienThoai": "0987654321",
-  "email": "a@example.com",
-  "diaChi": "TP.HCM",
-  "ngayVaoLam": "2023-01-01T00:00:00Z",
-  "chiNhanhId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "khoaPhongId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "nhomNgheNghiepId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "chucVuId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-}
-```
-
-**Update Staff** (`PUT /api/nhan-vien/{id}`)
-_Same body as Create Staff_
-
-**Change Status** (`PATCH /api/nhan-vien/{id}/trang-thai`)
-
-```json
-{
-  "trangThai": "Inactive"
-}
-```
-
-**Transfer Dept** (`POST /api/nhan-vien/{id}/dieu-chuyen`)
-
-```json
-{
-  "newKhoaPhongId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "effectiveDate": "2024-02-01T00:00:00Z",
-  "reason": "Job rotation"
-}
-```
+3. **Run Application**
+   ```bash
+   dotnet run --project ItoApp.Api
+   ```
 
 ---
 
-### 2. � Staff Profile (`/api/nhan-vien/{staffId}`)
+## 🔌 API Reference (Detail Body)
 
-**Add Contract** (`POST .../hop-dong`)
+### 🏥 Hospital Master Data (`/api/danh-muc`)
 
-```json
-{
-  "soHopDong": "HD-2024-001",
-  "loaiHopDong": "Official",
-  "ngayKy": "2024-01-01T00:00:00Z",
-  "ngayHetHan": "2025-01-01T00:00:00Z",
-  "duongDanFileScan": "http://example.com/scan.pdf"
-}
-```
+| Endpoint            | Method | Description                               |
+| :------------------ | :----- | :---------------------------------------- |
+| `/chi-nhanh`        | `GET`  | Get all hospital branches                 |
+| `/khoa-phong`       | `GET`  | Get departments, filterable by branchId   |
+| `/nhom-nghe-nghiep` | `GET`  | List job categories (Doctor, Nurse, etc.) |
+| `/chuc-vu`          | `GET`  | List official positions                   |
 
-**Add License (CCHN)** (`POST .../chung-chi-hanh-nghe`)
+### 🔐 Patient Auth Payloads
 
-```json
-{
-  "soChungChi": "CCHN-00123",
-  "phamViChuyenMon": "General Medicine",
-  "noiCap": "Department of Health",
-  "ngayCap": "2020-01-01T00:00:00Z",
-  "ngayGiaHan": "2025-01-01T00:00:00Z",
-  "ngayHetHan": "2025-12-31T00:00:00Z"
-}
-```
+#### **Request OTP**
 
-**Add Training** (`POST .../dao-tao`)
-
-```json
-{
-  "tenChungChi": "CPR Certification",
-  "noiDaoTao": "Red Cross",
-  "ngayHoanThanh": "2023-06-15T00:00:00Z",
-  "ngayHetHan": "2025-06-15T00:00:00Z"
-}
-```
-
-**Add Professional Privilege** (`POST .../ky-thuat-chuyen-mon`)
-
-```json
-{
-  "tenKyThuat": "Appendectomy",
-  "soQuyetDinh": "QD-1234",
-  "ngayPheDuyet": "2023-01-01T00:00:00Z",
-  "moTa": "Level 1 Surgery"
-}
-```
-
-**Add Discipline** (`POST .../ky-luat`)
-
-```json
-{
-  "hinhThuc": "Warning",
-  "lyDo": "Late arrival",
-  "ngayViPham": "2024-01-10T00:00:00Z",
-  "soQuyetDinh": "QD-KL-001",
-  "ngayQuyetDinh": "2024-01-12T00:00:00Z"
-}
-```
-
----
-
-### 3. 🔐 Patient Authentication (New) (`/api/patient-auth`)
-
-**1. Request OTP (Register/Forgot Password)**  
 `POST /api/patient-auth/request-otp`
 
 ```json
 {
-  "phoneNumber": "0909123456",
-  "type": "REGISTER"
+  "phoneNumber": "0901234567",
+  "type": "REGISTER" // OR "FORGOT_PASS"
 }
-// type: "REGISTER" or "FORGOT_PASS"
 ```
 
-**2. Register (Complete)**  
+#### **Complete Registration**
+
 `POST /api/patient-auth/register`
 
 ```json
 {
-  "phoneNumber": "0909123456",
+  "phoneNumber": "0901234567",
   "otp": "123456",
-  "password": "MySecretPassword",
-  "fullName": "Nguyen Van A"
+  "password": "StrongPassword123!",
+  "fullName": "Le Van Tam"
 }
 ```
 
-**3. Login**  
-`POST /api/patient-auth/login`
+### 📅 Booking Payloads
+
+#### **Create Appointment**
+
+`POST /api/Hospital/book`
 
 ```json
 {
-  "phoneNumber": "0909123456",
-  "password": "MySecretPassword"
-}
-```
-
-**4. Reset Password (Forgot Pass)**  
-`POST /api/patient-auth/reset-password`
-
-```json
-{
-  "phoneNumber": "0909123456",
-  "otp": "123456",
-  "newPassword": "NewPassword123"
-}
-```
-
-**5. Change Password (Logged In)**  
-`POST /api/patient-auth/change-password`
-
-```json
-{
-  "benhNhanId": 1,
-  "oldPassword": "OldPassword123",
-  "newPassword": "NewPassword123"
+  "patientId": "guid-here",
+  "doctorId": "guid-here",
+  "branchId": "guid-here",
+  "scheduleId": "guid-here",
+  "reason": "Routine musculoskeletal checkup"
 }
 ```
 
 ---
 
-### 4. 🏥 Hospital & Booking (`/api/Hospital`)
+## 🛠 Tech Stack Details
 
-**Book Appointment** (`POST /api/Hospital/book`)
-
-```json
-{
-  "patientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "doctorId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "branchId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "scheduleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "reason": "Headache checkup"
-}
-```
-
-**Get Schedules** (`GET /api/Hospital/schedules`)
-Query Params: `doctorId`, `branchId`, `date` (YYYY-MM-DD)
+- **Backend**: C#, .NET 8.0, ASP.NET Core Web API.
+- **ORM**: Entity Framework Core with SQL Server.
+- **Security**: SHA256 Password Hashing, JWT Authentication (Roadmap).
+- **Communication**: SMS Service infrastructure for OTP.
+- **Data Init**: Automatic seeding of master data on startup.
 
 ---
 
-### 5. � Patient Profile (`/api/patient`)
-
-**Update Profile** (`PUT /api/patient/{id}`)
-
-```json
-{
-  "name": "Tran Van B Updated",
-  "birthDate": "1995-05-20T00:00:00Z"
-}
-```
-
-## 📊 Analytics & Metadata
-
-- **Dashboard**: `GET /api/thong-ke/chi-so-kpi`, `/api/thong-ke/bieu-do/*`
-- **Metadata**: `GET /api/danh-muc/chi-nhanh`, `/api/danh-muc/khoa-phong`, etc.
-- **Reports**: `GET /api/bao-cao/ho-so-360/{id}`, `/api/bao-cao/danh-sach-ru-ro-chung-chi`, etc.
-
----
-
-_Generated by Antigravity Assistant_
+_Prepared by Antigravity Assistant for the ITO Hospital HR Project._
