@@ -136,7 +136,6 @@ Standardized lookup tables following international/local medical codes:
   "reason": "Routine musculoskeletal checkup"
 }
 ```
-
 ---
 
 ## 🛠 Tech Stack Details
@@ -149,4 +148,3 @@ Standardized lookup tables following international/local medical codes:
 
 ---
 
-_Prepared by Antigravity Assistant for the ITO Hospital HR Project._
