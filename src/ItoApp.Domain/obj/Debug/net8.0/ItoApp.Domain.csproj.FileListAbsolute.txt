@@ -24,3 +24,16 @@ D:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.dll
 D:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\refint\ItoApp.Domain.dll
 D:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.pdb
 D:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ref\ItoApp.Domain.dll
+E:\API_APP_HR\src\ItoApp.Domain\bin\Debug\net8.0\ItoApp.Domain.deps.json
+E:\API_APP_HR\src\ItoApp.Domain\bin\Debug\net8.0\ItoApp.Domain.dll
+E:\API_APP_HR\src\ItoApp.Domain\bin\Debug\net8.0\ItoApp.Domain.pdb
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.csproj.AssemblyReference.cache
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.AssemblyInfoInputs.cache
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.AssemblyInfo.cs
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.csproj.CoreCompileInputs.cache
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.sourcelink.json
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.dll
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\refint\ItoApp.Domain.dll
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ItoApp.Domain.pdb
+E:\API_APP_HR\src\ItoApp.Domain\obj\Debug\net8.0\ref\ItoApp.Domain.dll

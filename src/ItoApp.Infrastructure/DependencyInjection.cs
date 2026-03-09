@@ -7,6 +7,7 @@ using ItoApp.Infrastructure.Sms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ItoApp.Application.Interfaces;
 
 namespace ItoApp.Infrastructure
 {
@@ -32,6 +33,7 @@ namespace ItoApp.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IHospitalRepository, HospitalRepository>();
+            services.AddScoped<IItoCareRepository, ItoCareRepository>();
             services.AddScoped<IOtpRepository, OtpRepository>();
             
             services.AddScoped<ISmsSender, DevSmsSender>();
