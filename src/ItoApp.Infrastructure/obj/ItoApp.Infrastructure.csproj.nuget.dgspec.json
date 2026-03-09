@@ -207,6 +207,10 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[7.0.0-preview3.25342.7, )"
