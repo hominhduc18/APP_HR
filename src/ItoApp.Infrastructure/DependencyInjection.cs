@@ -36,7 +36,33 @@ namespace ItoApp.Infrastructure
             services.AddScoped<IItoCareRepository, ItoCareRepository>();
             services.AddScoped<IOtpRepository, OtpRepository>();
             
-            services.AddScoped<ISmsSender, DevSmsSender>();
+            // Dynamic SMS Sender registration
+            var smsProvider = configuration["Sms:Provider"]?.ToLower();
+            var useMock = configuration.GetValue<bool>("Sms:UseMock", true);
+
+            if (useMock || string.IsNullOrEmpty(smsProvider))
+            {
+                services.AddScoped<ISmsSender, DevSmsSender>();
+            }
+            else
+            {
+                switch (smsProvider)
+                {
+                    case "twilio":
+                        services.AddScoped<ISmsSender, TwilioSmsSender>();
+                        break;
+                    case "viettel":
+                        services.AddScoped<ISmsSender, ViettelSmsSender>();
+                        break;
+                    case "mobifone":
+                        services.AddScoped<ISmsSender, MobifoneSmsSender>();
+                        break;
+                    default:
+                        services.AddScoped<ISmsSender, DevSmsSender>();
+                        break;
+                }
+            }
+
             services.AddScoped<ITokenService, DevTokenService>();
 
             return services;
