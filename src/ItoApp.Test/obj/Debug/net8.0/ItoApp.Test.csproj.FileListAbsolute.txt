@@ -366,3 +366,14 @@ E:\API_APP_HR\src\ItoApp.Test\obj\Debug\net8.0\refint\ItoApp.Test.dll
 E:\API_APP_HR\src\ItoApp.Test\obj\Debug\net8.0\ItoApp.Test.pdb
 E:\API_APP_HR\src\ItoApp.Test\obj\Debug\net8.0\ItoApp.Test.genruntimeconfig.cache
 E:\API_APP_HR\src\ItoApp.Test\obj\Debug\net8.0\ref\ItoApp.Test.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\FirebaseAdmin.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Google.Api.Gax.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Google.Api.Gax.Rest.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Google.Apis.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Google.Apis.Auth.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Google.Apis.Core.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Npgsql.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\System.CodeDom.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\System.Management.dll
+D:\API_APP_HR\src\ItoApp.Test\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
