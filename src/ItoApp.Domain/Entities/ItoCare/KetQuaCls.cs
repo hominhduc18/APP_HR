@@ -16,6 +16,13 @@ namespace ItoApp.Domain.Entities.ItoCare
         [Column("ho_so_id")]
         public int HoSoId { get; set; }
 
+        [Column("bac_si_id")]
+        public int? BacSiId { get; set; }
+
+        [StringLength(100)]
+        [Column("loai_ket_qua")]
+        public string? LoaiKetQua { get; set; }
+
         [Required]
         [StringLength(200)]
         [Column("ten_dich_vu")]
@@ -41,6 +48,12 @@ namespace ItoApp.Domain.Entities.ItoCare
         [Column("duong_dan_pdf")]
         public string? DuongDanPdf { get; set; }
 
+        [Column("mo_ta")]
+        public string? MoTa { get; set; }
+
+        [Column("hinh_anh_url")]
+        public string? HinhAnhUrl { get; set; }
+
         [Column("duong_dan_pacs")]
         public string? DuongDanPacs { get; set; }
 
@@ -50,5 +63,8 @@ namespace ItoApp.Domain.Entities.ItoCare
         // Navigation properties
         [ForeignKey("HoSoId")]
         public virtual HoSoBenhNhan? HoSoBenhNhan { get; set; }
+
+        [ForeignKey("BacSiId")]
+        public virtual BacSi? BacSi { get; set; }
     }
 }

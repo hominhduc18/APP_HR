@@ -15,8 +15,8 @@ namespace ItoApp.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("ho-so-360/{id:guid}")]
-        public async Task<IActionResult> ExportStaff360(Guid id)
+        [HttpGet("ho-so-360/{id:int}")]
+        public async Task<IActionResult> ExportStaff360(int id)
         {
             var staff = await _context.NhanViens
                 .Include(n => n.ChiNhanh)

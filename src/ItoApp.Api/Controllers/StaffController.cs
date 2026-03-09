@@ -20,8 +20,8 @@ namespace ItoApp.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStaff(
             [FromQuery] string? search,
-            [FromQuery] Guid? branchId,
-            [FromQuery] Guid? deptId,
+            [FromQuery] int? branchId,
+            [FromQuery] int? deptId,
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 10)
         {
@@ -76,8 +76,8 @@ namespace ItoApp.Api.Controllers
             return Ok(new { total, items, page, pageSize });
         }
 
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetStaffById(Guid id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetStaffById(int id)
         {
             var n = await _context.NhanViens
                 .Include(n => n.ChiNhanh)
@@ -147,8 +147,8 @@ namespace ItoApp.Api.Controllers
             return CreatedAtAction(nameof(GetStaffById), new { id = nv.Id }, nv.Id);
         }
 
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateStaff(Guid id, [FromBody] UpdateStaffRequest req)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateStaff(int id, [FromBody] UpdateStaffRequest req)
         {
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();
@@ -177,8 +177,8 @@ namespace ItoApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteStaff(Guid id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteStaff(int id)
         {
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();
@@ -194,8 +194,8 @@ namespace ItoApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpPatch("{id:guid}/trang-thai")]
-        public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateStaffStatusRequest req)
+        [HttpPatch("{id:int}/trang-thai")]
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateStaffStatusRequest req)
         {
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();
@@ -214,8 +214,8 @@ namespace ItoApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id:guid}/dieu-chuyen")]
-        public async Task<IActionResult> Transfer(Guid id, [FromBody] TransferStaffRequest req)
+        [HttpPost("{id:int}/dieu-chuyen")]
+        public async Task<IActionResult> Transfer(int id, [FromBody] TransferStaffRequest req)
         {
             var nv = await _context.NhanViens.FindAsync(id);
             if (nv == null) return NotFound();

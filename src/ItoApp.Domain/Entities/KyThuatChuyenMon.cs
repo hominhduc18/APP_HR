@@ -9,7 +9,7 @@ namespace ItoApp.Domain.Entities
         public DateTime NgayPheDuyet { get; set; }
         public string? MoTa { get; set; }
 
-        public Guid NhanVienId { get; set; }
+        public int NhanVienId { get; set; }
         public virtual NhanVien NhanVien { get; set; } = null!;
     }
 }

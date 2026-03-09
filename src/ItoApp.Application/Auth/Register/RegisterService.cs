@@ -37,25 +37,25 @@ public class RegisterService
     {
         var phoneValue = (req.Phone ?? "").Trim();
         if (string.IsNullOrWhiteSpace(phoneValue)) 
-            return BaseResponse<object>.Error("Số điện thoại không được để trống");
+            return BaseResponse<object>.ThatBai("Số điện thoại không được để trống");
 
         try 
         {
             var phoneNumber = PhoneNumber.Create(phoneValue);
             var existingUser = await _users.GetByPhoneAsync(phoneNumber.Value);
             if (existingUser != null)
-                return BaseResponse<object>.Error("Số điện thoại đã được đăng ký");
+                return BaseResponse<object>.ThatBai("Số điện thoại đã được đăng ký");
 
             var otpCode = new OtpCode(phoneNumber.Value, OtpType.Register, OtpChannel.SMS);
             
             await _otps.AddAsync(otpCode);
             await _sms.SendOtpAsync(phoneNumber.Value, otpCode.Code);
 
-            return BaseResponse<object>.Success(new { expiresIn = 300 }, "Đã gửi OTP đăng ký");
+            return BaseResponse<object>.ThanhCong(new { expiresIn = 300 }, "Đã gửi OTP đăng ký");
         }
         catch (ArgumentException ex)
         {
-            return BaseResponse<object>.Error(ex.Message);
+            return BaseResponse<object>.ThatBai(ex.Message);
         }
     }
 
@@ -70,12 +70,12 @@ public class RegisterService
             var otpRecord = await _otps.GetLatestActiveOtpAsync(phoneNumber.Value, OtpType.Register);
 
             if (otpRecord == null) 
-                return BaseResponse<RegisterResponse>.Error("OTP không tồn tại hoặc đã hết hạn");
+                return BaseResponse<RegisterResponse>.ThatBai("OTP không tồn tại hoặc đã hết hạn");
 
             if (!otpRecord.Verify(code))
             {
                 await _otps.UpdateAsync(otpRecord);
-                return BaseResponse<RegisterResponse>.Error("Mã OTP không đúng");
+                return BaseResponse<RegisterResponse>.ThatBai("Mã OTP không đúng");
             }
 
             await _otps.UpdateAsync(otpRecord);
@@ -89,9 +89,9 @@ public class RegisterService
             var patient = new Patient(user.Id, req.FullName);
             await _patients.AddAsync(patient);
 
-            var (access, refresh) = _tokens.CreateTokens(user.Id, "PATIENT");
+            var (access, refresh) = _tokens.CreateTokens(user.Id.ToString(), "PATIENT");
 
-            return BaseResponse<RegisterResponse>.Success(
+            return BaseResponse<RegisterResponse>.ThanhCong(
                 new RegisterResponse { 
                     UserId = user.Id, 
                     PatientId = patient.Id, 
@@ -103,7 +103,7 @@ public class RegisterService
         }
         catch (Exception ex)
         {
-            return BaseResponse<RegisterResponse>.Error(ex.Message);
+            return BaseResponse<RegisterResponse>.ThatBai(ex.Message);
         }
     }
 }

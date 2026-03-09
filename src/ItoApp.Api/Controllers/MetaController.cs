@@ -31,7 +31,7 @@ namespace ItoApp.Api.Controllers
         }
 
         [HttpGet("khoa-phong")]
-        public async Task<IActionResult> GetDepartments(Guid? branchId)
+        public async Task<IActionResult> GetDepartments(int? branchId)
         {
             var query = _context.KhoaPhongs.AsQueryable();
             if (branchId.HasValue)

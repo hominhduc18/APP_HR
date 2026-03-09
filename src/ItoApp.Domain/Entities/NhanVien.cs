@@ -15,16 +15,16 @@ namespace ItoApp.Domain.Entities
         public string TrangThai { get; set; } = "Active"; // Active, Terminated, Locked
 
         // Foreign Keys
-        public Guid ChiNhanhId { get; set; }
+        public int ChiNhanhId { get; set; }
         public virtual ChiNhanh ChiNhanh { get; set; } = null!;
 
-        public Guid KhoaPhongId { get; set; }
+        public int KhoaPhongId { get; set; }
         public virtual KhoaPhong KhoaPhong { get; set; } = null!;
 
-        public Guid NhomNgheNghiepId { get; set; }
+        public int NhomNgheNghiepId { get; set; }
         public virtual NhomNgheNghiep NhomNgheNghiep { get; set; } = null!;
 
-        public Guid ChucVuId { get; set; }
+        public int ChucVuId { get; set; }
         public virtual ChucVu ChucVu { get; set; } = null!;
 
         // Navigation

@@ -23,6 +23,12 @@ namespace ItoApp.Domain.Entities.ItoCare
         [Column("da_dat")]
         public bool DaDat { get; set; } = false;
 
+        [NotMapped]
+        public string GioBatDau => ThoiGian.ToString(@"hh\:mm");
+
+        [NotMapped]
+        public string GioKetThuc => ThoiGian.Add(TimeSpan.FromMinutes(30)).ToString(@"hh\:mm");
+
         // Navigation properties
         [ForeignKey("LichLvId")]
         public virtual LichLamViec? LichLamViec { get; set; }

@@ -26,13 +26,13 @@ namespace ItoApp.Application.Services
             return specialties.Select(s => new SpecialtyDto(s.Id, s.Name, s.Description, s.IconUrl));
         }
 
-        public async Task<IEnumerable<DoctorDto>> GetDoctorsBySpecialtyAsync(Guid specialtyId)
+        public async Task<IEnumerable<DoctorDto>> GetDoctorsBySpecialtyAsync(int specialtyId)
         {
             var doctors = await _repository.GetDoctorsBySpecialtyAsync(specialtyId);
             return doctors.Select(d => new DoctorDto(d.Id, d.FullName, d.Title, d.Biography, d.AvatarUrl, d.Specialty.Name));
         }
 
-        public async Task<IEnumerable<ScheduleDto>> GetAvailableSchedulesAsync(Guid doctorId, Guid branchId, DateTime date)
+        public async Task<IEnumerable<ScheduleDto>> GetAvailableSchedulesAsync(int doctorId, int branchId, DateTime date)
         {
             var schedules = await _repository.GetDoctorSchedulesAsync(doctorId, branchId, date);
             return schedules
@@ -69,7 +69,7 @@ namespace ItoApp.Application.Services
                 appointment.Status.ToString());
         }
 
-        public async Task<IEnumerable<AppointmentDto>> GetPatientAppointmentsAsync(Guid patientId)
+        public async Task<IEnumerable<AppointmentDto>> GetPatientAppointmentsAsync(int patientId)
         {
             var appointments = await _repository.GetPatientAppointmentsAsync(patientId);
             return appointments.Select(a => new AppointmentDto(

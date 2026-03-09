@@ -7,7 +7,7 @@ namespace ItoApp.Domain.Entities
         public string TenKhoaPhong { get; set; } = string.Empty;
         public string? MoTa { get; set; }
         
-        public Guid ChiNhanhId { get; set; }
+        public int ChiNhanhId { get; set; }
         public virtual ChiNhanh ChiNhanh { get; set; } = null!;
 
         // Navigation

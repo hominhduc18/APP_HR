@@ -10,7 +10,7 @@ namespace ItoApp.Domain.Entities
         public DateTime? NgayHetHan { get; set; }
         public string? DuongDanFileScan { get; set; }
         
-        public Guid NhanVienId { get; set; }
+        public int NhanVienId { get; set; }
         public virtual NhanVien NhanVien { get; set; } = null!;
     }
 }

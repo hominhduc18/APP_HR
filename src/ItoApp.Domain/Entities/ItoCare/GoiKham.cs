@@ -24,6 +24,9 @@ namespace ItoApp.Domain.Entities.ItoCare
         [Column("gia_goi")]
         public decimal GiaGoi { get; set; }
 
+        [NotMapped]
+        public decimal GiaTien => GiaGoi;
+
         [Column("anh_banner")]
         public string? AnhBanner { get; set; }
 

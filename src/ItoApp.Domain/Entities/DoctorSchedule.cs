@@ -4,10 +4,10 @@ namespace ItoApp.Domain.Entities
 {
     public class DoctorSchedule : BaseEntity
     {
-        public Guid DoctorId { get; private set; }
+        public int DoctorId { get; private set; }
         public virtual Doctor Doctor { get; private set; } = null!;
 
-        public Guid BranchId { get; private set; }
+        public int BranchId { get; private set; }
         public virtual HospitalBranch Branch { get; private set; } = null!;
 
         public DateTime Date { get; private set; } // Ngày làm việc
@@ -27,7 +27,7 @@ namespace ItoApp.Domain.Entities
 
         private DoctorSchedule() { }
 
-        public DoctorSchedule(Guid doctorId, Guid branchId, DateTime date, TimeSpan startTime, TimeSpan endTime, int maxPatients)
+        public DoctorSchedule(int doctorId, int branchId, DateTime date, TimeSpan startTime, TimeSpan endTime, int maxPatients)
         {
             DoctorId = doctorId;
             BranchId = branchId;

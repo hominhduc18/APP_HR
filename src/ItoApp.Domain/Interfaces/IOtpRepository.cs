@@ -16,7 +16,7 @@ namespace ItoApp.Domain.Interfaces
     
         Task SaveAsync(string identifier, string type, string otpHash, DateTime expiresAt);
         Task<OtpCode?> GetLatestAsync(string identifier, string type);
-        Task MarkUsedAsync(Guid otpId);
-        Task IncreaseAttemptAsync(Guid otpId);
+        Task MarkUsedAsync(int otpId);
+        Task IncreaseAttemptAsync(int otpId);
     }
 }

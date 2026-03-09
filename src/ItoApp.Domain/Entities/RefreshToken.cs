@@ -14,12 +14,12 @@ namespace ItoApp.Domain.Entities
         public bool IsActive => !IsRevoked && !IsExpired;
         
         // Foreign key
-        public Guid UserId { get; private set; }
+        public int UserId { get; private set; }
         public virtual User User { get; private set; }
         
         private RefreshToken() {}
         
-        public RefreshToken(Guid userId, int expiryDays = 7)
+        public RefreshToken(int userId, int expiryDays = 7)
         {
             UserId = userId;
             Token = GenerateToken();

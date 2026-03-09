@@ -15,7 +15,7 @@ namespace ItoApp.Domain.Entities
         public string? MedicalHistory { get; private set; }
         
         // Foreign key
-        public Guid UserId { get; private set; }
+        public int UserId { get; private set; }
         
         // Navigation property - QUAN TRỌNG
         public virtual User User { get; private set; } = null!;
@@ -24,7 +24,7 @@ namespace ItoApp.Domain.Entities
         private Patient() {}
         
         // Public constructor
-        public Patient(Guid userId, string fullName)
+        public Patient(int userId, string fullName)
         {
             UserId = userId;
             FullName = ValidateFullName(fullName);

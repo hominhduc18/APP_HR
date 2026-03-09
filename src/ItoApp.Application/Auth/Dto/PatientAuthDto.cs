@@ -75,8 +75,8 @@ namespace ItoApp.Application.Auth.Dto
     // Response đăng nhập/đăng ký thành công
     public class PatientAuthResponse
     {
-        public Guid UserId { get; set; }
-        public Guid PatientId { get; set; }
+        public int UserId { get; set; }
+        public int PatientId { get; set; }
         public string PhoneOrEmail { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public string AccessToken { get; set; } = string.Empty;
