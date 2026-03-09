@@ -43,13 +43,13 @@ public  sealed class Email : IEquatable<Email>
         return Value.GetHashCode();
     }
         
-    public static bool operator ==(Email left, Email right)
+    public static bool operator ==(Email? left, Email? right)
     {
         if (left is null) return right is null;
         return left.Equals(right);
     }
         
-    public static bool operator !=(Email left, Email right)
+    public static bool operator !=(Email? left, Email? right)
     {
         return !(left == right);
     }

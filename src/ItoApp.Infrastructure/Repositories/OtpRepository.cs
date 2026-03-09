@@ -70,7 +70,7 @@ namespace ItoApp.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task MarkUsedAsync(Guid otpId)
+        public async Task MarkUsedAsync(int otpId)
         {
             var otp = await _context.OtpCodes.FindAsync(otpId);
             if (otp != null)
@@ -80,7 +80,7 @@ namespace ItoApp.Infrastructure.Repositories
             }
         }
 
-        public async Task IncreaseAttemptAsync(Guid otpId)
+        public async Task IncreaseAttemptAsync(int otpId)
         {
             // Logic to increase attempt
         }

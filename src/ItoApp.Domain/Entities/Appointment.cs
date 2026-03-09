@@ -5,13 +5,13 @@ namespace ItoApp.Domain.Entities
 {
     public class Appointment : BaseEntity
     {
-        public Guid PatientId { get; private set; }
+        public int PatientId { get; private set; }
         public virtual Patient Patient { get; private set; } = null!;
 
-        public Guid DoctorId { get; private set; }
+        public int DoctorId { get; private set; }
         public virtual Doctor Doctor { get; private set; } = null!;
 
-        public Guid BranchId { get; private set; }
+        public int BranchId { get; private set; }
         public virtual HospitalBranch Branch { get; private set; } = null!;
 
         public DateTime AppointmentDate { get; private set; }
@@ -23,7 +23,7 @@ namespace ItoApp.Domain.Entities
 
         private Appointment() { }
 
-        public Appointment(Guid patientId, Guid doctorId, Guid branchId, DateTime date, TimeSpan time, string? reason, string bookingCode)
+        public Appointment(int patientId, int doctorId, int branchId, DateTime date, TimeSpan time, string? reason, string bookingCode)
         {
             PatientId = patientId;
             DoctorId = doctorId;

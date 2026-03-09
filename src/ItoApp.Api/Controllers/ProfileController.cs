@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ItoApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/nhan-vien/{staffId:guid}")]
+    [Route("api/nhan-vien/{staffId:int}")]
     public class ProfileController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -19,7 +19,7 @@ namespace ItoApp.Api.Controllers
 
         // --- CONTRACTS ---
         [HttpGet("hop-dong")]
-        public async Task<IActionResult> GetContracts(Guid staffId)
+        public async Task<IActionResult> GetContracts(int staffId)
         {
             var data = await _context.HopDongLaoDongs
                 .Where(x => x.NhanVienId == staffId)
@@ -35,7 +35,7 @@ namespace ItoApp.Api.Controllers
         }
 
         [HttpPost("hop-dong")]
-        public async Task<IActionResult> CreateContract(Guid staffId, [FromBody] CreateContractRequest req)
+        public async Task<IActionResult> CreateContract(int staffId, [FromBody] CreateContractRequest req)
         {
             var item = new HopDongLaoDong {
                 NhanVienId = staffId,
@@ -52,7 +52,7 @@ namespace ItoApp.Api.Controllers
 
         // --- LICENSES ---
         [HttpGet("chung-chi-hanh-nghe")]
-        public async Task<IActionResult> GetLicenses(Guid staffId)
+        public async Task<IActionResult> GetLicenses(int staffId)
         {
             var data = await _context.ChungChiHanhNghes
                 .Where(x => x.NhanVienId == staffId)
@@ -69,7 +69,7 @@ namespace ItoApp.Api.Controllers
         }
 
         [HttpPost("chung-chi-hanh-nghe")]
-        public async Task<IActionResult> CreateLicense(Guid staffId, [FromBody] CreateLicenseRequest req)
+        public async Task<IActionResult> CreateLicense(int staffId, [FromBody] CreateLicenseRequest req)
         {
             var item = new ChungChiHanhNghe {
                 NhanVienId = staffId,
@@ -87,7 +87,7 @@ namespace ItoApp.Api.Controllers
 
         // --- TRAINING ---
         [HttpGet("dao-tao")]
-        public async Task<IActionResult> GetTraining(Guid staffId)
+        public async Task<IActionResult> GetTraining(int staffId)
         {
             var data = await _context.ChungChiDaoTaos
                 .Where(x => x.NhanVienId == staffId)
@@ -102,7 +102,7 @@ namespace ItoApp.Api.Controllers
         }
 
         [HttpPost("dao-tao")]
-        public async Task<IActionResult> CreateTraining(Guid staffId, [FromBody] CreateTrainingRequest req)
+        public async Task<IActionResult> CreateTraining(int staffId, [FromBody] CreateTrainingRequest req)
         {
             var item = new ChungChiDaoTao {
                 NhanVienId = staffId,
@@ -118,7 +118,7 @@ namespace ItoApp.Api.Controllers
 
         // --- PRIVILEGES ---
         [HttpGet("ky-thuat-chuyen-mon")]
-        public async Task<IActionResult> GetPrivileges(Guid staffId)
+        public async Task<IActionResult> GetPrivileges(int staffId)
         {
             var data = await _context.KyThuatChuyenMons
                 .Where(x => x.NhanVienId == staffId)
@@ -133,7 +133,7 @@ namespace ItoApp.Api.Controllers
         }
 
         [HttpPost("ky-thuat-chuyen-mon")]
-        public async Task<IActionResult> CreatePrivilege(Guid staffId, [FromBody] CreatePrivilegeRequest req)
+        public async Task<IActionResult> CreatePrivilege(int staffId, [FromBody] CreatePrivilegeRequest req)
         {
             var item = new KyThuatChuyenMon {
                 NhanVienId = staffId,
@@ -149,7 +149,7 @@ namespace ItoApp.Api.Controllers
 
         // --- COMPLIANCE ---
         [HttpGet("ky-luat")]
-        public async Task<IActionResult> GetCompliance(Guid staffId)
+        public async Task<IActionResult> GetCompliance(int staffId)
         {
             var data = await _context.KyLuats
                 .Where(x => x.NhanVienId == staffId)
@@ -165,7 +165,7 @@ namespace ItoApp.Api.Controllers
         }
 
         [HttpPost("ky-luat")]
-        public async Task<IActionResult> CreateCompliance(Guid staffId, [FromBody] CreateComplianceRequest req)
+        public async Task<IActionResult> CreateCompliance(int staffId, [FromBody] CreateComplianceRequest req)
         {
             var item = new KyLuat {
                 NhanVienId = staffId,
@@ -182,7 +182,7 @@ namespace ItoApp.Api.Controllers
 
         // --- AUDIT LOGS ---
         [HttpGet("nhat-ky-chinh-sua")]
-        public async Task<IActionResult> GetAuditLogs(Guid staffId)
+        public async Task<IActionResult> GetAuditLogs(int staffId)
         {
             var data = await _context.LichSuChinhSuas
                 .Where(x => x.NhanVienId == staffId)

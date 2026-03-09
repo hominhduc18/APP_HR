@@ -1,9 +1,9 @@
 namespace ItoApp.Application.Abstractions;
 
-public record TokenPayload(Guid UserId, string Role);
+public record TokenPayload(string UserId, string Role);
 
 public interface ITokenService
 {
-    (string accessToken, string refreshToken) CreateTokens(Guid userId, string role);
+    (string accessToken, string refreshToken) CreateTokens(string userId, string role);
     TokenPayload? ValidateRefreshToken(string refreshToken);
 }

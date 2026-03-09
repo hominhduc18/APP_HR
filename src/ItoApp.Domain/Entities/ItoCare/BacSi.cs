@@ -25,6 +25,14 @@ namespace ItoApp.Domain.Entities.ItoCare
         [Column("chuc_danh")]
         public string? ChucDanh { get; set; }
 
+        [StringLength(50)]
+        [Column("hoc_ham_hoc_vi")]
+        public string? HocHamHocVi { get; set; }
+
+        [StringLength(100)]
+        [Column("chuyen_khoa")]
+        public string? ChuyenKhoa { get; set; }
+
         [Column("anh_dai_dien")]
         public string? AnhDaiDien { get; set; }
 

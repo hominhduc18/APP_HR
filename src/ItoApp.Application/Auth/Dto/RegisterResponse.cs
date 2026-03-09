@@ -2,8 +2,8 @@ namespace ItoApp.Application.Auth.Dto;
 
 public class RegisterResponse
 {
-    public Guid UserId { get; set; }
-    public Guid PatientId { get; set; }
+    public int UserId { get; set; }
+    public int PatientId { get; set; }
     public string AccessToken { get; set; } = string.Empty;
     public string RefreshToken { get; set; } = string.Empty;
 }

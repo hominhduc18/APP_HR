@@ -10,7 +10,7 @@ namespace ItoApp.Domain.Entities
         public string? DuLieuCu { get; set; } // JSON string
         public string? DuLieuMoi { get; set; } // JSON string
 
-        public Guid? NhanVienId { get; set; }
+        public int? NhanVienId { get; set; }
         public virtual NhanVien? NhanVien { get; set; }
     }
 }

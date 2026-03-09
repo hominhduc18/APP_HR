@@ -1,10 +1,15 @@
 namespace ItoApp.Domain.Common;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 public abstract class BaseEntity
 {
    private readonly List<BaseEvent>  _domainEvents  = new List<BaseEvent>();
    
-   public Guid Id { get; protected set; } = Guid.NewGuid();
+   [Key]
+   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+   public int Id { get; protected set; }
    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
    public DateTime? UpdatedAt { get; set; }
         

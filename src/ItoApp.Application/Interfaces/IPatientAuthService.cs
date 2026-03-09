@@ -18,6 +18,6 @@ namespace ItoApp.Application.Interfaces
 
         // Token
         Task<BaseResponse<PatientAuthResponse>> RefreshTokenAsync(string refreshToken);
-        Task<BaseResponse<bool>> LogoutAsync(Guid userId, string refreshToken);
+        Task<BaseResponse<bool>> LogoutAsync(int userId, string refreshToken);
     }
 }

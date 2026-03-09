@@ -27,6 +27,9 @@ namespace ItoApp.Domain.Entities.ItoCare
         [Column("icon")]
         public string? Icon { get; set; }
 
+        [Column("anh_dai_dien")]
+        public string? AnhDaiDien { get; set; }
+
         [Column("la_hoat_dong")]
         public bool LaHoatDong { get; set; } = true;
 

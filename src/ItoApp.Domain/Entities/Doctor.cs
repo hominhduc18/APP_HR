@@ -11,7 +11,7 @@ namespace ItoApp.Domain.Entities
         public string? PhoneNumber { get; private set; }
         public bool IsActive { get; private set; }
 
-        public Guid SpecialtyId { get; private set; }
+        public int SpecialtyId { get; private set; }
         public virtual Specialty Specialty { get; private set; } = null!;
 
         public virtual ICollection<DoctorSchedule> Schedules { get; private set; } = new List<DoctorSchedule>();
@@ -19,7 +19,7 @@ namespace ItoApp.Domain.Entities
 
         private Doctor() { }
 
-        public Doctor(string fullName, string title, Guid specialtyId, string? biography = null, string? avatarUrl = null)
+        public Doctor(string fullName, string title, int specialtyId, string? biography = null, string? avatarUrl = null)
         {
             FullName = fullName;
             Title = title;
@@ -30,7 +30,7 @@ namespace ItoApp.Domain.Entities
             CreatedAt = DateTime.UtcNow;
         }
 
-        public void UpdateProfile(string fullName, string title, Guid specialtyId, string? biography, string? avatarUrl)
+        public void UpdateProfile(string fullName, string title, int specialtyId, string? biography, string? avatarUrl)
         {
             FullName = fullName;
             Title = title;

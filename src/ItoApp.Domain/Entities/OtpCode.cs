@@ -15,7 +15,7 @@ namespace ItoApp.Domain.Entities
         public DateTime? VerifiedAt { get; private set; }
 
         // Foreign key (optional)
-        public Guid? UserId { get; private set; }
+        public int? UserId { get; private set; }
 
         private OtpCode()
         {

@@ -14,7 +14,7 @@ namespace ItoApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<HospitalBranch?> GetBranchByIdAsync(Guid id)
+        public async Task<HospitalBranch?> GetBranchByIdAsync(int id)
         {
             return await _context.HospitalBranches.FindAsync(id);
         }
@@ -29,7 +29,7 @@ namespace ItoApp.Infrastructure.Repositories
             return await _context.Specialties.Where(s => s.IsActive).ToListAsync();
         }
 
-        public async Task<IEnumerable<Doctor>> GetDoctorsBySpecialtyAsync(Guid specialtyId)
+        public async Task<IEnumerable<Doctor>> GetDoctorsBySpecialtyAsync(int specialtyId)
         {
             return await _context.Doctors
                 .Include(d => d.Specialty)
@@ -37,7 +37,7 @@ namespace ItoApp.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<DoctorSchedule?> GetScheduleByIdAsync(Guid id)
+        public async Task<DoctorSchedule?> GetScheduleByIdAsync(int id)
         {
             return await _context.DoctorSchedules
                 .Include(s => s.Doctor)
@@ -45,7 +45,7 @@ namespace ItoApp.Infrastructure.Repositories
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task<IEnumerable<DoctorSchedule>> GetDoctorSchedulesAsync(Guid doctorId, Guid branchId, DateTime date)
+        public async Task<IEnumerable<DoctorSchedule>> GetDoctorSchedulesAsync(int doctorId, int branchId, DateTime date)
         {
             return await _context.DoctorSchedules
                 .Where(s => s.DoctorId == doctorId && s.BranchId == branchId && s.Date == date.Date)
@@ -66,7 +66,7 @@ namespace ItoApp.Infrastructure.Repositories
                 .FirstOrDefaultAsync(a => a.BookingCode == code);
         }
 
-        public async Task<IEnumerable<Appointment>> GetPatientAppointmentsAsync(Guid patientId)
+        public async Task<IEnumerable<Appointment>> GetPatientAppointmentsAsync(int patientId)
         {
             return await _context.Appointments
                 .Include(a => a.Doctor)

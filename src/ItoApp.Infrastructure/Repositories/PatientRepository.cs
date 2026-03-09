@@ -14,12 +14,12 @@ namespace ItoApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Patient?> GetByIdAsync(Guid id)
+        public async Task<Patient?> GetByIdAsync(int id)
         {
             return await _context.Patients.FindAsync(id);
         }
 
-        public async Task<Patient?> GetByUserIdAsync(Guid userId)
+        public async Task<Patient?> GetByUserIdAsync(int userId)
         {
             return await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         }

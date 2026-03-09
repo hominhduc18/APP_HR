@@ -81,13 +81,13 @@ namespace ItoApp.Domain.ValueObjects
             return Value.GetHashCode();
         }
         
-        public static bool operator ==(PhoneNumber left, PhoneNumber right)
+        public static bool operator ==(PhoneNumber? left, PhoneNumber? right)
         {
             if (left is null) return right is null;
             return left.Equals(right);
         }
         
-        public static bool operator !=(PhoneNumber left, PhoneNumber right)
+        public static bool operator !=(PhoneNumber? left, PhoneNumber? right)
         {
             return !(left == right);
         }

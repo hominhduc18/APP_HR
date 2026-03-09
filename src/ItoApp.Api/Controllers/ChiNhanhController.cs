@@ -18,14 +18,14 @@ namespace ItoApp.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ChiNhanh>>> GetAll()
         {
-            var result = await _repository.GetAllChiNhanhAsync();
+            var result = await _repository.LayTatCaChiNhanh();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ChiNhanh>> GetById(int id)
         {
-            var result = await _repository.GetChiNhanhByIdAsync(id);
+            var result = await _repository.LayChiNhanhTheoId(id);
             if (result == null) return NotFound();
             return Ok(result);
         }
