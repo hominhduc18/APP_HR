@@ -72,8 +72,16 @@ namespace ItoApp.Infrastructure.Data
                 entity.Property(e => e.FullName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(200);
                 
-                entity.HasIndex(e => e.Email).IsUnique().HasFilter("[Email] IS NOT NULL");
-                entity.HasIndex(e => e.PhoneNumber).IsUnique().HasFilter("[PhoneNumber] IS NOT NULL");
+                if (Database.IsSqlServer())
+                {
+                    entity.HasIndex(e => e.Email).IsUnique().HasFilter("[Email] IS NOT NULL");
+                    entity.HasIndex(e => e.PhoneNumber).IsUnique().HasFilter("[PhoneNumber] IS NOT NULL");
+                }
+                else
+                {
+                    entity.HasIndex(e => e.Email).IsUnique().HasFilter("\"Email\" IS NOT NULL");
+                    entity.HasIndex(e => e.PhoneNumber).IsUnique().HasFilter("\"PhoneNumber\" IS NOT NULL");
+                }
                 
                 entity.Property(e => e.Status).HasConversion<string>().HasMaxLength(20);
                 
@@ -318,7 +326,10 @@ namespace ItoApp.Infrastructure.Data
             {
                 entity.ToTable("STT");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).UseIdentityColumn(); 
+                if (Database.IsSqlServer())
+                {
+                    entity.Property(e => e.Id).UseIdentityColumn(); 
+                }
                 entity.Property(e => e.Ngay).HasColumnType("date");
             });
 
@@ -326,7 +337,10 @@ namespace ItoApp.Infrastructure.Data
             {
                 entity.ToTable("BenhNhan");
                 entity.HasKey(e => e.BenhNhan_Id);
-                entity.Property(e => e.BenhNhan_Id).UseIdentityColumn();
+                if (Database.IsSqlServer())
+                {
+                    entity.Property(e => e.BenhNhan_Id).UseIdentityColumn();
+                }
             });
 
             modelBuilder.Entity<Dm_PhongBan>(entity =>

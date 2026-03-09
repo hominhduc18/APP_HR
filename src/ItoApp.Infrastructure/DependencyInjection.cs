@@ -14,10 +14,20 @@ namespace ItoApp.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var provider = configuration.GetValue<string>("DbProvider") ?? "SqlServer";
+            var connectionString = configuration.GetConnectionString(provider);
             
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            {
+                if (provider == "SqlServer")
+                {
+                    options.UseSqlServer(connectionString);
+                }
+                else
+                {
+                    options.UseNpgsql(connectionString);
+                }
+            });
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
