@@ -43,6 +43,21 @@ namespace ItoApp.Infrastructure.Data
         public DbSet<TaiKhoanBenhNhan> TaiKhoanBenhNhans => Set<TaiKhoanBenhNhan>();
         public DbSet<Log_OTP> Log_OTPs => Set<Log_OTP>();
 
+        // Ito Care (New Schema)
+        public DbSet<ItoApp.Domain.Entities.ItoCare.ChiNhanh> ItoCare_ChiNhanhs => Set<ItoApp.Domain.Entities.ItoCare.ChiNhanh>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.NguoiDung> ItoCare_NguoiDungs => Set<ItoApp.Domain.Entities.ItoCare.NguoiDung>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.HoSoBenhNhan> ItoCare_HoSoBenhNhans => Set<ItoApp.Domain.Entities.ItoCare.HoSoBenhNhan>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.KhoaPhong> ItoCare_KhoaPhongs => Set<ItoApp.Domain.Entities.ItoCare.KhoaPhong>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.PhongKham> ItoCare_PhongKhams => Set<ItoApp.Domain.Entities.ItoCare.PhongKham>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.BacSi> ItoCare_BacSis => Set<ItoApp.Domain.Entities.ItoCare.BacSi>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.BsCn> ItoCare_BacSiChiNhanhs => Set<ItoApp.Domain.Entities.ItoCare.BsCn>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.LichLamViec> ItoCare_LichLamViecs => Set<ItoApp.Domain.Entities.ItoCare.LichLamViec>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.KhungGio> ItoCare_KhungGios => Set<ItoApp.Domain.Entities.ItoCare.KhungGio>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.GoiKham> ItoCare_GoiKhams => Set<ItoApp.Domain.Entities.ItoCare.GoiKham>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.LichHen> ItoCare_LichHens => Set<ItoApp.Domain.Entities.ItoCare.LichHen>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.LsTrangThai> ItoCare_LichSuTrangThais => Set<ItoApp.Domain.Entities.ItoCare.LsTrangThai>();
+        public DbSet<ItoApp.Domain.Entities.ItoCare.KetQuaCls> ItoCare_KetQuaClss => Set<ItoApp.Domain.Entities.ItoCare.KetQuaCls>();
+
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -72,8 +87,16 @@ namespace ItoApp.Infrastructure.Data
                 entity.Property(e => e.FullName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(200);
                 
-                entity.HasIndex(e => e.Email).IsUnique().HasFilter("[Email] IS NOT NULL");
-                entity.HasIndex(e => e.PhoneNumber).IsUnique().HasFilter("[PhoneNumber] IS NOT NULL");
+                if (Database.IsSqlServer())
+                {
+                    entity.HasIndex(e => e.Email).IsUnique().HasFilter("[Email] IS NOT NULL");
+                    entity.HasIndex(e => e.PhoneNumber).IsUnique().HasFilter("[PhoneNumber] IS NOT NULL");
+                }
+                else
+                {
+                    entity.HasIndex(e => e.Email).IsUnique().HasFilter("\"Email\" IS NOT NULL");
+                    entity.HasIndex(e => e.PhoneNumber).IsUnique().HasFilter("\"PhoneNumber\" IS NOT NULL");
+                }
                 
                 entity.Property(e => e.Status).HasConversion<string>().HasMaxLength(20);
                 
@@ -318,7 +341,10 @@ namespace ItoApp.Infrastructure.Data
             {
                 entity.ToTable("STT");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).UseIdentityColumn(); 
+                if (Database.IsSqlServer())
+                {
+                    entity.Property(e => e.Id).UseIdentityColumn(); 
+                }
                 entity.Property(e => e.Ngay).HasColumnType("date");
             });
 
@@ -326,7 +352,10 @@ namespace ItoApp.Infrastructure.Data
             {
                 entity.ToTable("BenhNhan");
                 entity.HasKey(e => e.BenhNhan_Id);
-                entity.Property(e => e.BenhNhan_Id).UseIdentityColumn();
+                if (Database.IsSqlServer())
+                {
+                    entity.Property(e => e.BenhNhan_Id).UseIdentityColumn();
+                }
             });
 
             modelBuilder.Entity<Dm_PhongBan>(entity =>
