@@ -11,6 +11,7 @@
           "ItoApp.Application": "1.0.0",
           "ItoApp.Infrastructure": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "8.0.0",
+          "Scalar.AspNetCore": "2.13.5",
           "Swashbuckle.AspNetCore.SwaggerGen": "10.1.0",
           "Swashbuckle.AspNetCore.SwaggerUI": "10.1.0"
         },
@@ -974,6 +975,14 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
+      "Scalar.AspNetCore/2.13.5": {
+        "runtime": {
+          "lib/net8.0/Scalar.AspNetCore.dll": {
+            "assemblyVersion": "2.13.5.0",
+            "fileVersion": "2.13.5.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore.Swagger/10.1.0": {
         "dependencies": {
           "Microsoft.OpenApi": "2.3.0"
@@ -2333,6 +2342,13 @@
       "sha512": "sha512-leXiwfiIkW7Gmn7cgnNcdtNAU70SjmKW3jxGj1iKHOvdn0zRWsgv/l2OJUO5zdGdiv2VRFnAsxxhDgMzofPdWg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
+    },
+    "Scalar.AspNetCore/2.13.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4L+7LesEArm6+/ZfukTCT6aHK0XEyoDpPEm7Y8VU/gNHPTZ62/gQaljdACIemYmrAlot0ne/ozcxBCDVywD34A==",
+      "path": "scalar.aspnetcore/2.13.5",
+      "hashPath": "scalar.aspnetcore.2.13.5.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore.Swagger/10.1.0": {
       "type": "package",
