@@ -1,0 +1,19 @@
+meta {
+  name: Register
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/auth/dang-ky
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "phone_number": "0901234567",
+    "password": "Password123!",
+    "full_name": "Nguyễn Văn B"
+  }
+}

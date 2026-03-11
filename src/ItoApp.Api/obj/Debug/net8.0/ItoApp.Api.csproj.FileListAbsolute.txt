@@ -448,3 +448,4 @@ D:\API_APP_HR\src\ItoApp.Api\bin\Debug\net8.0\Npgsql.dll
 D:\API_APP_HR\src\ItoApp.Api\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 D:\API_APP_HR\src\ItoApp.Api\bin\Debug\net8.0\System.Management.dll
 D:\API_APP_HR\src\ItoApp.Api\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
+D:\API_APP_HR\src\ItoApp.Api\bin\Debug\net8.0\Scalar.AspNetCore.dll
