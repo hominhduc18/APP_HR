@@ -15,20 +15,47 @@ namespace ItoApp.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var provider = configuration.GetValue<string>("DbProvider") ?? "SqlServer";
-            var connectionString = configuration.GetConnectionString(provider);
-            
-            services.AddDbContext<ApplicationDbContext>(options =>
+            // 1. Đăng ký Database chính (SQL Server)
+            var sqlServerConn = configuration.GetConnectionString("SqlServer");
+            services.AddKeyedScoped<ApplicationDbContext>("Primary", (sp, key) =>
             {
-                if (provider == "SqlServer")
-                {
-                    options.UseSqlServer(connectionString);
-                }
-                else
-                {
-                    options.UseNpgsql(connectionString);
-                }
+                var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseSqlServer(sqlServerConn)
+                    .Options;
+                return new ApplicationDbContext(options);
             });
+            
+            // Đăng ký mặc định
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServerConn));
+
+            // 2. Đăng ký Database dự phòng 1 (Supabase - PostgreSQL)
+            var supabaseConn = configuration.GetConnectionString("Supabase");
+            if (!string.IsNullOrEmpty(supabaseConn))
+            {
+                services.AddKeyedScoped<ApplicationDbContext>("Supabase", (sp, key) =>
+                {
+                    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                        .UseNpgsql(supabaseConn)
+                        .Options;
+                    return new ApplicationDbContext(options);
+                });
+            }
+
+            // 3. Đăng ký Database dự phòng 2 (Neon - PostgreSQL)
+            var neonConn = configuration.GetConnectionString("Neon");
+            if (!string.IsNullOrEmpty(neonConn))
+            {
+                services.AddKeyedScoped<ApplicationDbContext>("Neon", (sp, key) =>
+                {
+                    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                        .UseNpgsql(neonConn)
+                        .Options;
+                    return new ApplicationDbContext(options);
+                });
+            }
+
+            // 4. Đăng ký Orchestrator
+            services.AddScoped(typeof(IDbOrchestrator<>), typeof(DbOrchestrator<>));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();

@@ -64,6 +64,11 @@ namespace ItoApp.Infrastructure.Data
             modelBuilder.Ignore<Domain.Common.BaseEvent>();
             
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ItoApp.Domain.Entities.ItoCare.GoiKham>(entity =>
+            {
+                entity.Property(e => e.GiaGoi).HasPrecision(18, 2);
+            });
             
             // User configuration
             modelBuilder.Entity<User>(entity =>
@@ -210,6 +215,12 @@ namespace ItoApp.Infrastructure.Data
                 entity.Property(e => e.MaSoThue).HasColumnName("MaSoThue").HasMaxLength(20);
                 entity.Property(e => e.CreatedAt).HasColumnName("NgayTao");
                 entity.Property(e => e.UpdatedAt).HasColumnName("NgayCapNhat");
+            });
+
+            modelBuilder.Entity<ItoApp.Domain.Entities.ItoCare.ChiNhanh>(entity =>
+            {
+                entity.Property(e => e.KinhDo).HasPrecision(18, 10);
+                entity.Property(e => e.ViDo).HasPrecision(18, 10);
             });
 
             modelBuilder.Entity<KhoaPhong>(entity =>
