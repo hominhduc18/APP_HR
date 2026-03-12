@@ -1,0 +1,15 @@
+# .gitignore for .NET
+[Bb]in/
+[Oo]bj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Artifacts/build logs
+build_out*.txt

@@ -51,15 +51,15 @@ namespace ItoApp.Infrastructure.Repositories
         public async Task<bool> IsIdentifierBlockedAsync(string identifier)
         {
             // Placeholder for blocking logic
-            return false;
+            return await Task.FromResult(false);
         }
 
         // Methods for RegisterService compatibility
         public async Task SaveAsync(string identifier, string type, string otpHash, DateTime expiresAt)
         {
-            // Note: RegisterService uses string for type, but our Entity uses Enum. 
-            // We might need to map or update RegisterService.
-            // For now, let's assume type is "REGISTER" -> OtpType.Register
+            var otpType = Enum.TryParse<OtpType>(type, true, out var result) ? result : OtpType.Login;
+            var otp = new OtpCode(identifier, otpHash, otpType, OtpChannel.SMS, expiresAt);
+            await AddAsync(otp);
         }
 
         public async Task<OtpCode?> GetLatestAsync(string identifier, string type)
@@ -82,7 +82,12 @@ namespace ItoApp.Infrastructure.Repositories
 
         public async Task IncreaseAttemptAsync(int otpId)
         {
-            // Logic to increase attempt
+            var otp = await _context.OtpCodes.FindAsync(otpId);
+            if (otp != null)
+            {
+                // Logic to increase attempt
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

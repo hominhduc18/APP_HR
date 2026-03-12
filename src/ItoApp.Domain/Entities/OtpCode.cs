@@ -33,6 +33,18 @@ namespace ItoApp.Domain.Entities
             CreatedAt = DateTime.UtcNow;
         }
 
+        public OtpCode(string identifier, string code, OtpType type, OtpChannel channel, DateTime expiresAt)
+        {
+            Identifier = identifier.ToLower().Trim();
+            Code = code;
+            Type = type;
+            Channel = channel;
+            ExpiresAt = expiresAt;
+            IsUsed = false;
+            AttemptCount = 0;
+            CreatedAt = DateTime.UtcNow;
+        }
+
         public bool IsValid()
         {
             return !IsUsed &&
