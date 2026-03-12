@@ -15,6 +15,8 @@ namespace ItoApp.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHttpClient();
+
             // 1. Đăng ký Database chính (SQL Server)
             var sqlServerConn = configuration.GetConnectionString("SqlServer");
             services.AddKeyedScoped<ApplicationDbContext>("Primary", (sp, key) =>
@@ -61,34 +63,36 @@ namespace ItoApp.Infrastructure
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IHospitalRepository, HospitalRepository>();
             services.AddScoped<IItoCareRepository, ItoCareRepository>();
-            services.AddScoped<IOtpRepository, OtpRepository>();
             
-            // Dynamic SMS Sender registration
-            var smsProvider = configuration["Sms:Provider"]?.ToLower();
-            var useMock = configuration.GetValue<bool>("Sms:UseMock", true);
+            // --- STRUCTURAL: Decorator Pattern ---
+            // Đăng ký Repository gốc
+            services.AddScoped<OtpRepository>(); 
+            // Đăng ký Decorator bao bọc Repository gốc
+            services.AddScoped<IOtpRepository>(sp => 
+            {
+                var repo = sp.GetRequiredService<OtpRepository>();
+                var logger = sp.GetRequiredService<Microsoft.Extensions.Logging.ILogger<LoggingOtpRepositoryDecorator>>();
+                return new LoggingOtpRepositoryDecorator(repo, logger);
+            });
+            
+            // --- CREATIONAL: Factory Pattern ---
+            services.AddScoped<DevSmsSender>();
+            services.AddScoped<TwilioSmsSender>();
+            services.AddScoped<ViettelSmsSender>();
+            services.AddScoped<MobifoneSmsSender>();
+            services.AddScoped<ISmsSenderFactory, SmsSenderFactory>();
 
-            if (useMock || string.IsNullOrEmpty(smsProvider))
+            // Mặc định vẫn đăng ký 1 ISmsSender dựa theo config (nhưng giờ có thể dùng Factory để đổi lúc runtime)
+            services.AddScoped<ISmsSender>(sp => 
             {
-                services.AddScoped<ISmsSender, DevSmsSender>();
-            }
-            else
-            {
-                switch (smsProvider)
-                {
-                    case "twilio":
-                        services.AddScoped<ISmsSender, TwilioSmsSender>();
-                        break;
-                    case "viettel":
-                        services.AddScoped<ISmsSender, ViettelSmsSender>();
-                        break;
-                    case "mobifone":
-                        services.AddScoped<ISmsSender, MobifoneSmsSender>();
-                        break;
-                    default:
-                        services.AddScoped<ISmsSender, DevSmsSender>();
-                        break;
-                }
-            }
+                var factory = sp.GetRequiredService<ISmsSenderFactory>();
+                var provider = configuration["Sms:Provider"] ?? "dev";
+                return factory.GetSender(provider);
+            });
+
+            // --- BEHAVIORAL: Strategy Pattern ---
+            services.AddScoped<IOtpStrategy, LoginOtpStrategy>();
+            services.AddScoped<IOtpStrategy, RegisterOtpStrategy>();
 
             services.AddScoped<ITokenService, DevTokenService>();
 
