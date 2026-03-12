@@ -8890,23 +8890,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {},
+    "C:\\Users\\duchm\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+      "projectUniqueName": "E:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
       "projectName": "ItoApp.Infrastructure",
-      "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\API_APP_HR\\src\\ItoApp.Infrastructure\\obj\\",
+      "projectPath": "E:\\API_APP_HR\\src\\ItoApp.Infrastructure\\ItoApp.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\duchm\\.nuget\\packages\\",
+      "outputPath": "E:\\API_APP_HR\\src\\ItoApp.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\duchm\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8915,18 +8915,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
-              "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj"
+            "E:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj": {
+              "projectPath": "E:\\API_APP_HR\\src\\ItoApp.Application\\ItoApp.Application.csproj"
             },
-            "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
-              "projectPath": "D:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj"
+            "E:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj": {
+              "projectPath": "E:\\API_APP_HR\\src\\ItoApp.Domain\\ItoApp.Domain.csproj"
             }
           }
         }

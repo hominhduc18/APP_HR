@@ -133,7 +133,7 @@ namespace ItoApp.Test.Controllers
         public async Task GetStaffById_NonExistingId_ShouldReturnNotFound()
         {
             // Act
-            var result = await _controller.GetStaffById(Guid.NewGuid());
+            var result = await _controller.GetStaffById();
 
             // Assert
             result.Should().BeOfType<NotFoundResult>();

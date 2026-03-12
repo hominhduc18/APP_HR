@@ -28,8 +28,12 @@ public class AuthController : ControllerBase
         _itoCareRepo = itoCareRepo;
         _sms = sms;
     }
+    /// <summary>
+    /// Đăng nhập
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
 
-    // 1. POST /auth/dang-nhap
     [HttpPost("dang-nhap")]
     public async Task<IActionResult> Login([FromBody] YeuCauDangNhapV3 req)
     {
@@ -60,8 +64,11 @@ public class AuthController : ControllerBase
             return Ok(BaseResponse<object>.ThatBai(ex.Message));
         }
     }
-
-    // 2. POST /auth/dang-ky
+    /// <summary>
+    /// Đăng ký
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
     [HttpPost("dang-ky")]
     public async Task<IActionResult> Register([FromBody] YeuCauDangKyV3 req)
     {
