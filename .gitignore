@@ -13,3 +13,6 @@
 
 # Artifacts/build logs
 build_out*.txt
+build_errors*.txt
+build_output*.txt
+*.log
