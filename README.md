@@ -6,7 +6,6 @@
 
 **ItoApp** is a high-performance, enterprise-grade HR and Hospital management solution. Built with a focus on scalability, modern design aesthetics, and robust domain logic, it provides a seamless experience for both hospital staff and patients.
 
-
 ## 🚀 System Architecture
 
 The project follows **Clean Architecture** principles to ensure maintainability and testability:
