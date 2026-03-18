@@ -136,14 +136,3 @@ Standardized lookup tables following international/local medical codes:
 }
 ```
 ---
-
-## 🛠 Tech Stack Details
-
-- **Backend**: C#, .NET 8.0, ASP.NET Core Web API.
-- **ORM**: Entity Framework Core with SQL Server.
-- **Security**: SHA256 Password Hashing, JWT Authentication (Roadmap).
-- **Communication**: SMS Service infrastructure for OTP.
-- **Data Init**: Automatic seeding of master data on startup.
-
----
-
