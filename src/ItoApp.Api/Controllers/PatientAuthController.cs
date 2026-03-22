@@ -235,5 +235,33 @@ namespace ItoApp.Api.Controllers
 
             return Ok(new { success = true, message = "Đổi mật khẩu thành công." });
         }
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile([FromQuery] long benhNhanId)
+        {
+            var account = await _context.TaiKhoanBenhNhans
+                .Include(x => x.BenhNhan)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.BenhNhan_Id == benhNhanId);
+
+            if (account == null)
+            {
+                return NotFound(new { success = false, message = "Không tìm thấy người dùng." });
+            }
+
+            return Ok(new 
+            {
+                success = true,
+                data = new 
+                {
+                    benhNhanId = account.BenhNhan_Id,
+                    soDienThoai = account.SoDienThoai,
+                    hoTen = account.BenhNhan?.TenBenhNhan,
+                    ngaySinh = account.BenhNhan?.NgaySinh,
+                    gioiTinh = account.BenhNhan?.GioiTinh,
+                    diaChi = account.BenhNhan?.DiaChi
+                }
+            });
+        }
     }
 }

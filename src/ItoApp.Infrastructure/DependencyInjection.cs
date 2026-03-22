@@ -27,8 +27,23 @@ namespace ItoApp.Infrastructure
                 return new ApplicationDbContext(options);
             });
             
-            // Đăng ký mặc định
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServerConn));
+            // Đăng ký mặc định dựa theo cấu hình DbProvider trong appsettings.json
+            var dbProvider = configuration["DbProvider"];
+            services.AddDbContext<ApplicationDbContext>(options => 
+            {
+                if (dbProvider == "Neon")
+                {
+                    options.UseNpgsql(configuration.GetConnectionString("Neon"));
+                }
+                else if (dbProvider == "Supabase")
+                {
+                    options.UseNpgsql(configuration.GetConnectionString("Supabase"));
+                }
+                else
+                {
+                    options.UseSqlServer(sqlServerConn);
+                }
+            });
 
             // 2. Đăng ký Database dự phòng 1 (Supabase - PostgreSQL)
             var supabaseConn = configuration.GetConnectionString("Supabase");
