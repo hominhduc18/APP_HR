@@ -37,50 +37,75 @@ namespace ItoApp.Api.Controllers
 
         /// <summary>
         /// 2. Lấy danh sách Dịch Vụ chi tiết lọc theo Loại Dịch Vụ
-        /// (Vì Dịch vụ liên kết với Loại thông qua Nhóm Dịch Vụ)
+        /// Dùng ADO.NET Query thuần tuý để bám sát cấu trúc Data thật của bạn
         /// </summary>
         [HttpGet("chi-tiet-theo-loai/{loaiDichVuId}")]
         public async Task<IActionResult> GetDichVuChiTiet(int loaiDichVuId)
         {
-            var dichVus = await _context.Dm_DichVus
-                .Include(dv => dv.NhomDichVu)
-                .Where(dv => dv.NhomDichVu != null && dv.NhomDichVu.LoaiDichVuId == loaiDichVuId && dv.TamNgung == 0)
-                .OrderBy(dv => dv.Idx)
-                .Select(dv => new 
+            var dichVus = new List<object>();
+            using var connection = _context.Database.GetDbConnection();
+            using var command = connection.CreateCommand();
+            
+            command.CommandText = @"SELECT dv.""NhomDichVuId"", dv.""MaNhomDichVu"", dv.""TenNhomDichVu""
+                                    FROM ""Dm_DichVu"" dv 
+                                    WHERE dv.""LoaiDichVuId"" = @loaidv 
+                                      AND dv.""TamNgung"" = 0";
+            
+            var param = command.CreateParameter();
+            param.ParameterName = "@loaidv";
+            param.Value = loaiDichVuId;
+            command.Parameters.Add(param);
+
+            await connection.OpenAsync();
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                dichVus.Add(new 
                 {
-                    dv.DichVuId,
-                    dv.MaDichVu,
-                    dv.TenDichVu,
-                    dv.DonGia,
-                    TenNhomDichVu = dv.NhomDichVu!.TenNhomDichVu // Lấy thêm tên nhóm
-                })
-                .ToListAsync();
+                    DichVuId = reader["NhomDichVuId"],
+                    MaDichVu = reader["MaNhomDichVu"] == DBNull.Value ? null : reader["MaNhomDichVu"],
+                    TenDichVu = reader["TenNhomDichVu"] == DBNull.Value ? null : reader["TenNhomDichVu"],
+                    DonGia = 0 // Trong CSDL hiện tại bảng Dm_DichVu không có trường DonGia
+                });
+            }
+            await connection.CloseAsync();
 
             return Ok(new { success = true, data = dichVus });
         }
 
         /// <summary>
-        /// 3. Lấy tất cả Dịch vụ (JOIN TỔNG với Nhóm và Loại như câu SQL của bạn)
+        /// 3. Lấy tất cả Dịch vụ (JOIN TỔNG như câu SQL của bạn)
+        /// Dùng ADO.NET Query thuần tuý
         /// </summary>
         [HttpGet("join-tong")]
         public async Task<IActionResult> GetJoinTongDichVu()
         {
-            var result = await _context.Dm_DichVus
-                .Include(dv => dv.NhomDichVu)
-                .ThenInclude(n => n!.LoaiDichVu)
-                .Where(dv => dv.TamNgung == 0)
-                .Select(dv => new 
+            var result = new List<object>();
+            using var connection = _context.Database.GetDbConnection();
+            using var command = connection.CreateCommand();
+            
+            command.CommandText = @"
+                SELECT dv.""NhomDichVuId"", dv.""MaNhomDichVu"", dv.""TenNhomDichVu"",
+                       ldv.""LoaiDichVuId"", ldv.""TenLoaiDichVu""
+                FROM ""Dm_DichVu"" dv
+                JOIN ""Dm_LoaiDichVu"" ldv ON ldv.""LoaiDichVuId"" = dv.""LoaiDichVuId""
+                WHERE dv.""TamNgung"" = 0";
+
+            await connection.OpenAsync();
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                result.Add(new 
                 {
-                    dichVuId = dv.DichVuId,
-                    maDichVu = dv.MaDichVu,
-                    tenDichVu = dv.TenDichVu,
-                    donGia = dv.DonGia,
-                    nhomDichVuId = dv.NhomDichVuId,
-                    tenNhom = dv.NhomDichVu!.TenNhomDichVu,
-                    loaiDichVuId = dv.NhomDichVu.LoaiDichVuId,
-                    tenLoaiDichVu = dv.NhomDichVu.LoaiDichVu!.TenLoaiDichVu
-                })
-                .ToListAsync();
+                    dichVuId = reader["NhomDichVuId"],
+                    maDichVu = reader["MaNhomDichVu"] == DBNull.Value ? null : reader["MaNhomDichVu"],
+                    tenDichVu = reader["TenNhomDichVu"] == DBNull.Value ? null : reader["TenNhomDichVu"],
+                    donGia = 0,
+                    loaiDichVuId = reader["LoaiDichVuId"],
+                    tenLoaiDichVu = reader["TenLoaiDichVu"] == DBNull.Value ? null : reader["TenLoaiDichVu"]
+                });
+            }
+            await connection.CloseAsync();
 
             return Ok(new { success = true, total = result.Count, data = result });
         }

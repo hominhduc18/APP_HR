@@ -1,0 +1,22 @@
+﻿
+--- Columns in Dm_DichVu ---
+NhomDichVuId
+LoaiDichVuId
+Login_Id_CapNhat
+CongTy_Id
+Id_Old
+STT
+SoLoaiGia
+Cap
+CapTren_Id
+TraKetQua
+Idx
+TamNgung
+NgayTao
+Login_Id_Tao
+NgayCapNhat
+MaNhomDichVu
+TenNhomDichVu
+TenKhongDau
+MaSo_SYT
+TieuDeKetQua
