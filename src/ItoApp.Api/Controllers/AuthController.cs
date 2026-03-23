@@ -3,7 +3,7 @@ using ItoApp.Application.Auth.Dto;
 using ItoApp.Application.Common;
 using ItoApp.Application.Interfaces;
 using ItoApp.Domain.Entities.ItoCare;
-using ItoApp.Domain.Enums;
+using ItoApp.Shared.Enums;
 using ItoApp.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

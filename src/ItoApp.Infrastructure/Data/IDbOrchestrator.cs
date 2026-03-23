@@ -15,3 +15,5 @@ namespace ItoApp.Infrastructure.Data
         Task<TResult> QueryAsync<TResult>(Func<TContext, Task<TResult>> query);
     }
 }
+
+

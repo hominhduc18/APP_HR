@@ -1,5 +1,5 @@
 using ItoApp.Application.Common;
-using ItoApp.Domain.Enums;
+using ItoApp.Shared.Enums;
 
 namespace ItoApp.Application.Interfaces
 {
@@ -10,3 +10,4 @@ namespace ItoApp.Application.Interfaces
         Task<BaseResponse<bool>> ResendOtpAsync(string identifier, OtpType type);
     }
 }
+

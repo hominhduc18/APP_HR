@@ -1,5 +1,5 @@
 using ItoApp.Domain.Entities;
-using ItoApp.Domain.Enums;
+using ItoApp.Shared.Enums;
 using ItoApp.Domain.Interfaces;
 using ItoApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -91,3 +91,4 @@ namespace ItoApp.Infrastructure.Repositories
         }
     }
 }
+

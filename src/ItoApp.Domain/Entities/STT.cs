@@ -60,3 +60,6 @@ namespace ItoApp.Domain.Entities
         public int? ChiNhanh_Id { get; set; }
     }
 }
+
+
+

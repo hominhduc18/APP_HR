@@ -37,3 +37,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual ICollection<LichHen> LichHens { get; set; } = new List<LichHen>();
     }
 }
+
+
+

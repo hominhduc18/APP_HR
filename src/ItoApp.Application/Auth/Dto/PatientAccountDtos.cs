@@ -64,3 +64,5 @@ namespace ItoApp.Application.Auth.Dto
         public string NewPassword { get; set; } = string.Empty;
     }
 }
+
+

@@ -68,3 +68,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual BacSi? BacSi { get; set; }
     }
 }
+
+
+

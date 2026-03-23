@@ -20,3 +20,5 @@ namespace ItoApp.Application.Hospital.Dto
         TimeSpan Time,
         string Status);
 }
+
+

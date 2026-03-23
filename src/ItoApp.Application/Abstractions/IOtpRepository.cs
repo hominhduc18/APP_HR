@@ -1,7 +1,7 @@
 // using System;
 // using System.Threading.Tasks;
 // using ItoApp.Domain.Entities;
-// using ItoApp.Domain.Enums;
+// using ItoApp.Shared.Enums;
 
 // namespace ItoApp.Domain.Interfaces
 // {
@@ -31,3 +31,4 @@
 //         int AttemptCount
 //     );
 // }
+

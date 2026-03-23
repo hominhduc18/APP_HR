@@ -5,9 +5,9 @@ using ItoApp.Application.Abstractions;
 using ItoApp.Application.Auth.Dto;
 using ItoApp.Application.Common;
 using ItoApp.Domain.Entities;
-using ItoApp.Domain.Enums;
+using ItoApp.Shared.Enums;
 using ItoApp.Domain.Interfaces;
-using ItoApp.Domain.ValueObjects;
+using ItoApp.Shared.ValueObjects;
 
 namespace ItoApp.Application.Auth.Register;
 
@@ -107,3 +107,4 @@ public class RegisterService
         }
     }
 }
+

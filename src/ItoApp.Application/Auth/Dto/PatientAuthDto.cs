@@ -120,3 +120,4 @@ namespace ItoApp.Application.Auth.Dto
         public DateTime? BirthDate { get; set; }
     }
 }
+

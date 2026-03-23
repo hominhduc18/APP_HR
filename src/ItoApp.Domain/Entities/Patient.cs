@@ -1,4 +1,9 @@
-using ItoApp.Domain.Common;
+using ItoApp.Shared.Common;
+
+using ItoApp.Shared.Exceptions;
+using ItoApp.Shared.Enums;
+using ItoApp.Shared.ValueObjects;
+using ItoApp.Shared.Common;
 
 namespace ItoApp.Domain.Entities
 {
@@ -62,14 +67,16 @@ namespace ItoApp.Domain.Entities
         private string ValidateFullName(string fullName)
         {
             if (string.IsNullOrWhiteSpace(fullName))
-                throw new Domain.Exceptions.DomainException("Full name is required");
+                throw new DomainException("Full name is required");
                 
             var trimmedName = fullName.Trim();
             
             if (trimmedName.Length < 2 || trimmedName.Length > 100)
-                throw new Domain.Exceptions.DomainException("Full name must be between 2 and 100 characters");
+                throw new DomainException("Full name must be between 2 and 100 characters");
                 
             return trimmedName;
         }
     }
 }
+
+

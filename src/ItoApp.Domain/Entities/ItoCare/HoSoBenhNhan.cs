@@ -62,3 +62,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual ICollection<KetQuaCls> KetQuaClss { get; set; } = new List<KetQuaCls>();
     }
 }
+
+
+

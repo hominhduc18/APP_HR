@@ -65,3 +65,6 @@ namespace ItoApp.Domain.Entities
         public virtual Dm_PhongBan? Parent { get; set; }
     }
 }
+
+
+

@@ -4,3 +4,5 @@ public interface ISmsSenderFactory
 {
     ISmsSender GetSender(string providerName);
 }
+
+

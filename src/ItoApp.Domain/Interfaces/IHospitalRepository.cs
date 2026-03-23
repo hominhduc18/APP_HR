@@ -16,3 +16,6 @@ namespace ItoApp.Domain.Interfaces
         Task<IEnumerable<Appointment>> GetPatientAppointmentsAsync(int patientId);
     }
 }
+
+
+

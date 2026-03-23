@@ -9,3 +9,4 @@ namespace ItoApp.Infrastructure.Services
         Guid GetUserIdFromToken(string token);
     }
 }
+

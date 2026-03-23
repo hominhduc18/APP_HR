@@ -79,3 +79,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual ICollection<LsTrangThai> LichSuTrangThais { get; set; } = new List<LsTrangThai>();
     }
 }
+
+
+

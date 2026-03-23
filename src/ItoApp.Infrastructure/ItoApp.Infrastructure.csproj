@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\ItoApp.Domain\ItoApp.Domain.csproj" />
     <ProjectReference Include="..\ItoApp.Application\ItoApp.Application.csproj" />
+    <ProjectReference Include="..\microservices\ItoApp.Shared\ItoApp.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +39,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

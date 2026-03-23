@@ -1,5 +1,5 @@
 using ItoApp.Domain.Entities;
-using ItoApp.Domain.Enums;
+using ItoApp.Shared.Enums;
 using ItoApp.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -40,3 +40,5 @@ public class LoggingOtpRepositoryDecorator : IOtpRepository
     public Task MarkUsedAsync(int otpId) => _innerRepository.MarkUsedAsync(otpId);
     public Task IncreaseAttemptAsync(int otpId) => _innerRepository.IncreaseAttemptAsync(otpId);
 }
+
+

@@ -37,3 +37,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual ICollection<LichLamViec> LichLamViecs { get; set; } = new List<LichLamViec>();
     }
 }
+
+
+
