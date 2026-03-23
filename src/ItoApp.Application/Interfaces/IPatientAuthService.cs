@@ -21,3 +21,4 @@ namespace ItoApp.Application.Interfaces
         Task<BaseResponse<bool>> LogoutAsync(int userId, string refreshToken);
     }
 }
+

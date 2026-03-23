@@ -1,10 +1,10 @@
 using System.Text.RegularExpressions;
 
-namespace ItoApp.Domain.ValueObjects;
+namespace ItoApp.Shared.ValueObjects;
 
-public  sealed class Email : IEquatable<Email>
+public sealed class Email : IEquatable<Email>
 {
-    public string Value { get;  }
+    public string Value { get; }
     private Email(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -58,5 +58,4 @@ public  sealed class Email : IEquatable<Email>
     {
         return Value;
     }
-
 }

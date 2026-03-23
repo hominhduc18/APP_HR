@@ -28,3 +28,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual ChiNhanh? ChiNhanh { get; set; }
     }
 }
+
+
+

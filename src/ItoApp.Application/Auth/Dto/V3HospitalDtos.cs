@@ -59,3 +59,5 @@ namespace ItoApp.Application.Auth.Dto
         public List<string> LichTrong { get; set; } = new();
     }
 }
+
+

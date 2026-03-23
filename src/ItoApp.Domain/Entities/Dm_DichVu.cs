@@ -88,3 +88,6 @@ namespace ItoApp.Domain.Entities
         public virtual Dm_NhomDichVu? NhomDichVu { get; set; }
     }
 }
+
+
+

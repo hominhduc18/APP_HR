@@ -32,3 +32,5 @@ namespace ItoApp.Application.Auth.Dto
         public List<string> HinhAnhUrls { get; set; } = new();
     }
 }
+
+

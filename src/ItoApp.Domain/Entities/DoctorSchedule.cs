@@ -1,4 +1,9 @@
-using ItoApp.Domain.Common;
+using ItoApp.Shared.Common;
+
+using ItoApp.Shared.Exceptions;
+using ItoApp.Shared.Enums;
+using ItoApp.Shared.ValueObjects;
+using ItoApp.Shared.Common;
 
 namespace ItoApp.Domain.Entities
 {
@@ -58,3 +63,6 @@ namespace ItoApp.Domain.Entities
         }
     }
 }
+
+
+

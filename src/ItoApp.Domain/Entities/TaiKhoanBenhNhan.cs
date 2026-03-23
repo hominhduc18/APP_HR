@@ -28,3 +28,6 @@ namespace ItoApp.Domain.Entities
         public DateTime NgayTao { get; set; } = DateTime.UtcNow;
     }
 }
+
+
+

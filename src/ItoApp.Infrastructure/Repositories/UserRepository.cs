@@ -1,6 +1,6 @@
 using ItoApp.Domain.Entities;
 using ItoApp.Domain.Interfaces;
-using ItoApp.Domain.ValueObjects;
+using ItoApp.Shared.ValueObjects;
 using ItoApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,3 +45,5 @@ namespace ItoApp.Infrastructure.Repositories
         }
     }
 }
+
+

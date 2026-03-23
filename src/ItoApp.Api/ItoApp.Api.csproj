@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ItoApp.Application\ItoApp.Application.csproj" />
     <ProjectReference Include="..\ItoApp.Infrastructure\ItoApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\microservices\ItoApp.Shared\ItoApp.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

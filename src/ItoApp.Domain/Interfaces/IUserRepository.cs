@@ -1,5 +1,10 @@
 using ItoApp.Domain.Entities;
 
+using ItoApp.Shared.Exceptions;
+using ItoApp.Shared.Enums;
+using ItoApp.Shared.ValueObjects;
+using ItoApp.Shared.Common;
+
 namespace ItoApp.Domain.Interfaces
 {
     public interface IUserRepository
@@ -11,3 +16,5 @@ namespace ItoApp.Domain.Interfaces
         Task UpdateAsync(User user);
     }
 }
+
+

@@ -61,7 +61,7 @@ namespace ItoApp.Infrastructure.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<Domain.Common.BaseEvent>();
+            modelBuilder.Ignore<ItoApp.Shared.Common.BaseEvent>();
             
             base.OnModelCreating(modelBuilder);
 
@@ -78,14 +78,14 @@ namespace ItoApp.Infrastructure.Data
                 entity.Property(e => e.Email)
                     .HasConversion(
                         v => v != null ? v.Value : null,
-                        v => v != null ? Domain.ValueObjects.Email.Create(v) : null)
+                        v => v != null ? ItoApp.Shared.ValueObjects.Email.Create(v) : null)
                     .IsRequired(false)
                     .HasMaxLength(100);
                 
                 entity.Property(e => e.PhoneNumber)
                     .HasConversion(
                         v => v != null ? v.Value : null,
-                        v => v != null ? Domain.ValueObjects.PhoneNumber.Create(v) : null)
+                        v => v != null ? ItoApp.Shared.ValueObjects.PhoneNumber.Create(v) : null)
                     .IsRequired(false)
                     .HasMaxLength(20);
                 
@@ -387,7 +387,7 @@ namespace ItoApp.Infrastructure.Data
         
         private void UpdateTimestamps()
         {
-            var entries = ChangeTracker.Entries<Domain.Common.BaseEntity>();
+            var entries = ChangeTracker.Entries<ItoApp.Shared.Common.BaseEntity>();
             
             foreach (var entry in entries)
             {
@@ -403,3 +403,4 @@ namespace ItoApp.Infrastructure.Data
         }
     }
 }
+

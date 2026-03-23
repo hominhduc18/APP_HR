@@ -1,4 +1,4 @@
-namespace ItoApp.Domain.Common;
+namespace ItoApp.Shared.Common;
 
 public abstract class BaseEvent
 {

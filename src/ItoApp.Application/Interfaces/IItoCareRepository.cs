@@ -41,3 +41,5 @@ namespace ItoApp.Application.Interfaces
         Task<KetQuaCls?> LayKetQuaTheoId(int id);
     }
 }
+
+

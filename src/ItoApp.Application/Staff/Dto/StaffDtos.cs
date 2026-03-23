@@ -60,3 +60,5 @@ namespace ItoApp.Application.Staff.Dto
         public string? Reason { get; set; }
     }
 }
+
+

@@ -10,3 +10,5 @@ namespace ItoApp.Domain.Interfaces
         Task UpdateAsync(Patient patient);
     }
 }
+
+

@@ -34,3 +34,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual LichLamViec? LichLamViec { get; set; }
     }
 }
+
+
+

@@ -63,3 +63,5 @@ namespace ItoApp.Application.Auth.Dto
         public int HoSoId { get; set; }
     }
 }
+
+

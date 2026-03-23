@@ -21,3 +21,4 @@ public class PatientRegisterController : ControllerBase
     public async Task<IActionResult> VerifyOtp([FromBody] RegisterVerifyOtpRequest req)
         => Ok(await _service.VerifyOtpAsync(req));
 }
+

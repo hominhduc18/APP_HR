@@ -41,3 +41,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual ICollection<BacSi> BacSis { get; set; } = new List<BacSi>();
     }
 }
+
+
+

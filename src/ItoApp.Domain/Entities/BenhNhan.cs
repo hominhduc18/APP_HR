@@ -2,6 +2,11 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using ItoApp.Shared.Exceptions;
+using ItoApp.Shared.Enums;
+using ItoApp.Shared.ValueObjects;
+using ItoApp.Shared.Common;
+
 namespace ItoApp.Domain.Entities
 {
     [Table("BenhNhan")]
@@ -83,3 +88,6 @@ namespace ItoApp.Domain.Entities
         public string? NoiLamViec { get; set; }
     }
 }
+
+
+

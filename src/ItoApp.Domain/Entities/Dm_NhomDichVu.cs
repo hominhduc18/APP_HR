@@ -57,3 +57,6 @@ namespace ItoApp.Domain.Entities
         public virtual Dm_LoaiDichVu? LoaiDichVu { get; set; }
     }
 }
+
+
+

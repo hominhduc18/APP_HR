@@ -42,3 +42,6 @@ namespace ItoApp.Domain.Entities.ItoCare
         public virtual NguoiDung? NguoiThucHien { get; set; }
     }
 }
+
+
+

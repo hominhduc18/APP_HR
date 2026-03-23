@@ -35,3 +35,6 @@ namespace ItoApp.Domain.Entities
         public int? Id_Old { get; set; }
     }
 }
+
+
+

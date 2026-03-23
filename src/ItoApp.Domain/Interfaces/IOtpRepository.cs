@@ -1,5 +1,5 @@
 using ItoApp.Domain.Entities;
-using ItoApp.Domain.Enums;
+using ItoApp.Shared.Enums;
 
 namespace ItoApp.Domain.Interfaces
 {
@@ -20,3 +20,5 @@ namespace ItoApp.Domain.Interfaces
         Task IncreaseAttemptAsync(int otpId);
     }
 }
+
+
