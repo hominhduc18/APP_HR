@@ -33,7 +33,10 @@ public class PaymentController : ControllerBase
         vnpay.AddRequestData("vnp_Amount", (model.Amount * 100).ToString());
         vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
         vnpay.AddRequestData("vnp_CurrCode", "VND");
-        vnpay.AddRequestData("vnp_IpAddr", HttpContext.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1");
+        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+        if (string.IsNullOrEmpty(ipAddress) || ipAddress == "::1") ipAddress = "127.0.0.1";
+        
+        vnpay.AddRequestData("vnp_IpAddr", ipAddress);
         vnpay.AddRequestData("vnp_Locale", "vn");
         vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang " + model.OrderId);
         vnpay.AddRequestData("vnp_OrderType", "other");
