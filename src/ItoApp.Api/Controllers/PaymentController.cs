@@ -150,6 +150,18 @@ public class PaymentController : ControllerBase
 
         return Ok(new { RspCode = "00", Message = "Confirm Success" });
     }
+
+    /// <summary>
+    /// API Kiểm tra nhanh dữ liệu trong Database
+    /// </summary>
+    [HttpGet("all-records")]
+    public async Task<IActionResult> GetAllRecords()
+    {
+        var records = await _context.ThanhToans
+            .OrderByDescending(t => t.Id)
+            .ToListAsync();
+        return Ok(records);
+    }
 }
 
 public class PaymentRequestModel
