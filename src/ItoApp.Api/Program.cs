@@ -2,6 +2,9 @@ using ItoApp.Application;
 using ItoApp.Infrastructure;
 using Scalar.AspNetCore;
 
+// Fix for Npgsql 6.0+ to support local DateTime timestamps
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

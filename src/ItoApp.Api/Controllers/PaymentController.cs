@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ItoApp.Api.Helpers;
+using ItoApp.Infrastructure.Data;
+using ItoApp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ItoApp.Api.Controllers;
 
@@ -8,19 +11,48 @@ namespace ItoApp.Api.Controllers;
 public class PaymentController : ControllerBase
 {
     private readonly IConfiguration _configuration;
+    private readonly ApplicationDbContext _context;
 
-    public PaymentController(IConfiguration configuration)
+    public PaymentController(IConfiguration configuration, ApplicationDbContext context)
     {
         _configuration = configuration;
+        _context = context;
     }
 
     /// <summary>
-    /// 1. Tạo URL thanh toán qua VNPAY (Frontend sẽ dùng URL này để redirect người dùng)
+    /// 1. Tạo URL thanh toán qua VNPAY và lưu bản ghi ThanhToan trạng thái PENDING vào DB
     /// </summary>
-    /// <param name="model">Bao gồm mã đơn hàng (OrderId) và số tiền (Amount)</param>
     [HttpPost("create-payment-url")]
-    public IActionResult CreatePaymentUrl([FromBody] PaymentRequestModel model)
+    public async Task<IActionResult> CreatePaymentUrl([FromBody] PaymentRequestModel model)
     {
+        // Kiểm tra xem đơn đã tồn tại chưa
+        var existingThanhToan = await _context.ThanhToans.FirstOrDefaultAsync(t => t.MaDon == model.OrderId);
+        if (existingThanhToan != null && existingThanhToan.TrangThai == "PAID")
+        {
+            return BadRequest(new { Message = "Đơn hàng này đã được thanh toán rồi." });
+        }
+
+        // Lưu hoặc cập nhật thông tin ThanhToan vào DB
+        if (existingThanhToan == null)
+        {
+            var newThanhToan = new ThanhToan
+            {
+                MaDon = model.OrderId,
+                SoTien = (decimal)model.Amount,
+                TrangThai = "PENDING",
+                NgayTao = DateTime.Now
+            };
+            _context.ThanhToans.Add(newThanhToan);
+        }
+        else
+        {
+            existingThanhToan.SoTien = (decimal)model.Amount;
+            existingThanhToan.TrangThai = "PENDING";
+            existingThanhToan.NgayTao = DateTime.Now;
+        }
+
+        await _context.SaveChangesAsync();
+
         string tmnCode = _configuration["Vnpay:TmnCode"];
         string hashSecret = _configuration["Vnpay:HashSecret"];
         string baseUrl = _configuration["Vnpay:BaseUrl"];
@@ -30,9 +62,10 @@ public class PaymentController : ControllerBase
         vnpay.AddRequestData("vnp_Version", "2.1.0");
         vnpay.AddRequestData("vnp_Command", "pay");
         vnpay.AddRequestData("vnp_TmnCode", tmnCode);
-        vnpay.AddRequestData("vnp_Amount", (model.Amount * 100).ToString());
+        vnpay.AddRequestData("vnp_Amount", ((long)(model.Amount * 100)).ToString());
         vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
         vnpay.AddRequestData("vnp_CurrCode", "VND");
+        
         var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
         if (string.IsNullOrEmpty(ipAddress) || ipAddress == "::1") ipAddress = "127.0.0.1";
         
@@ -41,56 +74,39 @@ public class PaymentController : ControllerBase
         vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang " + model.OrderId);
         vnpay.AddRequestData("vnp_OrderType", "other");
         vnpay.AddRequestData("vnp_ReturnUrl", callbackUrl);
-        vnpay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); 
+        vnpay.AddRequestData("vnp_TxnRef", model.OrderId);
 
         string paymentUrl = vnpay.CreateRequestUrl(baseUrl, hashSecret);
         return Ok(new { Url = paymentUrl });
     }
 
     /// <summary>
-    /// 2. Return URL (FRONTEND Callback): Nơi VNPAY điều hướng về sau khi khách thanh toán xong.
-    /// Dùng API này để show màn hình "Thành công / Thất bại" ra cho khách chứ KHÔNG dùng để cập nhật kết quả vào DB.
+    /// 2. Return URL (FRONTEND Callback): Query DB để lấy trạng thái thật
     /// </summary>
     [HttpGet("vnpay-return")]
-    public IActionResult VnpayReturn()
+    public async Task<IActionResult> VnpayReturn()
     {
-        string hashSecret = _configuration["Vnpay:HashSecret"];
-        var vnpay = new VnPayLibrary();
-        
-        foreach (var (key, value) in Request.Query)
+        string maDon = Request.Query["vnp_TxnRef"];
+        var thanhToan = await _context.ThanhToans.FirstOrDefaultAsync(t => t.MaDon == maDon);
+
+        if (thanhToan == null)
         {
-            if (!string.IsNullOrEmpty(key) && key.StartsWith("vnp_"))
-            {
-                vnpay.AddResponseData(key, value.ToString());
-            }
+            return NotFound(new { Message = "Không tìm thấy thông tin thanh toán." });
         }
 
-        string vnp_SecureHash = Request.Query["vnp_SecureHash"];
-        bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, hashSecret);
+        if (thanhToan.TrangThai == "PAID")
+        {
+            return Ok(new { Message = "Thanh toán thành công!", MaDon = thanhToan.MaDon, SoTien = thanhToan.SoTien });
+        }
 
-        if (checkSignature)
-        {
-            string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
-            string orderId = vnpay.GetResponseData("vnp_TxnRef");
-            
-            if (vnp_ResponseCode == "00")
-            {
-                return Ok(new { Message = "Thanh toán thành công!", OrderId = orderId });
-            }
-            return BadRequest(new { Message = "Thanh toán giao dịch thất bại.", ErrorCode = vnp_ResponseCode });
-        }
-        else
-        {
-            return BadRequest(new { Message = "Sai chữ ký VNPAY bảo mật!" });
-        }
+        return BadRequest(new { Message = "Thanh toán thất bại hoặc chưa hoàn tất.", TrangThai = thanhToan.TrangThai });
     }
 
     /// <summary>
-    /// 3. IPN Webhook (BACKEND Callback): Server VNPAY gọi ngầm vào để chốt doanh thu. 
-    /// Dùng API này để kiếm tra chữ ký và cập nhật File Data/Database sang trạng thái "Đã thanh toán".
+    /// 3. IPN Webhook (BACKEND Callback): Cập nhật PAID hoặc FAILED vào DB
     /// </summary>
     [HttpGet("vnpay-ipn")]
-    public IActionResult VnpayIpn()
+    public async Task<IActionResult> VnpayIpn()
     {
         string hashSecret = _configuration["Vnpay:HashSecret"];
         var vnpay = new VnPayLibrary();
@@ -106,25 +122,38 @@ public class PaymentController : ControllerBase
         string vnp_SecureHash = Request.Query["vnp_SecureHash"];
         bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, hashSecret);
 
-        if (checkSignature)
-        {
-            string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
-            if (vnp_ResponseCode == "00")
-            {
-                 // Thanh toán thành công, update DB
-                 return Ok(new { RspCode = "00", Message = "Confirm Success" });
-            }
-            return Ok(new { RspCode = "00", Message = "Thanh toán thất bại" });
-        }
-        else
+        if (!checkSignature)
         {
             return Ok(new { RspCode = "97", Message = "Invalid signature" });
         }
+
+        string maDon = vnpay.GetResponseData("vnp_TxnRef");
+        string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+        string vnp_TransactionNo = vnpay.GetResponseData("vnp_TransactionNo");
+
+        var thanhToan = await _context.ThanhToans.FirstOrDefaultAsync(t => t.MaDon == maDon);
+
+        if (thanhToan != null && thanhToan.TrangThai == "PENDING")
+        {
+            if (vnp_ResponseCode == "00")
+            {
+                thanhToan.TrangThai = "PAID";
+                thanhToan.MaGiaoDich = vnp_TransactionNo;
+                thanhToan.NgayThanhToan = DateTime.Now;
+            }
+            else
+            {
+                thanhToan.TrangThai = "FAILED";
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        return Ok(new { RspCode = "00", Message = "Confirm Success" });
     }
 }
 
 public class PaymentRequestModel
 {
     public string OrderId { get; set; } = string.Empty;
-    public double Amount { get; set; }
+    public decimal Amount { get; set; }
 }

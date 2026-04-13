@@ -9,6 +9,11 @@ namespace ItoApp.Infrastructure.Data
             : base(options)
         {
         }
+
+        protected ApplicationDbContext(DbContextOptions options)
+            : base(options)
+        {
+        }
         
         public DbSet<User> Users => Set<User>();
         public DbSet<Patient> Patients => Set<Patient>();
@@ -42,6 +47,7 @@ namespace ItoApp.Infrastructure.Data
         public DbSet<Dm_PhongBan> Dm_PhongBans => Set<Dm_PhongBan>();
         public DbSet<TaiKhoanBenhNhan> TaiKhoanBenhNhans => Set<TaiKhoanBenhNhan>();
         public DbSet<Log_OTP> Log_OTPs => Set<Log_OTP>();
+        public DbSet<ThanhToan> ThanhToans => Set<ThanhToan>();
 
         // Ito Care (New Schema)
         public DbSet<ItoApp.Domain.Entities.ItoCare.ChiNhanh> ItoCare_ChiNhanhs => Set<ItoApp.Domain.Entities.ItoCare.ChiNhanh>();
@@ -68,6 +74,15 @@ namespace ItoApp.Infrastructure.Data
             modelBuilder.Entity<ItoApp.Domain.Entities.ItoCare.GoiKham>(entity =>
             {
                 entity.Property(e => e.GiaGoi).HasPrecision(18, 2);
+            });
+
+            modelBuilder.Entity<ThanhToan>(entity =>
+            {
+                entity.ToTable("ThanhToan");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.MaDon).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.TrangThai).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.SoTien).HasPrecision(18, 2);
             });
             
             // User configuration
