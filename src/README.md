@@ -214,6 +214,25 @@ Query Params: `doctorId`, `branchId`, `date` (YYYY-MM-DD)
 }
 ```
 
+### 6. 💳 Payment Integration (VNPAY)
+
+The system is integrated with **VNPAY Sandbox** for processing medical fees and appointments.
+
+- **Create Payment URL** (`POST /api/payment/create-payment-url`)
+- **VNPAY Return Callback** (`GET /api/payment/vnpay-return`)
+- **Database Verification** (`GET /api/payment/all-records`)
+
+#### 💳 Test Card Information (NCB Bank)
+| Field | Value |
+| :--- | :--- |
+| **Bank** | NCB |
+| **Card Number** | `9704198526191432198` |
+| **Card Holder** | `NGUYEN VAN A` |
+| **Issue Date** | `07/15` |
+| **OTP** | `123456` |
+
+---
+
 ## 📊 Analytics & Metadata
 
 - **Dashboard**: `GET /api/thong-ke/chi-so-kpi`, `/api/thong-ke/bieu-do/*`

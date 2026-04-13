@@ -11,20 +11,21 @@
 # Rider
 .idea/
 
+# Environment files
+.env
+.env.*
+appsettings.Development.json
+
 # Artifacts/build logs
 build_out*.txt
 build_errors*.txt
 build_output*.txt
 *.log
+publish/
+dist/
 
 # User-specific files
-*.user
-*.userosscache
-*.sln.docstates
 *.suo
-*.user
-*.userosscache
-*.sln.docstates
 *.userprefs
 mono_crash.*
 
