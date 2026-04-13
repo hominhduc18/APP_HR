@@ -49,14 +49,41 @@ Dự án được chia thành các lớp (Layers) rõ ràng:
 
 ---
 
-## 💳 Thông tin Thanh toán (Test)
+## 💳 Hướng dẫn Test Thanh toán (VNPAY Sandbox)
 
-Bạn có thể test luồng thanh toán VNPAY bằng thông tin thẻ **NCB Sandbox**:
-- **Số thẻ**: `9704198526191432198`
-- **Tên chủ thẻ**: `NGUYEN VAN A`
-- **Ngày phát hành**: `07/15`
-- **OTP**: `123456`
+Để kiểm thử luồng thanh toán, bạn có thể sử dụng các thông tin giả lập sau đây:
+
+### 1. Thẻ ATM Nội địa (Ngân hàng NCB)
+| Trường hợp | Số thẻ | Tên chủ thẻ | Ngày phát hành | OTP |
+| :--- | :--- | :--- | :--- | :--- |
+| **Thành công** | `9704198526191432198` | `NGUYEN VAN A` | `07/15` | `123456` |
+| **Hết số dư** | `9704195798459170488` | `NGUYEN VAN A` | `07/15` | `123456` |
+| **Thẻ bị khóa** | `9704193370791314` | `NGUYEN VAN A` | `07/15` | `123456` |
+
+### 2. Thẻ Quốc tế (Visa/MasterCard/JCB)
+*   **Tên chủ thẻ:** `NGUYEN VAN A`
+*   **Ngày hết hạn:** `12/28` (hoặc bất kỳ ngày nào trong tương lai)
+*   **CVV/CVC:** `123`
+
+| Loại thẻ | Số thẻ Test |
+| :--- | :--- |
+| **VISA** | `4456530000001005` |
+| **MasterCard** | `5200000000001005` |
+| **JCB** | `3337000000000008` |
+
+### 3. VNPAY-QR
+*   Khi hiện mã QR, chọn nút **"Giả lập thanh toán"** trên trang Sandbox để hoàn tất mà không cần quét thật.
+
+### 4. API Request mẫu (Body)
+Gửi request `POST` đến `/api/payment/create-payment-url`:
+```json
+{
+  "orderId": "DH_1001",
+  "amount": 50000
+}
+```
 
 ---
+
 
 *Phát triển bởi [hominhduc18](https://github.com/hominhduc18) - 2024*
