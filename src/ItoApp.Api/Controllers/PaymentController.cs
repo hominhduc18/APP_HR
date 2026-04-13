@@ -27,7 +27,7 @@ public class PaymentController : ControllerBase
     {
         // Kiểm tra xem đơn đã tồn tại chưa
         var existingThanhToan = await _context.ThanhToans.FirstOrDefaultAsync(t => t.MaDon == model.OrderId);
-        if (existingThanhToan != null && existingThanhToan.TrangThai == "PAID")
+        if (existingThanhToan != null && existingThanhToan.TrangThai == "Success")
         {
             return BadRequest(new { Message = "Đơn hàng này đã được thanh toán rồi." });
         }
@@ -86,7 +86,23 @@ public class PaymentController : ControllerBase
     [HttpGet("vnpay-return")]
     public async Task<IActionResult> VnpayReturn()
     {
+        string hashSecret = _configuration["Vnpay:HashSecret"];
+        var vnpay = new VnPayLibrary();
+
+        foreach (var (key, value) in Request.Query)
+        {
+            if (!string.IsNullOrEmpty(key) && key.StartsWith("vnp_"))
+            {
+                vnpay.AddResponseData(key, value.ToString());
+            }
+        }
+
+        string vnp_SecureHash = Request.Query["vnp_SecureHash"];
         string maDon = Request.Query["vnp_TxnRef"];
+        string vnp_ResponseCode = Request.Query["vnp_ResponseCode"];
+        string vnp_TransactionNo = Request.Query["vnp_TransactionNo"];
+
+        bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, hashSecret);
         var thanhToan = await _context.ThanhToans.FirstOrDefaultAsync(t => t.MaDon == maDon);
 
         if (thanhToan == null)
@@ -94,12 +110,29 @@ public class PaymentController : ControllerBase
             return NotFound(new { Message = "Không tìm thấy thông tin thanh toán." });
         }
 
-        if (thanhToan.TrangThai == "PAID")
+        if (checkSignature)
         {
-            return Ok(new { Message = "Thanh toán thành công!", MaDon = thanhToan.MaDon, SoTien = thanhToan.SoTien });
+            if (vnp_ResponseCode == "00")
+            {
+                // Cập nhật trạng thái nếu chưa được cập nhật (phòng trường hợp IPN chậm hoặc Localhost)
+                if (thanhToan.TrangThai != "Success")
+                {
+                    thanhToan.TrangThai = "Success";
+                    thanhToan.MaGiaoDich = vnp_TransactionNo;
+                    thanhToan.NgayThanhToan = DateTime.Now;
+                    await _context.SaveChangesAsync();
+                }
+                return Ok(new { Message = "Thanh toán thành công!", MaDon = thanhToan.MaDon, SoTien = thanhToan.SoTien });
+            }
+            else
+            {
+                thanhToan.TrangThai = "FAILED";
+                await _context.SaveChangesAsync();
+                return BadRequest(new { Message = "Thanh toán thất bại.", Code = vnp_ResponseCode });
+            }
         }
 
-        return BadRequest(new { Message = "Thanh toán thất bại hoặc chưa hoàn tất.", TrangThai = thanhToan.TrangThai });
+        return BadRequest(new { Message = "Sai chữ ký bảo mật VNPAY." });
     }
 
     /// <summary>
@@ -137,7 +170,7 @@ public class PaymentController : ControllerBase
         {
             if (vnp_ResponseCode == "00")
             {
-                thanhToan.TrangThai = "PAID";
+                thanhToan.TrangThai = "Success";
                 thanhToan.MaGiaoDich = vnp_TransactionNo;
                 thanhToan.NgayThanhToan = DateTime.Now;
             }
