@@ -76,7 +76,7 @@ public class VnPayLibrary
         {
             if (!string.IsNullOrEmpty(kv.Value))
             {
-                data.Append(WebUtility.UrlEncode(kv.Key).Replace("+", "%20") + "=" + WebUtility.UrlEncode(kv.Value).Replace("+", "%20") + "&");
+                data.Append(kv.Key + "=" + kv.Value + "&");
             }
         }
         if (data.Length > 0)
@@ -96,7 +96,7 @@ public class VnPayLibrary
             byte[] hashValue = hmac.ComputeHash(inputBytes);
             foreach (var theByte in hashValue)
             {
-                hash.Append(theByte.ToString("X2"));
+                hash.Append(theByte.ToString("x2"));
             }
         }
         return hash.ToString();
