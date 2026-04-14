@@ -10,7 +10,9 @@ COPY src/ItoApp.Api/*.csproj ./src/ItoApp.Api/
 COPY src/ItoApp.Application/*.csproj ./src/ItoApp.Application/
 COPY src/ItoApp.Domain/*.csproj ./src/ItoApp.Domain/
 COPY src/ItoApp.Infrastructure/*.csproj ./src/ItoApp.Infrastructure/
+COPY src/ItoApp.Test/*.csproj ./src/ItoApp.Test/
 COPY src/microservices/ItoApp.Shared/*.csproj ./src/microservices/ItoApp.Shared/
+COPY src/microservices/ItoApp.ApiGateway/*.csproj ./src/microservices/ItoApp.ApiGateway/
 
 # Restore dependencies
 RUN dotnet restore src/ItoApp.sln
