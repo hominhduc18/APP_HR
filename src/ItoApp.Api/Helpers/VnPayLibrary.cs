@@ -38,7 +38,7 @@ public class VnPayLibrary
         {
             if (!string.IsNullOrEmpty(kv.Value))
             {
-                data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                data.Append(WebUtility.UrlEncode(kv.Key).Replace("+", "%20") + "=" + WebUtility.UrlEncode(kv.Value).Replace("+", "%20") + "&");
             }
         }
         var querystring = data.ToString();
@@ -76,7 +76,7 @@ public class VnPayLibrary
         {
             if (!string.IsNullOrEmpty(kv.Value))
             {
-                data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                data.Append(WebUtility.UrlEncode(kv.Key).Replace("+", "%20") + "=" + WebUtility.UrlEncode(kv.Value).Replace("+", "%20") + "&");
             }
         }
         if (data.Length > 0)
@@ -96,7 +96,7 @@ public class VnPayLibrary
             byte[] hashValue = hmac.ComputeHash(inputBytes);
             foreach (var theByte in hashValue)
             {
-                hash.Append(theByte.ToString("x2"));
+                hash.Append(theByte.ToString("X2"));
             }
         }
         return hash.ToString();
