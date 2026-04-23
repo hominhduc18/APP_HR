@@ -40,7 +40,7 @@ public class VnPayLibrary
         {
             if (!string.IsNullOrEmpty(kv.Value))
             {
-                data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                data.Append(Uri.EscapeDataString(kv.Key) + "=" + Uri.EscapeDataString(kv.Value) + "&");
                 rawData.Append(kv.Key + "=" + kv.Value + "&");
             }
         }
@@ -95,7 +95,7 @@ public class VnPayLibrary
             byte[] hashValue = hmac.ComputeHash(inputBytes);
             foreach (var theByte in hashValue)
             {
-               hash.Append(theByte.ToString("x2"));
+                hash.Append(theByte.ToString("x2"));
             }
         }
         return hash.ToString();
@@ -103,13 +103,12 @@ public class VnPayLibrary
 
     private class VnPayCompare : IComparer<string>
     {
-        public int Compare(string x, string y)
+        public int Compare(string? x, string? y)
         {
             if (x == y) return 0;
             if (x == null) return -1;
             if (y == null) return 1;
-            var vnpCompare = CompareInfo.GetCompareInfo("en-US");
-            return vnpCompare.Compare(x, y, CompareOptions.Ordinal);
+            return String.Compare(x, y, StringComparison.Ordinal);
         }
     }
 }
