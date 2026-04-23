@@ -34,22 +34,21 @@ public class VnPayLibrary
     public string CreateRequestUrl(string baseUrl, string vnp_HashSecret)
     {
         var data = new StringBuilder();
+        var rawData = new StringBuilder();
+
         foreach (var kv in _requestData)
         {
             if (!string.IsNullOrEmpty(kv.Value))
             {
-               data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                rawData.Append(kv.Key + "=" + kv.Value + "&");
             }
         }
-        var querystring = data.ToString();
-        baseUrl += "?" + querystring;
-        var signData = querystring;
-        if (signData.Length > 0)
-        {
-            signData = signData.Remove(data.Length - 1, 1);
-        }
+
+        string signData = rawData.ToString().TrimEnd('&');
         var vnp_SecureHash = HmacSHA512(vnp_HashSecret, signData);
-        baseUrl += "vnp_SecureHash=" + vnp_SecureHash;
+        
+        baseUrl += "?" + data.ToString() + "vnp_SecureHash=" + vnp_SecureHash;
 
         return baseUrl;
     }
@@ -76,7 +75,7 @@ public class VnPayLibrary
         {
             if (!string.IsNullOrEmpty(kv.Value))
             {
-               data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
+                data.Append(kv.Key + "=" + kv.Value + "&");
             }
         }
         if (data.Length > 0)
